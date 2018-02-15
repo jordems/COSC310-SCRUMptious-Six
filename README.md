@@ -11,19 +11,19 @@ Social responsibility: system can be used to help young people familiarize thems
 
 Technical requirements: compatibility with the widely recognized and spread platform (Java) and port for automatic SMS processing
 
-The SW platform should have the following additional modules:
+##The SW platform should have the following additional modules:
 
-Ability to input information via text messaging or via web interface
-possibility to assign names (codes) to expenses and revenues
-calculations
-graphical
-communication and synchronization
-encryption of the local database
-import and export to different systems
-bank payments
-Mobile Money
-license control for the platform and components
-barcode readers. Bar-code can be used instead of password.
-Investments control
-bill payment
-micro-payments
+- Ability to input information via text messaging or via web interface
+- possibility to assign names (codes) to expenses and revenues
+- calculations
+- graphical
+- communication and synchronization
+- encryption of the local database
+- import and export to different systems
+- bank payments
+- Mobile Money
+- license control for the platform and components
+- barcode readers. Bar-code can be used instead of password.
+- Investments control
+- bill payment
+- micro-payments
