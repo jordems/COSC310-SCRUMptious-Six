@@ -2,6 +2,8 @@
 <html>
 <head lang="en">
   <meta charset="utf-8">
+  <script type="text/JavaScript" src="../js/sha512.js"></script>
+  <script type="text/JavaScript" src="../js/forms.js"></script>
   <title>FinaApp</title>
 </head>
 <body>
@@ -15,7 +17,7 @@
     </figure>
   </header>
   <main>
-    <form action="../php/login.php" method="post" id="login">
+    <form action="../../server/includes/process_login.php" method="post" id="login-form">
       <fieldset>
         <legend>Login</legend>
         <label for="login-user">Username:</label>
@@ -23,7 +25,7 @@
         <label for="login-pass">Password:</label>
         <input type="password" name="password" id="login-pass">
         <p id="login-forgot"><a href="forgot.html">Forgot Password?</a></p>
-        <input type="submit" value="Login" id="login-submit">
+        <input type="button" value="Login" onclick="formhash(this.form, this.form.password)" id="login-submit">
       </fieldset>
     </form>
   </main>
