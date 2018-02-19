@@ -47,38 +47,47 @@ h1, h2, h3, h4, h5, h6, p, li, blockquote, td, th, a, caption, em, strong, strik
 ol, ul { list-style: none; }
 
 /* GLOBAL */
-body{padding:0px; margin:0px; background-color:#d9d9cd; color:#40483d; font:12px Tahoma, sans-serif;}
+body{padding:0px; margin:0px; background-color:#d9d9cd; color:#40483d; font:12px Tahoma, sans-serif; }
 
 .clear {clear: both; margin: 0px; height:0}
 
 h1{font-size:18px; color:#646b61;}
 h2{font-size:16px; color:#646b61;}
 p{color:#40483d;}
-p a{font:10px/14px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
+p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
 p a:hover{ color:#40483d; text-decoration:none;}
 
-.headline{font:12px/14px Tahoma, Geneva, sans-serif; color:#e18b07; font-weight:bold}
+.headline{font:12px Tahoma, Geneva, sans-serif; color:#e18b07; font-weight:bold}
 
 /* HEADER */
 header{width:100%; height:150px;  position:relative; margin:0 auto; }
 #upper{height:100px; background-color:#111111;}
 #lower{height:50px; background-color: #e18b07;}
-#logo{position:absolute; top:20px; left:53px; width:196px; height:38px;}
+#logo{position:absolute; top:50px; left:50px;}
 header nav ul{padding-top:1.5em;}
 header nav ul li{margin-left:14px; display:inline; padding:2em;}
 header nav ul li a{height:16px;  color:#40483d;}
 header nav ul li a:hover{height:16px; color:red;}
 
 /* CONTAINERS */
-main{width:100%; position:relative; padding:0; margin-top:2em;}
+main{width:100%; padding:0; margin-top:2em;}
 
-#leftColumn{width:165px; float:left; margin-right:20px; margin-left:36px;}
-#center{width:280px; float:left; margin-right:20px; margin-bottom:25px; }
-#rightColumn{width:225px; float:right; margin-top:5px}
+#leftColumn{
+    width:250px; 
+    float:left; 
+    margin-left:36px;
+}
+#center{ 
+    margin-right:290px; 
+    margin-left:350px;
+}
+#rightColumn{
+    width:250px; 
+    float:right;
+}
 
-ul.btn_more li{background:url(../images/arrow.gif) 62px 5px no-repeat;}
-ul.btn_more li a{font:11px/14px Trebuchet MS, sans-serif; color:#111111; text-decoration:none; font-weight:bold; }
-ul.btn_more li a:hover{color:#111111; text-decoration:underline}
+.btn_more li a{font:11px/14px Trebuchet MS, sans-serif; color:#111111; text-decoration:none; font-weight:bold; }
+.btn_more li a:hover{color:#111111; text-decoration:underline}
 
 #latest{margin-bottom:25px; margin-top:5px}
 #latest h2{height:15px; position:relative; margin-bottom:13px}
@@ -93,12 +102,10 @@ ul.btn_more li a:hover{color:#111111; text-decoration:underline}
 
 #center h1{height:44px; position:relative; margin-top:5px;}
 
-#center ul.btn_more {margin-left:179px;}
-
-#rightColumn h2{height:15px; position:relative; background:url(../images/h_services.gif) 0 0 no-repeat; margin-bottom:20px}
+#rightColumn h2{height:15px; position:relative; margin-bottom:20px}
 
 /* FOOTER */
-footer{height:54px; clear:both; width:100%; margin-top:20px; background-color:#111111; position:absolute; bottom:0px;}
+footer{height:54px; clear:both; width:100%; background-color:#111111; position:absolute; bottom:0px;}
 footer p{padding: 10px 0 0 0; font:10px/16px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
-footer p a{font:10px/16px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 3px }
+footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 3px }
 footer p a:hover{text-decoration:none; background:#fff; color:#111}
