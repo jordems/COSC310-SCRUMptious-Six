@@ -25,9 +25,8 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
     $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
 
     // Username validity and password validity have been checked client side.
-    // This should should be adequate as nobody gains any advantage from
+    // This should be adequate as nobody gains any advantage from
     // breaking these rules.
-    //
 
     $prep_stmt = "SELECT uid FROM Users WHERE email = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
@@ -44,7 +43,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
         }
     } else {
         $error_msg .= '<p class="error">Database error Line 39</p>';
-                $stmt->close();
+            $stmt->close();
     }
 
     // check existing username
@@ -55,21 +54,15 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
-
-                if ($stmt->num_rows == 1) {
-                        // A user with this username already exists
-                        $error_msg .= '<p class="error">A user with this username already exists</p>';
-                        $stmt->close();
-                }
-        } else {
-                $error_msg .= '<p class="error">Database error line 55</p>';
-                $stmt->close();
-        }
-
-    // TODO:
-    // We'll also have to account for the situation where the user doesn't have
-    // rights to do registration, by checking what type of user is attempting to
-    // perform the operation.
+            if ($stmt->num_rows == 1) {
+                    // A user with this username already exists
+                    $error_msg .= '<p class="error">A user with this username already exists</p>';
+                    $stmt->close();
+            }
+      } else {
+              $error_msg .= '<p class="error">Database error line 55</p>';
+              $stmt->close();
+      }
 
     if (empty($error_msg)) {
 

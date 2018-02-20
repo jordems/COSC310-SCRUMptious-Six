@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head lang="en">
         <meta charset="UTF-8">
-        <title>Secure Login: Registration Success</title>
-        <link rel="stylesheet" href="styles/main.css" />
+        <title>SF</title>
     </head>
     <body>
         <h1>Registration successful!</h1>
