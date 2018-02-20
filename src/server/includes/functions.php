@@ -96,8 +96,8 @@ function checkbrute($user_id, $mysqli) {
         $stmt->execute();
         $stmt->store_result();
 
-        // If there have been more than 5 failed logins
-        if ($stmt->num_rows > 5) {
+        // If there have been more than 7 failed logins
+        if ($stmt->num_rows > 7) {
             return true;
         } else {
             return false;
