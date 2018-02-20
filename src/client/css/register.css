@@ -1,0 +1,54 @@
+/*Spacing and Alignment*/
+header{
+  width: 50%;
+  text-align: center;
+  margin: auto;
+}
+#logo {
+  margin-top: 2em;
+}
+#register-content {
+  margin: auto;
+  width: 30em;
+}
+fieldset{
+  margin: 1.5em 0;
+}
+label{
+  display: block;
+  margin-top: 1em;
+  margin-bottom: .2em;
+}
+input[type=text], input[type=password]{
+  width: 97%;
+  margin: .2em 0;
+  padding: .2em;
+}
+#register-submit{
+  width: 100%;
+  padding: 1em 0;
+}
+input[type=submit] {
+  display: inline-block;
+}
+#login-anchors{
+  margin: .4em;
+}
+footer{
+  text-align: center;
+}
+#bottom-dir li{
+  display: inline;
+}
+
+/*Text Related CSS*/
+body  {
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+  font-size: 1.5em;
+}
+label{
+  font-size: 0.8em;
+}
+input[type=text], input[type=password] {
+  font-size: 1.3em;
+}
