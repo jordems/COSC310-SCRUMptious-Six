@@ -1,7 +1,7 @@
 /* GLOBAL */
-body{padding:0px; margin:0px; background-color:#d9d9cd; color:#40483d; font:12px Tahoma, sans-serif; }
+body{padding:0; margin:0; background-color:#d9d9cd; color:#40483d; font:12px Tahoma, sans-serif; }
 
-.clear {clear: both; margin: 0px; height:0}
+.clear {clear: both; margin: 0; height:0}
 
 h1{font-size:18px; color:#646b61;}
 h2{font-size:16px; color:#646b61;}
@@ -17,17 +17,17 @@ header{width:100%; height:150px;  position:relative; margin:0 auto; }
 #lower{height:50px; background-color: #e18b07;}
 #logo{position:absolute; top:50px; left:50px;}
 header nav ul{padding-top:1.5em;}
-header nav ul li{margin-left:14px; display:inline; padding:2em;}
-header nav ul li a{height:16px;  color:#40483d;}
-header nav ul li a:hover{height:16px; color:red;}
+header nav ul li{margin-left:1em; display:inline; padding:2em;}
+header nav ul li a{color:#40483d;}
+header nav ul li a:hover{color:red;}
 
 /* CONTAINERS */
-main{width:100%; padding:0; margin-top:2em;}
+main{width:100%; padding:0; margin-top:2em; }
 
 #leftColumn{
     width:250px; 
     float:left; 
-    margin-left:36px;
+    margin-left:2em;
 }
 #center{ 
     margin-right:290px; 
@@ -35,32 +35,32 @@ main{width:100%; padding:0; margin-top:2em;}
 }
 #rightColumn{
     width:250px; 
-	float:right;
+    float:right;
 }
 
-.btn_more li a{font:12px Trebuchet MS, sans-serif; color:#111111; text-decoration:none; font-weight:bold; }
+.btn_more li a{font:12px Trebuchet MS, sans-serif; color:#111111; text-decoration:none; font-weight:bold;}
 .btn_more li a:hover{color:#111111; text-decoration:underline}
 
-#latest{margin-bottom:25px; margin-top:5px}
-#latest h2{height:15px; position:relative; margin-bottom:13px}
-#latest p{margin:0 0 15px 0;}
+#leftColumn{margin-bottom:1em;}
+#leftColumn h2{margin-bottom:1em;}
+#leftColumn p{margin:0 0 1em 0;}
 
-#spotlight h2{height:15px; position:relative; margin-bottom:18px}
+#spotlight h2{margin-bottom:1em;}
 
-#news {margin-bottom: 2em;}
+#rightColumn {margin-bottom: 2em;}
 
-#news ul li{font:12px Tahoma, sans-serif; padding-top: 1em; height:22px;}
-#news ul li a{color:#646b61; text-decoration:underline;}
-#news ul li a:hover{color:#fff; text-decoration:none; background:#646b61}
+#rightColumn ul li{font:12px Tahoma, sans-serif; padding-top: 1em;}
+#rightColumn ul li a{color:#646b61; text-decoration:underline;}
+#rightColumn ul li a:hover{color:#fff; text-decoration:none; background:#646b61}
 
-#center h1{height:44px; position:relative; margin-top:5px;}
+#center h1{margin-bottom:1em}
 
-#rightColumn h2{height:15px; position:relative; margin-bottom:20px}
+#rightColumn h2{margin-bottom:1em}
 
 /* FOOTER */
-footer{height:54px; clear:both; width:100%; background-color:#111111; position:relative; bottom:0px;}
-footer p{padding: 10px 0 0 0; font:10px/16px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
-footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 3px }
+footer{height:54px; clear:both; width:100%; background-color:#111111; position:absolute; bottom:0px;}
+footer p{padding: 1em 0 0 0; font:10px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
+footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 0.5em }
 footer p a:hover{text-decoration:none; background:#fff; color:#111}
 
 /*DROPDOWN MENU*/

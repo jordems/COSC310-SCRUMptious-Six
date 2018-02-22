@@ -66,7 +66,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['firstName'], $_POST['last
             $update_stmt->bind_param('sssss', $username,$email,$firstName,$lastName,$address);
             // Execute the prepared query.
             if (! $update_stmt->execute()) {
-                header('Location: ../error.php?err=Registration failure: UPDATE');
+                header('Location: ../error.php?err=Update failure: UPDATE');
             }
         }
         header('Location: ./update_success.php');
