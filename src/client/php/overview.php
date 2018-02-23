@@ -11,6 +11,7 @@
    <div id="upper">
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown"> 
+     <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn">User's Name</button> 
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>

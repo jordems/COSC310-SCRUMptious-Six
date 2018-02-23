@@ -35,12 +35,13 @@ include_once 'includes/functions.php';
 </header>
 <main>
     <?php
-
+    //Need to pull users info and add to the form field (via value="") so they see their info when accessing profile
+    $sql = "SELECT * FROM Users Where user_id = ?";
     ?>
     <form action="includes/updateUser.php" method="post" name="update_form" onsubmit="return regformhash(this, this.username, this.email, this.firstName, this.lastName, this.address);">
         <fieldset>
                 <legend>Update your Account Information</legend>
-                <label for="username">Username:</label> <input type='text' name='username' id='username' value=/>
+                <label for="username">Username:</label> <input type='text' name='username' id='username'/>
                 <label for="email">Email:</label> <input type="text" name="email" id="email" />
                 <label for="firstName">First Name:</label> <input type="text" name="firstName" id="firstName" />
                 <label for="lastName">Last Name:</label> <input type="text" name="lastName" id="lastName" />
