@@ -10,23 +10,24 @@
 <header>
    <div id="upper">
    <img src="images/logo.svg" alt="Logo" id="logo" />
-   <div class="dropdown"> 
+   <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn">User's Name</button> 
+		<button class="dropbtn">User's Name</button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
-			<p><a href="logout.jsp">Logout</a></p>
+			<p><a href="includes/logout.php">Logout</a></p>
 		</div>
-	</div> 
+	</div>
    </div>
    <div id="lower">
     <nav>
     <ul>
       <li><a href="#">OVERVIEW</a></li>
-      <li><a href="#">ACCOUNTS</a></li>
+      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
       <li><a href="#">PAYMENTS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="#">ANALYSIS</a></li>
+      <li><a href="calendar.html">CALENDAR</a></li>
     </ul>
     </nav>
    </div>
@@ -34,7 +35,7 @@
   <main>
     <section id="leftColumn">
       <!-- The latest updates associated with the particular user's account shown here -->
-      
+
         <h2>Latest Updates</h2>
         <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
         <p><span class="headline">Feb 11, 2018</span></p>
@@ -45,8 +46,8 @@
          <p>You recieved $1020.00 from John.</p>
         <p><span class="headline">Dec 29, 2017</span> </p>
         <p>Your account with Scrumptious Finance was created!</p>
-      
-      
+
+
     </section>
     <section id="rightColumn">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->

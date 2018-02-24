@@ -10,7 +10,7 @@ if (isset($_POST['username'], $_POST['p'])) {
 
     if (login($username, $password, $mysqli) == true) {
         // Login success
-        header('Location: ../home.html');
+        header('Location: ../overview.php');
     } else {
         // Login failed
         header('Location: ../index.php?error=1');
