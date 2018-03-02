@@ -34,19 +34,15 @@ if (login_check($mysqli) == true) {
   </header>
   <main>
     <div id="login-content">
-      <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" id="login-form">
+      <form action="includes/update_password.php" method="post" onsubmit="formhash(this, this.password);" id="forgot-form">
         <fieldset>
-          <legend>Login</legend>
+          <legend>Select a new Password</legend>
 
-          <label for="login-user" class="input-title">Username:</label>
-          <input type="text" name="username" id="login-user">
-          <label for="login-pass" class="input-title">Password:</label>
-          <input type="password" name="password" id="login-pass">
-          <div id="login-anchors">
-            <p><a href="forgot.php">Forgot Password?</a></p>
-            <p><a href="register.php">Don't Have an Account?</a></p>
-          </div>
-          <input type="submit" value="Login">
+          <label for="login-user" class="input-title">New Password:</label>
+          <input type="password" name="password" id="forgot-user">
+          <label for="login-user" class="input-title">Confirm Password:</label>
+          <input type="password" name="confpassword" id="forgot-user">
+          <input type="submit" value="Submit">
         </fieldset>
       </form>
     </div>
