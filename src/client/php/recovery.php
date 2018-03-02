@@ -38,9 +38,9 @@ if (login_check($mysqli) == true) {
         <fieldset>
           <legend>We Sent a Verification Code to your Email</legend>
           <?
-          $error = filter_input(INPUT_GET, 'err', $filter = FILTER_SANITIZE_STRING);
+          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
-          if (! $error) {
+          if (!empty($error)) {
               echo '<p class=\"error-msg\">Verification Code Entered is Incorrect.</p>';
           }
           ?>
