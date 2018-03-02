@@ -1,1 +1,0 @@
-# Section for Image Resources
