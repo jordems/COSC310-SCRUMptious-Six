@@ -25,3 +25,13 @@ CREATE TABLE forgot(
     PRIMARY KEY(uid, code),
     FOREIGN KEY (uid) REFERENCES Users(uid)
 )ENGINE = InnoDB;
+
+CREATE TABLE statement(
+    sid int NOT NULL,
+	uid int NOT NULL,
+    date DATE,
+    amount DECIMAL(10,2),
+	desc VARCHAR(255),
+    PRIMARY KEY(sid),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
+)ENGINE = InnoDB;
