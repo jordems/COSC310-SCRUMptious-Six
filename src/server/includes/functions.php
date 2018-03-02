@@ -237,7 +237,8 @@ function esc_url($url) {
       </body>
     </html>
     ";
-    return mail($email,"no-reply: Scrumptious Finance - Password Reset",$message,$headers);;
+    mail($email,"no-reply: Scrumptious Finance - Password Reset",$message,$headers);
+    return true;
   }
 
   function verifyCode($code, $mysqli){
@@ -245,6 +246,70 @@ function esc_url($url) {
     if($user_id == null)
       return false;
 
+      // Make sure that the code has been generated within 10 minutes
+    if ($stmt = $mysqli->prepare("SELECT uid
+          FROM forgot
+          WHERE uid = ? and code = ? and timeStamp >= NOW() - INTERVAL 10 MINUTE
+          LIMIT 1")) {
+        $stmt->bind_param('is', $user_id, $code);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+
+        // get variables from result.
+        $stmt->bind_result($user_id);
+        $stmt->fetch();
+
+        // if their is a user with the entered username and password then cont.
+        if ($stmt->num_rows == 1) {
+          $bytes = openssl_random_pseudo_bytes(5);
+          $bString = bin2hex($bytes);
+          $_SESSION['browserString'] = $bString;
+          if ($insert_stmt = $mysqli->prepare("UPDATE forgot SET browserString = ? WHERE uid = ? and code = ?")) {
+              $insert_stmt->bind_param('sis', $bString, $user_id, $code);
+              // Execute the prepared query.
+              if ($insert_stmt->execute()) {
+                  // If insert doesn't complete for some reason
+                  return true;
+              }
+          }
+        }
+      }
+
+    return false;
+  }
+
+  function updatePassword($password, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+    $user_browser = $_SESSION['browserString'];
+
+      // Make sure that the code has been generated within 10 minutes
+    if ($stmt = $mysqli->prepare("SELECT uid
+          FROM forgot
+          WHERE uid = ? and browserString = ? and timeStamp >= NOW() - INTERVAL 10 MINUTE
+          LIMIT 1")) {
+        $stmt->bind_param('is', $user_id, $user_browser);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+
+        // get variables from result.
+        $stmt->bind_result($user_id);
+        $stmt->fetch();
+
+        // if their is a user with the entered username and password then cont.
+        if ($stmt->num_rows == 1) {
+          $password = password_hash($password, PASSWORD_BCRYPT);
+          if ($insert_stmt = $mysqli->prepare("UPDATE Users SET password = ? WHERE uid = ?")) {
+              $insert_stmt->bind_param('si', $password, $user_id);
+              // Execute the prepared query.
+              if ($insert_stmt->execute()) {
+                  // If insert doesn't complete for some reason
+                  return true;
+              }
+          }
+        }
+      }
 
     return false;
   }

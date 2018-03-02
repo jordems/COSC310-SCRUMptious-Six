@@ -1,0 +1,15 @@
+[24-Feb-2018 01:50:08 UTC] PHP Warning:  include_once(includes/updateUser.php): failed to open stream: No such file or directory in /home/ec1spgej4ill/public_html/account.php on line 2
+[24-Feb-2018 01:50:08 UTC] PHP Warning:  include_once(): Failed opening 'includes/updateUser.php' for inclusion (include_path='.:/opt/alt/php71/usr/share/pear') in /home/ec1spgej4ill/public_html/account.php on line 2
+[24-Feb-2018 01:51:01 UTC] PHP Warning:  include_once(includes/updateUser.php): failed to open stream: No such file or directory in /home/ec1spgej4ill/public_html/account.php on line 2
+[24-Feb-2018 01:51:01 UTC] PHP Warning:  include_once(): Failed opening 'includes/updateUser.php' for inclusion (include_path='.:/opt/alt/php71/usr/share/pear') in /home/ec1spgej4ill/public_html/account.php on line 2
+[24-Feb-2018 01:51:17 UTC] PHP Warning:  include_once(includes/updateUser.php): failed to open stream: No such file or directory in /home/ec1spgej4ill/public_html/account.php on line 2
+[24-Feb-2018 01:51:17 UTC] PHP Warning:  include_once(): Failed opening 'includes/updateUser.php' for inclusion (include_path='.:/opt/alt/php71/usr/share/pear') in /home/ec1spgej4ill/public_html/account.php on line 2
+[02-Mar-2018 01:00:32 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/ec1spgej4ill/public_html/includes/functions.php on line 237
+[02-Mar-2018 01:00:34 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/ec1spgej4ill/public_html/includes/functions.php on line 237
+[02-Mar-2018 01:00:35 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/ec1spgej4ill/public_html/includes/functions.php on line 237
+[02-Mar-2018 01:01:04 UTC] PHP Fatal error:  Only variables can be passed by reference in /home/ec1spgej4ill/public_html/includes/functions.php on line 201
+[02-Mar-2018 01:01:05 UTC] PHP Fatal error:  Only variables can be passed by reference in /home/ec1spgej4ill/public_html/includes/functions.php on line 201
+[02-Mar-2018 01:13:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sec_session_start() in /home/ec1spgej4ill/public_html/forgot.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/ec1spgej4ill/public_html/forgot.php on line 5
