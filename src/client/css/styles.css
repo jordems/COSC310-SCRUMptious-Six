@@ -12,6 +12,8 @@ ul {margin-left: 0.5em;}
 ul li{font:12px; color:#40483d; padding:0.5em; margin-left:0.5em; list-style-type: circle;}
 .headline{font:12px Tahoma, Geneva, sans-serif; color:#e18b07; font-weight:bold}
 
+.help-block{color:red;}
+
 /* HEADER */
 header{width:100%; height:150px;  position:relative; margin:0 auto; }
 #upper{height:100px; background-color:#111111;}
