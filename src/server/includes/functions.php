@@ -2,7 +2,7 @@
 include_once 'psl-config.php';
 
 function sec_session_start() {
-    $session_name = 'sec_session_id';   // Set a custom session name
+    $session_name = 'sec_session_id';   // session name
     $secure = SECURE;
     // This stops JavaScript being able to access the session id.
     $httponly = true;
@@ -160,7 +160,6 @@ function esc_url($url) {
     }
 
     $url = preg_replace('|[^a-z0-9-~+_.?#=!&;,/:%@$\|*\'()\\x80-\\xff]|i', '', $url);
-
     $strip = array('%0d', '%0a', '%0D', '%0A');
     $url = (string) $url;
 
@@ -170,9 +169,7 @@ function esc_url($url) {
     }
 
     $url = str_replace(';//', '://', $url);
-
     $url = htmlentities($url);
-
     $url = str_replace('&amp;', '&#038;', $url);
     $url = str_replace("'", '&#039;', $url);
 
@@ -182,4 +179,72 @@ function esc_url($url) {
     } else {
         return $url;
     }
-}
+  }
+
+  function submitForgot($username, $email, $mysqli){
+    if ($stmt = $mysqli->prepare("SELECT uid
+        FROM Users
+       WHERE username = ? and email = ?
+        LIMIT 1")) {
+        $stmt->bind_param('ss', $username, $email);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+
+        // get variables from result.
+        $stmt->bind_result($user_id);
+        $stmt->fetch();
+
+        // if their is a user with the entered username and password then cont.
+        if ($stmt->num_rows == 1) {
+
+          $_SESSION['user_id'] = $user_id; // set a session variable for uid so we can keep track of this person for later
+
+          // create a random String of characters that is 10 characters long
+          $bytes = openssl_random_pseudo_bytes(5);
+          $code = bin2hex($bytes);
+          //TODO: Send email to the user.
+          if(sendEmail($email, $code) == true){
+
+            if ($insert_stmt = $mysqli->prepare("INSERT INTO forgot (uid, code) VALUES (?,?)")) {
+                $insert_stmt->bind_param('is', $user_id, $code);
+                // Execute the prepared query.
+                if ($insert_stmt->execute()) {
+                    // If insert doesn't complete for some reason
+                    return true;
+                }
+            }
+          }
+        }
+    }
+    return false;
+  }
+
+  function sendEmail($email, $code){
+    // Setting content-type
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= 'From: <noreply@scrumptiousfinance.com>' . "\r\n";
+    $headers .= "To: ".$email."\r\n";
+
+    $message = "
+    <html>
+      <head>
+      <title>Password Reset</title>
+      </head>
+      <body>
+      <h1>Password Reset</h1>
+      <p>Code: ".$code."</p>
+      </body>
+    </html>
+    ";
+    return mail($email,"no-reply: Scrumptious Finance - Password Reset",$message,$headers);;
+  }
+
+  function verifyCode($code, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+
+    return false;
+  }

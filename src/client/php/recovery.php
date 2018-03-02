@@ -34,19 +34,16 @@ if (login_check($mysqli) == true) {
   </header>
   <main>
     <div id="login-content">
-      <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" id="login-form">
+      <form action="includes/verify_code.php" method="post" id="forgot-form">
         <fieldset>
-          <legend>Login</legend>
+          <legend>We Sent a Verification Code to your Email</legend>
 
-          <label for="login-user" class="input-title">Username:</label>
-          <input type="text" name="username" id="login-user">
-          <label for="login-pass" class="input-title">Password:</label>
-          <input type="password" name="password" id="login-pass">
-          <div id="login-anchors">
-            <p><a href="forgot.php">Forgot Password?</a></p>
-            <p><a href="register.php">Don't Have an Account?</a></p>
+          <label for="login-user" class="input-title">Verification Code:</label>
+          <input type="text" name="code" id="forgot-user">
+          <div id="forgot-anchors">
+            <p><a href="forgot.php">Didn't work? Try Again.</a></p>
           </div>
-          <input type="submit" value="Login">
+          <input type="submit" value="Submit">
         </fieldset>
       </form>
     </div>

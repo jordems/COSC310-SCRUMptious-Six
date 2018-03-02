@@ -1,0 +1,84 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/calendar.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>
+	</title>
+</head>
+
+<body>
+	<div id="tab" class="calendar">
+
+		<div id="LeftSide">
+			<div id='aa'>aa</div>
+			<div id='bb'>bb</div>
+			<div id='cc'>cc</div>
+		</div>
+		<div id='text'>
+			<h2>DATE 1</h2>
+			<p>Hello world!</p>
+		</div>
+	</div>
+	<p onload="showText()"></p>
+
+	<div id="simpleModal" class="modal">
+		<div class="modal-content">
+		<div class="modal-header">
+				<span class="closeBtn">&times;</span>
+				<h2>Categories settings</h2>
+		</div>
+		<div class="modal-body">
+		
+		
+		<div id='outcome'>
+			<h2>Outcome</h2>
+			<form name="myform" method="GET">
+				<select name="outcome">
+					<option></option>
+					<option>Food & Drinks</option>
+					<option>Housing</option>
+					<option>Vehicle</option>
+					<option>Entertainment</option>
+					<option>investments</option>
+					<option value="">New Thing&hellip;</option>
+
+				</select>
+				<input id="text1" type="text" name="money" placeholder="$" required />
+				<input type="button" value="Done" Onclick="add_element(this)" required />
+				<br>
+			</form>
+		</div>
+		<div id='income'>
+			<h2>income</h2>
+			<form name="myform" method="GET">
+				<select name="income">
+					<option></option>
+					<option>salary</option>
+					<option>Owning a small business</option>
+					<option>Consulting</option>
+					<option>Gambling</option>
+					<option>investments</option>
+					<option value="">ADD&hellip;</option>
+
+				</select>
+				<input id="text1" type="text" name="money" placeholder="$" />
+				<input type="button" value="Done" Onclick="add_element(this)" />
+				<br>
+			</form>
+		</div>
+		<div id='transaction'>
+		</div>
+		</div>
+	<div class="modal-footer">
+				<h3></h3>
+			</div>
+	</div>
+	</div>
+	
+		<script type="text/javascript" src="js/calendar.js"></script>
+	 
+</body>
+
+</html>
