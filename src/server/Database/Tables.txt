@@ -16,3 +16,9 @@ CREATE TABLE login_attempts(
 	time varchar(30) NOT NULL,
 	PRIMARY KEY (compid)
 ) ENGINE = InnoDB;
+
+CREATE TABLE forgot(
+    uid int NOT NULL,
+    code CHAR(10) NOT NULL,
+    PRIMARY KEY(uid, code)
+)ENGINE = InnoDB;
