@@ -20,5 +20,7 @@ CREATE TABLE login_attempts(
 CREATE TABLE forgot(
     uid int NOT NULL,
     code CHAR(10) NOT NULL,
-    PRIMARY KEY(uid, code)
+    timeStamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(uid),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
 )ENGINE = InnoDB;
