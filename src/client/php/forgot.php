@@ -38,9 +38,9 @@ if (login_check($mysqli) == true) {
         <fieldset>
           <legend>Forgot Password</legend>
           <?
-          $error = filter_input(INPUT_GET, 'err', $filter = FILTER_SANITIZE_STRING);
+          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
-          if (! $error) {
+          if (!empty($error)) {
               echo '<p class=\"error-msg\">Username and Password don\'t link to an Account.</p>';
           }
           ?>
