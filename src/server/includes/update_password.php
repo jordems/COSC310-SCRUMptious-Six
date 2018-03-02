@@ -15,7 +15,7 @@ if (isset($_POST['p'])) {
 
     if (updatePassword($password, $mysqli) == true) {
         // If code is verified
-        header('Location: ../reset_password.php');
+        header('Location: ../index.php');
     } else {
         // If code is not verified
         header('Location: ../recovery.php?error=1');

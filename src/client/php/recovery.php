@@ -37,7 +37,13 @@ if (login_check($mysqli) == true) {
       <form action="includes/verify_code.php" method="post" id="forgot-form">
         <fieldset>
           <legend>We Sent a Verification Code to your Email</legend>
+          <?
+          $error = filter_input(INPUT_GET, 'err', $filter = FILTER_SANITIZE_STRING);
 
+          if (! $error) {
+              echo '<p class=\"error-msg\">Verification Code Entered is Incorrect.</p>';
+          }
+          ?>
           <label for="login-user" class="input-title">Verification Code:</label>
           <input type="text" name="code" id="forgot-user">
           <div id="forgot-anchors">
