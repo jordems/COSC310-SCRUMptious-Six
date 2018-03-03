@@ -50,3 +50,25 @@ CREATE TABLE AccountTransaction(
     FOREIGN KEY (aid) REFERENCES Account(aid)
     	ON UPDATE NO ACTION ON DELETE NO ACTION
 )ENGINE = InnoDB;
+
+CREATE TABLE Wallet(
+    wid int NOT NULL,
+    balance DECIMAL(20,2),
+    isFrozen boolean NOT NULL DEFAULT 0,
+    PRIMARY KEY (wid),
+    FOREIGN KEY (wid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;
+
+CREATE TABLE Transaction(
+    tid CHAR(64) NOT NULL, 
+    fromid int NOT NULL,
+    toid int NOT NULL,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (tid),
+    FOREIGN KEY (fromid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY (toid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;
