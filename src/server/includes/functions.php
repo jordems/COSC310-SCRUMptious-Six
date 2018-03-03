@@ -224,7 +224,6 @@ function esc_url($url) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= 'From: <noreply@scrumptiousfinance.com>' . "\r\n";
-    $headers .= "To: ".$email."\r\n";
 
     $message = "
     <html>
@@ -288,7 +287,7 @@ function esc_url($url) {
     if ($stmt = $mysqli->prepare("SELECT uid
           FROM forgot
           WHERE uid = ? and browserString = ? and timeStamp >= NOW() - INTERVAL 10 MINUTE
-          LIMIT 1")) {
+          ORDER BY timeStamp DESC LIMIT 1")) {
         $stmt->bind_param('is', $user_id, $user_browser);
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();

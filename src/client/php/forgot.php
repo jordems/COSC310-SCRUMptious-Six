@@ -6,7 +6,7 @@ sec_session_start();
 
 if (login_check($mysqli) == true) {
     // If already Logged in then send to home page
-    header('Location:home.php');
+    header('Location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -37,7 +37,13 @@ if (login_check($mysqli) == true) {
       <form action="includes/process_forgot.php" method="post" id="forgot-form">
         <fieldset>
           <legend>Forgot Password</legend>
+          <?
+          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
+          if (!empty($error)) {
+              echo '<p class=\"error-msg\">Username and Password don\'t link to an Account.</p>';
+          }
+          ?>
           <label for="login-user" class="input-title">Username:</label>
           <input type="text" name="username" id="forgot-user">
           <label for="login-pass" class="input-title">Email:</label>
