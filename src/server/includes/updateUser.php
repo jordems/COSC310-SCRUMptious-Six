@@ -69,7 +69,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['firstName'], $_POST['last
                 header('Location: ../error.php?err=Update failure: UPDATE');
             }
         }
-        header('Location: ./update_success.php');
+        header('Location: ../update_success.php');
     }
 }
 ?>

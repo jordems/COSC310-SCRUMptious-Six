@@ -5,7 +5,7 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 if (login_check($mysqli) == false) {
-    // If already Logged in then send to login page
+    // If not already logged in then send to login page
     header('Location:index.php');
 }
 ?>
@@ -43,23 +43,7 @@ if (login_check($mysqli) == false) {
     </nav>
    </div>
 </header>
-  <main>
-    <section id="leftColumn">
-      <!-- The latest updates associated with the particular user's account shown here -->
-
-        <h2>Latest Updates</h2>
-        <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
-        <p><span class="headline">Feb 11, 2018</span></p>
-         <p>The value of your Bitcoin investment increased 5%.</p>
-        <p><span class="headline">Jan 21, 2018</span> </p>
-        <p>You deposited $300.00 in your savings account.</p>
-        <p><span class="headline">Jan 1, 2018</span></p>
-         <p>You recieved $1020.00 from John.</p>
-        <p><span class="headline">Dec 29, 2017</span> </p>
-        <p>Your account with Scrumptious Finance was created!</p>
-
-
-    </section>
+<main>
     <section id="rightColumn">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
@@ -70,15 +54,12 @@ if (login_check($mysqli) == false) {
           <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
         </ul>
     </section>
-    <section id="center">
-        <h1>Welcome!</h1>
-        <p>Some form of info will go here, maybe a graph.</p>
-        <p>Some form of info will go here, maybe a graph. Or a jkgklgf,ku,k.</p>
-        <p>Some form of info will go here, maybe a graph. How</p>
-        <p>Some form of info will go here, maybe a graph. khf,hf,. hfjf,kjgk. pihkhfj jgfkugfhfjhgfjhgfhjgfhv jgcjhvnhgjfghjhgf jgfjhgjhfhtfyt h,gjkhgfkjgfjhg fh fytjf hgfhfhgfjh fkuyuyhguyhfhgfhgf</p>
-        <ul class="btn_more">
-          <li><a href="#">More info</a></li>
-        </ul>
+    <section id="center-noleft">
+    <h1>Upload Successful</h1>
+    <h2>Upload Another Statement</h2>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="csv" value="" />
+    <input type="submit" name="submit" value="Save" /></form>
     </section>
   <div class="clear"></div>
   </main>
