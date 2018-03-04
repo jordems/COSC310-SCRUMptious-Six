@@ -1,6 +1,6 @@
 /// If you wish to add more tables to the database, or if you have any comments: Contact Jordan(Discord: Jordems#9638)
 
-CREATE TABLE Users(
+CREATE TABLE User(
 	uid int NOT NULL AUTO_INCREMENT,
 	username varchar(30) NOT NULL UNIQUE,
 	password char(128) NOT NULL,
@@ -11,13 +11,13 @@ CREATE TABLE Users(
 	PRIMARY KEY (uid)
 ) ENGINE = InnoDB;
 
-CREATE TABLE login_attempts(
+CREATE TABLE Login_attempts(
 	compid int(11) NOT NULL,
 	time varchar(30) NOT NULL,
 	PRIMARY KEY (compid)
 ) ENGINE = InnoDB;
 
-CREATE TABLE forgot(
+CREATE TABLE Forgot(
     uid int NOT NULL,
     code CHAR(10) NOT NULL,
     timeStamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -25,3 +25,50 @@ CREATE TABLE forgot(
     PRIMARY KEY(uid, code),
     FOREIGN KEY (uid) REFERENCES Users(uid)
 )ENGINE = InnoDB;
+
+CREATE TABLE Account(
+    aid int NOT NULL,
+    uid int NOT NULL,
+    balance DECIMAL(20,2),
+    title VARCHAR(255),
+    type VARCHAR(255),
+    PRIMARY KEY(uid, aid),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+)ENGINE = InnoDB;
+
+CREATE TABLE AccountTransaction(
+    tid int NOT NULL,
+	uid int NOT NULL,
+	aid int NOT NULL,
+    date DATE,
+    amount DECIMAL(18,2),
+    `desc` VARCHAR(255),
+    PRIMARY KEY(uid, aid, tid),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY (aid) REFERENCES Account(aid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+)ENGINE = InnoDB;
+
+CREATE TABLE Wallet(
+    wid int NOT NULL,
+    balance DECIMAL(20,2),
+    isFrozen boolean NOT NULL DEFAULT 0,
+    PRIMARY KEY (wid),
+    FOREIGN KEY (wid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;
+
+CREATE TABLE Transaction(
+    tid CHAR(64) NOT NULL, 
+    fromid int NOT NULL,
+    toid int NOT NULL,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (tid),
+    FOREIGN KEY (fromid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY (toid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;
