@@ -309,6 +309,62 @@ function esc_url($url) {
           }
         }
       }
+    return false;
+  }
 
+  function sendTransaction($receivingUsername, $amount, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+    // Query that the sending user has enough money and their account is not frozen
+    $stmt = $mysqli->prepare("SELECT wid FROM Wallet WHERE wid = ? and balance >= ? and !isFrozen");
+    $stmt->bind_param('sd', $user_id, $amount);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->bind_result($receivingUser_id);
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows == 1) {
+
+      // Query that the  "$receivingUsername" exists in the database
+      $stmt = $mysqli->prepare("SELECT uid FROM Users WHERE username = ?");
+      $stmt->bind_param('s', $receivingUsername);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+
+      // get variables from result.
+      $stmt->bind_result($receivingUser_id);
+      $stmt->fetch();
+
+      // if the "$receivingUsername" exists in the database then:
+      if ($stmt->num_rows == 1) {
+
+        // Remove the balance from the sender first
+        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance - ? WHERE wid = ?");
+        $update_stmt->bind_param('di', $amount, $user_id);
+
+        if(!$update_stmt->execute()){
+          // Problem has Occured removing the balance from sender
+          return false;
+        }
+
+        // Update the balance of the receiever
+        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
+        $update_stmt->bind_param('di', $amount, $receivingUser_id);
+
+        if(!$update_stmt->execute()){
+          /* Problem has Occured adding the balance to the receiver
+          *  Therefore, we must reimburse the sender*/
+          $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
+          $update_stmt->bind_param('di', $amount, $user_id);
+          $update_stmt->execute();
+          return false;
+          }
+      }
+      return true;
+    }
     return false;
   }
