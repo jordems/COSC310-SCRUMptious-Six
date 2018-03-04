@@ -303,7 +303,7 @@ function esc_url($url) {
               $insert_stmt->bind_param('si', $password, $user_id);
               // Execute the prepared query.
               if ($insert_stmt->execute()) {
-                  // If insert doesn't complete for some reason
+                  // If successful
                   return true;
               }
           }
@@ -362,7 +362,18 @@ function esc_url($url) {
           $update_stmt->bind_param('di', $amount, $user_id);
           $update_stmt->execute();
           return false;
-          }
+        }
+
+        date_default_timezone_set("Canada/Pacific"); // So the time taken is PST
+        $timestamp = date('Y-m-d G:i:s'); // Current timestamp in mysql format
+        $tid = hash("sha256", $user_id.$receivingUser_id.$timestamp); // Create a primary key for the transaction
+        // Insert Completed transaction into transaction table
+        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, datetime) VALUES (?,?,?,?,?)");
+        $insert_stmt->bind_param('siids', $tid, $user_id, $receivingUser_id, $amount, $timestamp);
+            // Execute the prepared statement.
+        $insert_stmt->execute();
+
+
       }
       return true;
     }
