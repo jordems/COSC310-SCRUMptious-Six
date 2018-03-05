@@ -1,3 +1,11 @@
+<?php
+include_once 'includes/db_connect.php';
+sec_session_start();
+if (login_check($mysqli) == false) {
+  // If not logged in then send to login page
+  header('Location:index.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +56,7 @@
     <h2>How to format your CSV file:</h2>
     <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
     <ul>
-        <li>Column A - date: Use the date format dd/mm/yyyy</li>
+        <li>Column A - date: Use the date format YYY-MM-DD Ex: 2018-01-23</li>
         <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account in should not have minus signs in front of them</li>
         <li>Column C - description: The invoice reference, or a brief description.</li>
     </ul>
@@ -56,7 +64,7 @@
     <p>In your CSV file make sure:</p>
     <ul>
         <li>You haven’t included a header row</li>
-        <li>The date format is dd/mm/yyyy</li>
+        <li>The date format is YYYY-MM-DD Ex: 2018-01-23</li>
         <li>You've used a single 'amounts' column that contains both money paid out and money paid in</li>
         <li>There are no commas in your amounts columns</li>
         <li>You haven't included any quote marks (")</li>
@@ -64,7 +72,7 @@
         <li>The file format is .csv (not .xls or .xlsx)</li>
         <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
     </ul>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form action="includes/upload.php" method="post" enctype="multipart/form-data">
     <input type="file" name="csv" value="" />
     <input type="submit" name="submit" value="Save" /></form>
     </section>

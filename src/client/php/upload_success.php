@@ -1,12 +1,9 @@
 <?php
 include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
-
 sec_session_start();
-
 if (login_check($mysqli) == false) {
-    // If not already logged in then send to login page
-    header('Location:index.php');
+  // If not logged in then send to login page
+  header('Location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -57,7 +54,7 @@ if (login_check($mysqli) == false) {
     <section id="center-noleft">
     <h1>Upload Successful</h1>
     <h2>Upload Another Statement</h2>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form action="includes/upload.php" method="post" enctype="multipart/form-data">
     <input type="file" name="csv" value="" />
     <input type="submit" name="submit" value="Save" /></form>
     </section>
