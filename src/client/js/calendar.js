@@ -165,9 +165,12 @@ window.onload = function showText1() {
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
         oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
       };
-      table.rows[i].cells[j].onclick = function () {
-			openModal();
-      };
+		
+			table.rows[i].cells[j].onclick = function () {
+				
+					openModal();
+				
+			};
 
     }
   }
@@ -183,7 +186,7 @@ function showText() {
 
 
   // table rows
-  for (var i = 1; i < table.rows.length; i++) {
+	 for (var i = 0; i < table.rows.length; i++) {
     // row cells
     for (var j = 0; j < table.rows[i].cells.length; j++) {
       table.rows[i].cells[j].onmouseover = function () {
@@ -192,6 +195,13 @@ function showText() {
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
         oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
       };
+		
+			table.rows[i].cells[j].onclick = function () {
+				
+					openModal();
+				
+			};
+
     }
   }
 
