@@ -33,9 +33,9 @@ if (login_check($mysqli) == false) {
    <div id="lower">
     <nav>
     <ul>
-      <li><a href="#">OVERVIEW</a></li>
+      <li><a href="overview.php">OVERVIEW</a></li>
       <li><a href="addAccount.html">ADD ACCOUNT</a></li>
-      <li><a href="#">PAYMENTS</a></li>
+      <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
       <li><a href="calendar.html">CALENDAR</a></li>

@@ -25,24 +25,48 @@ header nav ul li a{color:#40483d;}
 header nav ul li a:hover{color:red;}
 
 /* CONTAINERS */
-main{width:100%; padding:0; margin-top:2em; }
+main{padding:1px; min-height: 100%; margin-bottom: -8em;}
 
 #leftColumn{
-    width:250px; 
-    float:left; 
-    margin-left:2em;
+  width:25em;
+  float:left;
+  height: 45em;
+  margin-left: 1em;
+  margin-top: 0.5em;
+  position: relative;
+  top: 0px;
+  right: 0px;
 }
-#center{ 
-    margin-right:290px; 
-    margin-left:350px;
+#center{
+  margin-right: 40em;
+  margin-top: 1em;
+  margin-bottom: 5em;
+  margin-left: 1em;
+  height: 45em;
 }
-#center-noleft{ 
-    margin-right:290px; 
+#center-noleft{
+    margin-right:35em;
     margin-left:1em;
 }
+#center-nocolumns{
+width: 100%;
+margin: auto;
+height: 45em;
+}
+#center-nocolumns fieldset{
+width: 50%;
+margin: auto;
+height: 30em;
+}
 #rightColumn{
-    width:250px; 
-    float:right;
+  width:25em;
+  float:right;
+  height: 45em;
+  margin-right: 1em;
+  margin-top: 0.5em;
+  position: relative;
+  top: 0px;
+  left: 0px;
 }
 
 .btn_more li a{font:12px Trebuchet MS, sans-serif; color:#111111; text-decoration:none; font-weight:bold;}
@@ -65,7 +89,8 @@ main{width:100%; padding:0; margin-top:2em; }
 #rightColumn h2{margin-bottom:1em}
 
 /* FOOTER */
-footer{height:54px; clear:both; width:100%; background-color:#111111; position:relative; bottom:0px; margin-top:5em;}
+footer{background-color:#111111; position:relative; bottom:0; width: 100%; height: 8em;
+}
 footer p{padding: 1em 0 0 0; font:10px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
 footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 0.5em }
 footer p a:hover{text-decoration:none; background:#fff; color:#111}
@@ -110,7 +135,7 @@ footer p a:hover{text-decoration:none; background:#fff; color:#111}
 
 
 .dropdown-content a:hover {
-    background-color: #40483d; 
+    background-color: #40483d;
     color: #e18b07;
 }
 
@@ -127,34 +152,33 @@ footer p a:hover{text-decoration:none; background:#fff; color:#111}
 #update-content {
 	margin: auto;
 	width: 30em;
-  }
-  fieldset{
-	margin: 1.5em 0;
-	margin-left: 1em;
-  }
-  label{
-	display: block;
-	margin-top: 1em;
-	margin-bottom: .5em;
-  }
-  input[type=text], input[type=password]{
-	margin-left: 1em;
-	width: 40%;
-	margin: .2em 0;
-	padding: .5em;
-  }
-  #update-submit{
-	background-color: #e18b07;
-	display: block;
-	margin-top: 1em;
-	width: 10%;
-	padding: 1em 0;
-  }
-  #update-submit:hover{
-	cursor: pointer;
-	opacity: 0.8;
-  }
-  input[type=submit] {
-	display: inline-block;
-  }
- 
+}
+fieldset{
+margin: 1.5em 0;
+margin-left: 1em;
+}
+label{
+display: block;
+margin-top: 1em;
+margin-bottom: .5em;
+}
+input[type=text], input[type=password]{
+margin-left: 1em;
+width: 40%;
+margin: .2em 0;
+padding: .5em;
+}
+#update-submit{
+background-color: #e18b07;
+display: block;
+margin-top: 1em;
+width: 10%;
+padding: 1em 0;
+}
+#update-submit:hover{
+cursor: pointer;
+opacity: 0.8;
+}
+input[type=submit] {
+display: inline-block;
+}
