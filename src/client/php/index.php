@@ -43,7 +43,7 @@
                 </div>
                 <div id="login-anchors">
                   <p><a href="forgot.php" class="text">Forgot Password?</a></p>
-                  <p><a href="register.php" class="text2">Don't Have an Account?</a></p>
+                  <p><a href="register.php" class="text">Don't Have an Account?</a></p>
                 </div>
             </form>
     </div>

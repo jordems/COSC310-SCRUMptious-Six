@@ -182,18 +182,9 @@ iframe {
   color: #e5e5e5;
   line-height: 1.5;
   text-decoration: none;
-  float:left;
   margin-top: 2em;
-}
-
-.text2{
-  font-family: Poppins-Regular;
-  font-size: 13px;
-  color: #e5e5e5;
-  line-height: 1.5;
-  text-decoration: none;
-  float:right;
-  margin-top: 2em;
+  text-align: center;
+  display: block;
 }
 
 /*FORM*/
