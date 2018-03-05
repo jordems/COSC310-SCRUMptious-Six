@@ -28,22 +28,47 @@ CREATE TABLE Forgot(
 
 CREATE TABLE Account(
     aid int NOT NULL,
-	uid int NOT NULL,
-    balance CURRENCY,
-	title VARCHAR(255),
-	type VARCHAR(255),
+    uid int NOT NULL,
+    balance DECIMAL(20,2),
+    title VARCHAR(255),
+    type VARCHAR(255),
     PRIMARY KEY(uid, aid),
     FOREIGN KEY (uid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
 )ENGINE = InnoDB;
 
-CREATE TABLE Statement(
-    sid int NOT NULL,
+CREATE TABLE AccountTransaction(
+    tid int NOT NULL,
 	uid int NOT NULL,
 	aid int NOT NULL,
     date DATE,
-    amount CURRENCY,
-	desc VARCHAR(255),
-    PRIMARY KEY(uid, aid, sid),
-    FOREIGN KEY (uid) REFERENCES Users(uid),
-	FOREIGN KEY (aid) REFERENCES Account(aid)
+    amount DECIMAL(18,2),
+    `desc` VARCHAR(255),
+    PRIMARY KEY(uid, aid, tid),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY (aid) REFERENCES Account(aid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
 )ENGINE = InnoDB;
+
+CREATE TABLE Wallet(
+    wid int NOT NULL,
+    balance DECIMAL(20,2),
+    isFrozen boolean NOT NULL DEFAULT 0,
+    PRIMARY KEY (wid),
+    FOREIGN KEY (wid) REFERENCES Users(uid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;
+
+CREATE TABLE Transaction(
+    tid CHAR(64) NOT NULL, 
+    fromid int NOT NULL,
+    toid int NOT NULL,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (tid),
+    FOREIGN KEY (fromid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY (toid) REFERENCES Wallet(wid)
+    	ON UPDATE NO ACTION ON DELETE NO ACTION
+) ENGINE = InnoDB;

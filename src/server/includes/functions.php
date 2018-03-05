@@ -303,12 +303,79 @@ function esc_url($url) {
               $insert_stmt->bind_param('si', $password, $user_id);
               // Execute the prepared query.
               if ($insert_stmt->execute()) {
-                  // If insert doesn't complete for some reason
+                  // If successful
                   return true;
               }
           }
         }
       }
+    return false;
+  }
 
+  function sendTransaction($receivingUsername, $amount, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+    // Query that the sending user has enough money and their account is not frozen
+    $stmt = $mysqli->prepare("SELECT wid FROM Wallet WHERE wid = ? and balance >= ? and !isFrozen");
+    $stmt->bind_param('sd', $user_id, $amount);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->bind_result($receivingUser_id);
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows == 1) {
+
+      // Query that the  "$receivingUsername" exists in the database
+      $stmt = $mysqli->prepare("SELECT uid FROM Users WHERE username = ?");
+      $stmt->bind_param('s', $receivingUsername);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+
+      // get variables from result.
+      $stmt->bind_result($receivingUser_id);
+      $stmt->fetch();
+
+      // if the "$receivingUsername" exists in the database then:
+      if ($stmt->num_rows == 1) {
+
+        // Remove the balance from the sender first
+        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance - ? WHERE wid = ?");
+        $update_stmt->bind_param('di', $amount, $user_id);
+
+        if(!$update_stmt->execute()){
+          // Problem has Occured removing the balance from sender
+          return false;
+        }
+
+        // Update the balance of the receiever
+        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
+        $update_stmt->bind_param('di', $amount, $receivingUser_id);
+
+        if(!$update_stmt->execute()){
+          /* Problem has Occured adding the balance to the receiver
+          *  Therefore, we must reimburse the sender*/
+          $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
+          $update_stmt->bind_param('di', $amount, $user_id);
+          $update_stmt->execute();
+          return false;
+        }
+
+        date_default_timezone_set("Canada/Pacific"); // So the time taken is PST
+        $timestamp = date('Y-m-d G:i:s'); // Current timestamp in mysql format
+        $tid = hash("sha256", $user_id.$receivingUser_id.$timestamp); // Create a primary key for the transaction
+        // Insert Completed transaction into transaction table
+        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, datetime) VALUES (?,?,?,?,?)");
+        $insert_stmt->bind_param('siids', $tid, $user_id, $receivingUser_id, $amount, $timestamp);
+            // Execute the prepared statement.
+        $insert_stmt->execute();
+
+
+      }
+      return true;
+    }
     return false;
   }

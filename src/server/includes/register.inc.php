@@ -15,8 +15,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
     }
     $password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
     if (strlen($password) != 128) {
-        // The hashed pwd should be 128 characters long.
-        // If it's not, something really odd has happened
+        // The hashed pass should be 128 characters long.
         $error_msg .= '<p class="error">Invalid password configuration.</p>';
     }
 
@@ -78,6 +77,15 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
             if (! $insert_stmt->execute()) {
                 header('Location: ../error.php?err=Registration failure: INSERT');
             }
+            $user_id = $mysqli->insert_id;
+            if ($insert_stmt = $mysqli->prepare("INSERT INTO Wallet (wid, balance) VALUES (?,0)")) {
+                $insert_stmt->bind_param('i', $user_id);
+                // Execute the prepared query.
+                if (! $insert_stmt->execute()) {
+                    header('Location: ../error.php?err=Registration failure: INSERT');
+                }
+            }
+
         }
         header('Location: ./register_success.php');
     }
