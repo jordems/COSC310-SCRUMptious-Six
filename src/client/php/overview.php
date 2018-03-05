@@ -23,7 +23,7 @@ if (login_check($mysqli) == false) {
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn">User's Name</button>
+		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>

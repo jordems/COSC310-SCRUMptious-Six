@@ -1,66 +1,53 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
 
-sec_session_start();
-
-if (login_check($mysqli) == true) {
-    // If already Logged in then send to home page
-    header('Location:overview.php');
-}
-?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
   <meta charset="utf-8">
-
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/login.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/login.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
+  <script type="text/javaScript" src="../js/login.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  <title>SF</title>
+  <title>Scrumptious Finance</title>
 </head>
 <body>
-  <header>
-    <figure>
-      <img src="" alt="FinaApp Logo" id="logo">
-      <figcaption>
-        <strong id="company-statement">We Care About your Money&trade;</strong>
-      </figcaption>
-    </figure>
-  </header>
-  <main>
-    <div id="login-content">
-      <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" id="login-form">
-        <fieldset>
-          <legend>Login</legend>
-
-          <label for="login-user" class="input-title">Username:</label>
-          <input type="text" name="username" id="login-user">
-          <label for="login-pass" class="input-title">Password:</label>
-          <input type="password" name="password" id="login-pass">
-          <div id="login-anchors">
-            <p><a href="forgot.php">Forgot Password?</a></p>
-            <p><a href="register.php">Don't Have an Account?</a></p>
-          </div>
-          <input type="submit" value="Login">
-        </fieldset>
-      </form>
+  <div class="limiter">
+    <div class="login-container">
+      <div class="login-wrap">
+          <figure>
+            <img src="" alt="FinaApp Logo" id="logo">
+          <figcaption>
+              <strong class="title">LOG IN</strong>
+          </figcaption>
+          </figure>
+            <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" id="login-form">
+                <div class="input-wrap">
+                  <span class="fas fa-user user"></span>
+                  <input type="text" name="username" class="input" placeholder="Username">
+                </div>
+                <div class="input-wrap">
+                  <span class="fas fa-lock lock"></span>
+                  <input type="password" name="password" class="input" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                  <input class="input-checkbox" id="ckb1" type="checkbox" name="remember-me">
+                  <label class="label-checkbox" for="ckb1">
+                    Remember me
+                  </label>
+                </div>
+                <div class="button-container">
+                <input type="submit" value="Login" class="button">
+                </div>
+                <div id="login-anchors">
+                  <p><a href="forgot.php" class="text">Forgot Password?</a></p>
+                  <p><a href="register.php" class="text2">Don't Have an Account?</a></p>
+                </div>
+            </form>
     </div>
-  </main>
-  <footer>
-    <nav>
-      <ul id="bottom-dir">
-        <li><a href="">About Us</a></li>
-        <li><a href="">Contact Us</a></li>
-        <li><a href="">Rules</a></li>
-        <li><a href="">Development Team</a></li>
-      </ul>
-    </nav>
-    <p>&copy; Copyright 2018 FinaApp</p>
-  </footer>
+  </div>
+</div>
 </body>
 </html>
