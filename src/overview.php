@@ -14,8 +14,8 @@ if (login_check($mysqli) == false) {
 <head>
 <title>SCRUMptious</title>
 <meta charset="utf-8">
-<link href="../css/reset.css" rel="stylesheet" type="text/css" />
-<link href="../css/styles.css" rel="stylesheet" type="text/css" />
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <header>
