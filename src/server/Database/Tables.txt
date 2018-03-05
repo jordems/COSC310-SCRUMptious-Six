@@ -38,13 +38,13 @@ CREATE TABLE Account(
 )ENGINE = InnoDB;
 
 CREATE TABLE AccountTransaction(
-    tid int NOT NULL,
+    tid CHAR(64) NOT NULL,
 	uid int NOT NULL,
-	aid int NOT NULL,
-    date DATE,
-    amount DECIMAL(18,2),
+	aid int NOT NULL, 
+    date DATE NOT NULL,
+    amount DECIMAL(18,2) NOT NULL,
     `desc` VARCHAR(255),
-    PRIMARY KEY(uid, aid, tid),
+    PRIMARY KEY(tid),
     FOREIGN KEY (uid) REFERENCES Users(uid)
     	ON UPDATE NO ACTION ON DELETE NO ACTION,
     FOREIGN KEY (aid) REFERENCES Account(aid)

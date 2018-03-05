@@ -1,4 +1,6 @@
 <?php 
+include_once 'db_connect.php';
+
 $csv = array();
 
 // check there are no errors
@@ -19,15 +21,20 @@ if($_FILES['csv']['error'] == 0){
             while(($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
                 // number of fields in the csv
                 $col_count = count($data);
-
+                $user_id =  $user_id = $_SESSION['user_id'];
+                $account_id = $_SESSION['user_id'];
+                
+                
                 // get the values from the csv
-                $csv[$row]['col1'] = $data[0];
-                echo "<p>" . $data[0] . "</p>";
-                $csv[$row]['col2'] = $data[1];
-                echo "<p>" . $data[1] . "</p>";
-                $csv[$row]['col3'] = $data[2];
-                echo "<p>" . $data[2] . "</p>";
-
+                $date = $data[0];
+                $amount = $data[1];
+                $desc = $data[2];
+                $tid = hash("sha256", $user_id.$date.$amount); // Create a primary key for the upload
+                // Insert data into AccountTransaction table
+                $insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, date, amount, `desc`) VALUES (?,?,?,?,?,?)");
+                $insert_stmt->bind_param('siisds', $tid, $user_id, $account_id, $date, $amount, $desc);
+                // Execute the prepared statement.
+                $insert_stmt->execute();
                 // inc the row
                 $row++;
             }
@@ -49,7 +56,7 @@ if($_FILES['csv']['error'] == 0){
             <li>Each description is on a single line</li>
             <li>The file format is .csv (not .xls or .xlsx)</li>
             <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
-          </ul>"
+          </ul>";
 }
 ?>
 
