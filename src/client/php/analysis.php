@@ -1,14 +1,3 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
-
-sec_session_start();
-
-if (login_check($mysqli) == false) {
-    // If already Logged in then send to login page
-    header('Location:index.php');
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +12,7 @@ if (login_check($mysqli) == false) {
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
+		<button class="dropbtn">User's Name</button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -44,22 +33,6 @@ if (login_check($mysqli) == false) {
    </div>
 </header>
   <main>
-    <section id="leftColumn">
-      <!-- The latest updates associated with the particular user's account shown here -->
-
-        <h2>Latest Updates</h2>
-        <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
-        <p><span class="headline">Feb 11, 2018</span></p>
-         <p>The value of your Bitcoin investment increased 5%.</p>
-        <p><span class="headline">Jan 21, 2018</span> </p>
-        <p>You deposited $300.00 in your savings account.</p>
-        <p><span class="headline">Jan 1, 2018</span></p>
-         <p>You recieved $1020.00 from John.</p>
-        <p><span class="headline">Dec 29, 2017</span> </p>
-        <p>Your account with Scrumptious Finance was created!</p>
-
-
-    </section>
     <section id="rightColumn">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
@@ -70,15 +43,30 @@ if (login_check($mysqli) == false) {
           <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
         </ul>
     </section>
-    <section id="center">
-        <h1>Welcome!</h1>
-        <p>Some form of info will go here, maybe a graph.</p>
-        <p>Some form of info will go here, maybe a graph. Or a jkgklgf,ku,k.</p>
-        <p>Some form of info will go here, maybe a graph. How</p>
-        <p>Some form of info will go here, maybe a graph. khf,hf,. hfjf,kjgk. pihkhfj jgfkugfhfjhgfjhgfhjgfhv jgcjhvnhgjfghjhgf jgfjhgjhfhtfyt h,gjkhgfkjgfjhg fh fytjf hgfhfhgfjh fkuyuyhguyhfhgfhgf</p>
-        <ul class="btn_more">
-          <li><a href="#">More info</a></li>
-        </ul>
+    <section id="center-noleft">
+    <h1>You don't have any data for anaylsis yet. Upload a bank statement in CSV format to utilize this feature.</h1>
+    <h2>How to format your CSV file:</h2>
+    <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
+    <ul>
+        <li>Column A - date: Use the date format dd/mm/yyyy</li>
+        <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account in should not have minus signs in front of them</li>
+        <li>Column C - description: The invoice reference, or a brief description.</li>
+    </ul>
+    <h2>Checklist</h2>
+    <p>In your CSV file make sure:</p>
+    <ul>
+        <li>You haven’t included a header row</li>
+        <li>The date format is dd/mm/yyyy</li>
+        <li>You've used a single 'amounts' column that contains both money paid out and money paid in</li>
+        <li>There are no commas in your amounts columns</li>
+        <li>You haven't included any quote marks (")</li>
+        <li>Each description is on a single line</li>
+        <li>The file format is .csv (not .xls or .xlsx)</li>
+        <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
+    </ul>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="csv" value="" />
+    <input type="submit" name="submit" value="Save" /></form>
     </section>
   <div class="clear"></div>
   </main>

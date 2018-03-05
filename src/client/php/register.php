@@ -7,6 +7,7 @@ include_once 'includes/functions.php';
     <head lang="en">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/register.css">
         <script type="text/javaScript" src="js/sha512.js"></script>
         <script type="text/javaScript" src="js/forms.js"></script>
