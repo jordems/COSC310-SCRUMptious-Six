@@ -29,9 +29,10 @@ CREATE TABLE Forgot(
 CREATE TABLE Account(
     aid int NOT NULL,
     uid int NOT NULL,
-    balance DECIMAL(20,2),
-    title VARCHAR(255),
-    type VARCHAR(255),
+    balance DECIMAL(20,2) NOT NULL,
+    financialinstitution VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
     PRIMARY KEY(uid, aid),
     FOREIGN KEY (uid) REFERENCES Users(uid)
     	ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -42,6 +43,7 @@ CREATE TABLE AccountTransaction(
 	uid int NOT NULL,
 	aid int NOT NULL, 
     date DATE NOT NULL,
+    statementName VARCHAR(255) NOT NULL,
     amount DECIMAL(18,2) NOT NULL,
     `desc` VARCHAR(255),
     PRIMARY KEY(tid),

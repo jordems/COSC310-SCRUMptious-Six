@@ -12,61 +12,56 @@ if (login_check($mysqli) == true) {
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/login.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  <title>SF</title>
+  <title>Forgot Password | Scrumptious Finance</title>
 </head>
 <body>
-  <header>
-    <figure>
-      <img src="" alt="FinaApp Logo" id="logo">
-      <figcaption>
-        <strong id="company-statement">We Care About your Money&trade;</strong>
-      </figcaption>
-    </figure>
-  </header>
-  <main>
-    <div id="login-content">
-      <form action="includes/process_forgot.php" method="post" id="forgot-form">
-        <fieldset>
-          <legend>Forgot Password</legend>
-          <?
-          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+<div class="limiter">
+    <div class="login-container">
+      <div class="login-wrap">
+          <figure>
+            <img src="" alt="FinaApp Logo" id="logo">
+            <figcaption>
+              <strong class="title">Retrieve Password</strong>
+            </figcaption>
+          </figure>
+      
+            <form action="includes/process_forgot.php" method="post" class="login-form">
+             
+                <?php
+                $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
-          if (!empty($error)) {
-              echo '<p class=\"error-msg\">Username and Password don\'t link to an Account.</p>';
-          }
-          ?>
-          <label for="login-user" class="input-title">Username:</label>
-          <input type="text" name="username" id="forgot-user">
-          <label for="login-pass" class="input-title">Email:</label>
-          <input type="text" name="email" id="forgot-pass">
-          <div id="forgot-anchors">
-            <p><a href="index.php">Login Page</a></p>
-            <p><a href="contactus.php">Contact Us</a></p>
-          </div>
-          <input type="submit" value="Submit">
-        </fieldset>
-      </form>
+                if (!empty($error)) {
+                    echo '<p class=\"error-msg\">Username and Password don\'t link to an Account.</p>';
+                }
+                ?>
+                <div class="input-wrap">
+                <span class="fas fa-user user"></span>
+                <input type="text" name="username" class="input" placeholder="Username">
+                </div>
+                <div class="input-wrap">
+                <span class="fas fa-envelope envelope"></span>
+                <input type="text" name="email" class="input" placeholder="Email">
+                </div>
+                <div class="button-container">
+                <input type="submit" value="Submit" class="button">
+                </div>
+                <div id="forgot-anchors">
+                  <p><a href="index.php" class="text">Login Page</a></p>
+                  <p><a href="contactus.php" class="text">Contact Us</a></p>
+                </div>
+                
+              
+            </form>
+        </div>
+      </div>
     </div>
-  </main>
-  <footer>
-    <nav>
-      <ul id="bottom-dir">
-        <li><a href="">About Us</a></li>
-        <li><a href="">Contact Us</a></li>
-        <li><a href="">Rules</a></li>
-        <li><a href="">Development Team</a></li>
-      </ul>
-    </nav>
-    <p>&copy; Copyright 2018 FinaApp</p>
-  </footer>
 </body>
 </html>

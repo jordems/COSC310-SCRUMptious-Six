@@ -41,7 +41,7 @@ if (login_check($mysqli) == false) {
     </nav>
    </div>
 </header>
-<main>
+  <main>
     <section id="rightColumn">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
@@ -53,8 +53,26 @@ if (login_check($mysqli) == false) {
         </ul>
     </section>
     <section id="center-noleft">
-    <h1>Upload Successful</h1>
-    <h2>Upload Another Statement or Return to Analysis Tab</h2>
+    <h1>You don't have any data for anaylsis yet. Upload a bank statement in CSV format to utilize this feature.</h1>
+    <h2>How to format your CSV file:</h2>
+    <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
+    <ul>
+        <li>Column A - date: Use the date format YYY-MM-DD Ex: 2018-01-23</li>
+        <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account in should not have minus signs in front of them</li>
+        <li>Column C - description: The invoice reference, or a brief description.</li>
+    </ul>
+    <h2>Checklist</h2>
+    <p>In your CSV file make sure:</p>
+    <ul>
+        <li>You haven’t included a header row</li>
+        <li>The date format is YYYY-MM-DD Ex: 2018-01-23</li>
+        <li>You've used a single 'amounts' column that contains both money paid out and money paid in</li>
+        <li>There are no commas in your amounts columns</li>
+        <li>You haven't included any quote marks (")</li>
+        <li>Each description is on a single line</li>
+        <li>The file format is .csv (not .xls or .xlsx)</li>
+        <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
+    </ul>
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
