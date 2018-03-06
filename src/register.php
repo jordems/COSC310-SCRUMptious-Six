@@ -6,61 +6,73 @@ include_once 'includes/functions.php';
 <html>
     <head lang="en">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/reset.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="css/register.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/login.css">
         <script type="text/javaScript" src="js/sha512.js"></script>
         <script type="text/javaScript" src="js/forms.js"></script>
-        <title>SF</title>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+        <title>Register | Scrumptious Finance</title>
     </head>
     <body>
-      <header>
-        <figure>
-          <img src="" alt="FinaApp Logo" id="logo">
-          <figcaption>
-            <strong id="company-statement">We Care About your Money&trade;</strong>
-          </figcaption>
-        </figure>
-      </header>
-      <main>
-        <div id="register-content">
-          <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>"
-                  method="post"
-                  name="registration_form"
-                  onsubmit="return regformhash(this, this.username, this.email, this.password, this.confirm, this.firstName, this.lastName, this.address);">
-              <fieldset>
-                <?php
-                /*Registration form to be output if the input from user is not
-                Properly formatted. Should only be activated if User is attempting to bypass js.*/
-                if (!empty($error_msg)) {
-                    echo $error_msg;
-                }
-                ?>
-                <legend>Register</legend>
-                <label for="username">Username:</label> <input type='text' name='username' id='username' />
-                <label for="password">Password:</label> <input type="password" name="password" id="password">
-                <label for="confirm">Confirm password:</label> <input type="password" name="confirm" id="confirm">
-                <label for="email">Email:</label> <input type="text" name="email" id="email" />
-                <label for="firstName">First Name:</label> <input type="text" name="firstName" id="firstName" />
-                <label for="lastName">Last Name:</label> <input type="text" name="lastName" id="lastName" />
-                <label for="address">Address:</label> <input type="text" name="address" id="address" />
-                <input type="submit" value="Register" id="register-submit">
-                <p><a href="../">Already have an Account?</a></p>
-              </fieldset>
-          </form>
+      <div class="limiter">
+        <div class="login-container">
+          <div class="login-wrap">
+              <figure>
+                <img src="" alt="FinaApp Logo" id="logo">
+                <figcaption>
+                  <strong class="title">REGISTER</strong>
+                </figcaption>
+              </figure>
+            
+                <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>"
+                        class="login-form"
+                        method="post"
+                        name="registration_form"
+                        onsubmit="return regformhash(this, this.username, this.email, this.password, this.confirm, this.firstName, this.lastName, this.address);">
+      
+                      <?php
+                      /*Registration form to be output if the input from user is not
+                      Properly formatted. Should only be activated if User is attempting to bypass js.*/
+                      if (!empty($error_msg)) {
+                          echo $error_msg;
+                      }
+                      ?>
+                      <div class="input-wrap">
+                      
+                      <input type='text' name='username' placeholder="Username" class="input"/>
+                      </div>
+                      <div class="input-wrap">
+                      
+                      <input type="password" name="password" placeholder="Password" class="input">
+                      </div>
+                      <div class="input-wrap">
+                      
+                      <input type="password" name="confirm" placeholder="Confirm Password" class="input">
+                      </div>
+                      <div class="input-wrap">
+                      <input type="text" name="email" placeholder="Email" class="input"/>
+                      </div>
+                      <div class="input-wrap">
+                      <input type="text" name="firstName" placeholder="First Name" class="input"/>
+                      </div>
+                      <div class="input-wrap">
+                      <input type="text" name="lastName" placeholder="Last Name" class="input"/>
+                      </div>
+                      <div class="input-wrap">
+                      <input type="text" name="address" placeholder="Address" class="input"/>
+                      </div>
+                      <div class="button-container">
+                      <input type="submit" value="Register" class="button">
+                      </div>
+                      <div id="login-anchors">
+                      <p><a href="index.php" class="text">Already have an Account?</a></p>
+                      </div>
+                    
+                </form>
+           </div>
         </div>
-
-      </main>
-      <footer>
-        <nav>
-          <ul id="bottom-dir">
-            <li><a href="">About Us</a></li>
-            <li><a href="">Contact Us</a></li>
-            <li><a href="">Rules</a></li>
-            <li><a href="">Development Team</a></li>
-          </ul>
-        </nav>
-        <p>&copy; Copyright 2018 FinaApp</p>
-      </footer>
+     </div>
+    
     </body>
 </html>

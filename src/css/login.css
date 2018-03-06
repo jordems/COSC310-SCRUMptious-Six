@@ -188,7 +188,7 @@ iframe {
 }
 
 /*FORM*/
-#login-form {
+.login-form {
   width: 100%;
 }
 
@@ -223,6 +223,12 @@ iframe {
   color: #FFF;
   font-size: 16px;
 }
+
+.envelope{
+  color: #FFF;
+  font-size: 16px;
+}
+
 .input-wrap{
   width: 100%;
   position: relative;

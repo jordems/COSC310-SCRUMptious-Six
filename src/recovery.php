@@ -12,58 +12,50 @@ if (login_check($mysqli) == true) {
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/login.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
 
-  <title>SF</title>
+  <title>Recover Password | Scrumptious Finance</title>
 </head>
 <body>
-  <header>
-    <figure>
-      <img src="" alt="FinaApp Logo" id="logo">
-      <figcaption>
-        <strong id="company-statement">We Care About your Money&trade;</strong>
-      </figcaption>
-    </figure>
-  </header>
-  <main>
-    <div id="login-content">
-      <form action="includes/verify_code.php" method="post" id="forgot-form">
-        <fieldset>
-          <legend>We Sent a Verification Code to your Email</legend>
-          <?
-          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+<div class="limiter">
+    <div class="login-container">
+      <div class="login-wrap">
+          <figure>
+            <img src="" alt="FinaApp Logo" id="logo">
+            <figcaption>
+              <strong class="title">Verification Code Sent</strong>
+            </figcaption>
+          </figure>
 
-          if (!empty($error)) {
-              echo '<p class=\"error-msg\">Verification Code Entered is Incorrect.</p>';
-          }
-          ?>
-          <label for="login-user" class="input-title">Verification Code:</label>
-          <input type="text" name="code" id="forgot-user">
-          <div id="forgot-anchors">
-            <p><a href="forgot.php">Didn't work? Try Again.</a></p>
-          </div>
-          <input type="submit" value="Submit">
-        </fieldset>
-      </form>
+            <form action="includes/verify_code.php" method="post" class="login-form">
+              
+                <?php
+                $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+
+                if (!empty($error)) {
+                    echo '<p class=\"error-msg\">Verification Code Entered is Incorrect.</p>';
+                }
+                ?>
+                <div class="input-wrap">
+                <input type="text" name="code" id="forgot-user" placeholder="Enter Verification Code" class="input" >
+                </div>
+                <div class="button-container">
+                <input type="submit" value="Submit" class="button">
+                </div>
+                <div id="forgot-anchors">
+                  <p><a href="forgot.php" class="text">Didn't work? Try Again.</a></p>
+           </div>
+        </div>
+      </div>
     </div>
-  </main>
-  <footer>
-    <nav>
-      <ul id="bottom-dir">
-        <li><a href="">About Us</a></li>
-        <li><a href="">Contact Us</a></li>
-        <li><a href="">Rules</a></li>
-        <li><a href="">Development Team</a></li>
-      </ul>
-    </nav>
-    <p>&copy; Copyright 2018 FinaApp</p>
-  </footer>
+        
+      </form>
+    
+  
 </body>
 </html>

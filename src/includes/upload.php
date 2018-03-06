@@ -1,12 +1,15 @@
 <?php 
 include_once 'db_connect.php';
-
+include_once 'functions.php';
+include_once 'psl-config.php';
+sec_session_start();
 $csv = array();
 
 // check there are no errors
 if($_FILES['csv']['error'] == 0){
     $name = $_FILES['csv']['name'];
-    $ext = strtolower(end(explode('.', $_FILES['csv']['name'])));
+    $path = $_FILES['csv']['name'];
+    $ext = pathinfo($path, PATHINFO_EXTENSION);
     $type = $_FILES['csv']['type'];
     $tmpName = $_FILES['csv']['tmp_name'];
 
@@ -21,24 +24,28 @@ if($_FILES['csv']['error'] == 0){
             while(($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
                 // number of fields in the csv
                 $col_count = count($data);
-                $user_id =  $user_id = $_SESSION['user_id'];
-                $account_id = $_SESSION['user_id'];
-                
+                $user_id =  $_SESSION['user_id'];
+                $account_id = 1;
+                $seed = openssl_random_pseudo_bytes(5);
                 
                 // get the values from the csv
                 $date = $data[0];
-                $amount = $data[1];
+                $amount = floatval($data[1]);
                 $desc = $data[2];
-                $tid = hash("sha256", $user_id.$date.$amount); // Create a primary key for the upload
+                $statementName = filter_input(INPUT_POST, 'statement', FILTER_SANITIZE_STRING);
+                $tid = hash("sha256", $user_id.$date.$amount.$desc.$account_id.$seed); // Create a primary key for the upload
                 // Insert data into AccountTransaction table
-                $insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, date, amount, `desc`) VALUES (?,?,?,?,?,?)");
-                $insert_stmt->bind_param('siisds', $tid, $user_id, $account_id, $date, $amount, $desc);
+                $insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, date, statementName, amount, `desc`) VALUES (?,?,?,?,?,?,?)");
+                
+                $insert_stmt->bind_param('siissds', $tid, $user_id, $account_id, $date, $statementName, $amount, $desc);
                 // Execute the prepared statement.
                 $insert_stmt->execute();
+                
                 // inc the row
                 $row++;
             }
             fclose($handle);
+            header('Location:../upload_success.php');
         }
     }else{
         echo "<p class='help-block'>Only CSV files can be uploaded</p>";

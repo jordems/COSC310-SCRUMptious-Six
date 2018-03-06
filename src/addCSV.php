@@ -6,14 +6,6 @@ if (login_check($mysqli) == false) {
   // If not logged in then send to login page
   header('Location:index.php');
 }
-$sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
-          $user_id = $_SESSION['user_id'];
-          $sql->bind_param('i', $user_id);
-          $sql->execute();
-          $result = $sql -> get_result();
-          if(empty($result)){
-            header('Location:addCSV.php');
-          }
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +32,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
     <nav>
     <ul>
       <li><a href="#">OVERVIEW</a></li>
-		  <li><a href="addaccount.php">ADD ACCOUNT</a></li>
+      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
       <li><a href="#">PAYMENTS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
@@ -61,42 +53,43 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
         </ul>
     </section>
     <section id="center-noleft">
-    <h1>Analyze your Bank Statements</h1>
-    <?php 
-    $sql2 = $mysqli->prepare("SELECT A.title AS title, AT.statementName AS statementName AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
-    
-    $sql2->bind_param('i', $user_id);
-    $sql2->execute();
-    $result2 = $sql2 -> get_result();
-    while($row2 = $result2->fetch_assoc()){
-      echo "<p><h2>" . $row2['title'] . "</h2>";
-      echo "Statement Name: " . $row2['statementName'] ;
-      echo "   Date: " . $row2['date'] ;
-      echo "   Deposit:" . $row2['amount'] ;
-      echo "   Description:" . $row2['desc'] . "</p>";
-    }
-    
-    ?>
-
-
-    <h2>Add another bank statement</h2>
+    <h1>You don't have any data for anaylsis yet. Upload a bank statement in CSV format to utilize this feature.</h1>
+    <h2>How to format your CSV file:</h2>
+    <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
+    <ul>
+        <li>Column A - date: Use the date format YYY-MM-DD Ex: 2018-01-23</li>
+        <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account in should not have minus signs in front of them</li>
+        <li>Column C - description: The invoice reference, or a brief description.</li>
+    </ul>
+    <h2>Checklist</h2>
+    <p>In your CSV file make sure:</p>
+    <ul>
+        <li>You haven’t included a header row</li>
+        <li>The date format is YYYY-MM-DD Ex: 2018-01-23</li>
+        <li>You've used a single 'amounts' column that contains both money paid out and money paid in</li>
+        <li>There are no commas in your amounts columns</li>
+        <li>You haven't included any quote marks (")</li>
+        <li>Each description is on a single line</li>
+        <li>The file format is .csv (not .xls or .xlsx)</li>
+        <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
+    </ul>
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
-        <input type="text" placeholder="Enter Statement Name" name="statement">
+    <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
           <?php 
-          $sql3 = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
+          $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
           
-          $sql3->bind_param('i', $user_id);
+          $sql->bind_param('i', $user_id);
          
-          $sql3->execute();
-          $result3 = $sql3 -> get_result();
-          if(empty($result3)){
+          $sql->execute();
+          $result = $sql -> get_result();
+          if(empty($result)){
             header('Location:addAccount.php');
           }else{
-          while($row3 = $result3->fetch_assoc()){
-            echo "<option>" . $row3['title'] . "</option>";
+          while($row = $result->fetch_assoc()){
+            echo "<option>" . $row['title'] . "</option>";
           }
         }
           ?>
