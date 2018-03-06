@@ -108,7 +108,7 @@ $user_id = $_SESSION['user_id'];
           $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
 
           if (!empty($error)) {
-              echo '<p class=\"error-msg\">Error transfering Amount.</p>';
+              echo '<p class=\"error-msg\">'.$error.'</p>';
           }
           if (!empty($success)) {
               echo '<p class=\"success-msg\">Transfer Successful!</p>';

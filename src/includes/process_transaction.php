@@ -12,12 +12,23 @@ if (isset($_POST['receivingUsername'], $_POST['amount'])) {
 
     // Make sure that the amount isn't negative
     $amount = abs($amount);
-    if (sendTransaction($receivingUsername, $amount, $mysqli) == true) {
+    switch(sendTransaction($receivingUsername, $amount, $mysqli)) {
+      case 0:
         // Transaction Success
         header('Location: ../transactions.php?success=1');
-    } else {
-        // Transaction Failed
-        header('Location: ../transactions.php?error=1');
+        break;
+      case 1:
+        // Transaction Failed DB error
+        header('Location: ../transactions.php?error=Database Communication Error, Please Contact Us');
+        break;
+      case 2:
+        // Transaction Failed DB error
+        header('Location: ../transactions.php?error=Insufficient funds');
+        break;
+      case 3:
+        // Transaction Failed DB error
+        header('Location: ../transactions.php?error=Username doesn\'t Exist');
+        break;
     }
 } else {
     // The correct POST variables were not sent to this page.
