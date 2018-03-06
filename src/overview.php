@@ -8,6 +8,7 @@ if (login_check($mysqli) == false) {
     // If already Logged in then send to login page
     header('Location:index.php');
 }
+$user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@ if (login_check($mysqli) == false) {
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -44,7 +45,7 @@ if (login_check($mysqli) == false) {
    </div>
 </header>
   <main>
-    <section id="leftColumn">
+    <section id="leftColumn" class="backlight">
       <!-- The latest updates associated with the particular user's account shown here -->
 
         <h2>Latest Updates</h2>
@@ -58,9 +59,8 @@ if (login_check($mysqli) == false) {
         <p><span class="headline">Dec 29, 2017</span> </p>
         <p>Your account with Scrumptious Finance was created!</p>
 
-
     </section>
-    <section id="rightColumn">
+    <section id="rightColumn" class="backlight">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
@@ -70,7 +70,7 @@ if (login_check($mysqli) == false) {
           <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
         </ul>
     </section>
-    <section id="center">
+    <section id="center" class="backlight">
         <h1>Welcome!</h1>
         <p>Some form of info will go here, maybe a graph.</p>
         <p>Some form of info will go here, maybe a graph. Or a jkgklgf,ku,k.</p>
@@ -79,6 +79,10 @@ if (login_check($mysqli) == false) {
         <ul class="btn_more">
           <li><a href="#">More info</a></li>
         </ul>
+        <h2>THIS WILL BE YOU!</h2>
+        <figure>
+          <img src="img/graph.png" alt="graph" id="overview-img">
+        </figure>
     </section>
   <div class="clear"></div>
   </main>

@@ -1,5 +1,4 @@
 <?php
-include_once 'includes/updateUser.php';
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
@@ -9,6 +8,7 @@ if (login_check($mysqli) == false) {
     // If already Logged in then send to login page
     header('Location:index.php');
 }
+$user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@ if (login_check($mysqli) == false) {
    <div id="upper">
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown">
-		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
