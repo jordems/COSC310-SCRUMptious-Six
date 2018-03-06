@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 <!DOCTYPE html>
 <html>
 <head>
-<title>SCRUMptious</title>
+<title>SF - Add CSV</title>
 <meta charset="utf-8">
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />

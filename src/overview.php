@@ -5,7 +5,7 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 if (login_check($mysqli) == false) {
-    // If already Logged in then send to login page
+    // If not Logged in then send to login page
     header('Location:index.php');
 }
 $user_id = $_SESSION['user_id'];
