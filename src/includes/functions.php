@@ -338,7 +338,7 @@ function esc_url($url) {
   function sendTransaction($receivingUsername, $amount, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
-      return false;
+      return 1;
 
     // Query that the sending user has enough money and their account is not frozen
     $stmt = $mysqli->prepare("SELECT wid FROM Wallet WHERE wid = ? and balance >= ? and !isFrozen");
@@ -371,7 +371,7 @@ function esc_url($url) {
 
         if(!$update_stmt->execute()){
           // Problem has Occured removing the balance from sender
-          return false;
+          return 1;
         }
 
         // Update the balance of the receiever
@@ -384,7 +384,7 @@ function esc_url($url) {
           $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
           $update_stmt->bind_param('di', $amount, $user_id);
           $update_stmt->execute();
-          return false;
+          return 1;
         }
 
         date_default_timezone_set("Canada/Pacific"); // So the time taken is PST
@@ -395,12 +395,16 @@ function esc_url($url) {
         $insert_stmt->bind_param('siids', $tid, $user_id, $receivingUser_id, $amount, $timestamp);
             // Execute the prepared statement.
         $insert_stmt->execute();
+        return 0;
 
-
+      }else{
+        return 3;
       }
-      return true;
+
+    }else{
+      return 2;
     }
-    return false;
+
   }
 
   function addAccount($title, $financialinstitution,$type,$balance, $mysqli){
