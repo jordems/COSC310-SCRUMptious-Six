@@ -50,10 +50,8 @@ $user_id = $_SESSION['user_id'];
       <!-- The latest updates associated with the particular user's account shown here -->
 
         <h2>Transactions with other users</h2>
-        <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
         <ul class="transactions">
         <?php
-
         $query = "SELECT * FROM Transaction WHERE fromid = ? or toid = ? ORDER BY datetime DESC LIMIT 8";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('ii', $user_id, $user_id);

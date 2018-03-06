@@ -1,11 +1,14 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
+
 sec_session_start();
+
 if (login_check($mysqli) == false) {
-  // If not logged in then send to login page
-  header('Location:index.php');
+    // If already Logged in then send to login page
+    header('Location:index.php');
 }
+$user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +24,7 @@ if (login_check($mysqli) == false) {
    <img src="images/logo.svg" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn">User's Name</button>
+		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
 			<p><a href="account.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -31,9 +34,9 @@ if (login_check($mysqli) == false) {
    <div id="lower">
     <nav>
     <ul>
-      <li><a href="#">OVERVIEW</a></li>
-      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
-      <li><a href="#">PAYMENTS</a></li>
+      <li><a href="overview.php">OVERVIEW</a></li>
+		  <li><a href="addaccount.php">ADD ACCOUNT</a></li>
+      <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
       <li><a href="calendar.html">CALENDAR</a></li>
@@ -77,12 +80,12 @@ if (login_check($mysqli) == false) {
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
-          <?php 
+          <?php
           $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
-          
+
           $sql->bind_param('i', $user_id);
-         
+
           $sql->execute();
           $result = $sql -> get_result();
           if(empty($result)){
@@ -94,7 +97,7 @@ if (login_check($mysqli) == false) {
         }
           ?>
 				</select></p>
-		
+
     <p><input type="file" name="csv" value="" />
     <input type="submit" name="submit" value="Save" /></p>
     </form>
