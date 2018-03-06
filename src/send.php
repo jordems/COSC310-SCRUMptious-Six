@@ -5,11 +5,12 @@
 <meta charset="utf-8">
 <link href="../css/reset.css" rel="stylesheet" type="text/css" />
 <link href="../css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
 </head>
 <body>
 <header>
    <div id="upper">
-   <img src="images/logo.svg" alt="Logo" id="logo" />
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn">User's Name</button>

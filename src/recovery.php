@@ -15,6 +15,7 @@ if (login_check($mysqli) == true) {
   <meta charset="UTF-8">
 
   <link rel="stylesheet" href="css/login.css">
+  <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
@@ -26,7 +27,7 @@ if (login_check($mysqli) == true) {
     <div class="login-container">
       <div class="login-wrap">
           <figure>
-            <img src="" alt="FinaApp Logo" id="logo">
+            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
             <figcaption>
               <strong class="title">Verification Code Sent</strong>
             </figcaption>

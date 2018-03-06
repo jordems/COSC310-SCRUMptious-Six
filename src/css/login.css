@@ -141,7 +141,7 @@ iframe {
   align-items: center;
   padding: 15px;
 
-  background-color: orangered;
+  background-color: #e18b07;
 
   position: relative;
   z-index: 1;
@@ -200,8 +200,6 @@ iframe {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
   margin: 0 auto;
 }
 
