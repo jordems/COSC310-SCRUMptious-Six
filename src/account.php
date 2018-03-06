@@ -43,18 +43,31 @@ $user_id = $_SESSION['user_id'];
 </header>
 <main>
     <?php
-    //Need to pull users ifo and add to the form field (via value="") so they see their info when accessing profile
-    $sql = "SELECT email, firstName, lastName, address FROM Users Where uid = ?";
+    // Selects current data from User and places it into field
+    $stmt = $mysqli->prepare("SELECT email, firstName, lastName, billingAddress FROM Users Where uid = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+    $stmt->bind_result($email, $firstName, $lastName, $address);
+    $stmt->fetch();
+
     ?>
     <section id="center-nocolumns">
       <form action="includes/updateUser.php" method="post" name="update_form" id="update-form">
           <fieldset>
-                  <legend>Update your Account Information</legend>
-                  <label for="email">Email:</label> <input type="text" name="email" id="email" value=""/>
-                  <label for="firstName">First Name:</label> <input type="text" name="firstName" id="firstName" value=""/>
-                  <label for="lastName">Last Name:</label> <input type="text" name="lastName" id="lastName" value=""/>
-                  <label for="address">Address:</label> <input type="text" name="address" id="address" value=""/>
-                  <input type="submit" value="Update" id="update-submit">
+              <?php
+                  $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+
+                  if (!empty($error)) {
+                      echo '<p class=\"error-msg\">'.$error.'</p>';
+                  }
+              ?>
+              <legend>Update your Account Information</legend>
+              <label for="email">Email:</label> <input type="text" name="email" id="update-email" value="<?php echo $email;?>"/>
+              <label for="firstName">First Name:</label> <input type="text" name="firstName" id="update-firstName" value="<?php echo $firstName;?>"/>
+              <label for="lastName">Last Name:</label> <input type="text" name="lastName" id="update-lastName" value="<?php echo $lastName;?>"/>
+              <label for="address">Address:</label> <input type="text" name="address" id="update-address" value="<?php echo $address;?>"/>
+              <input type="submit" value="Update" id="update-submit">
           </fieldset>
       </form>
     </section>

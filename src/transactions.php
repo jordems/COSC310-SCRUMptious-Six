@@ -92,6 +92,7 @@ $user_id = $_SESSION['user_id'];
               echo "</li>";
             }
             $result -> free();
+            $stmt->close();
           }
 
         ?>
@@ -160,6 +161,7 @@ $user_id = $_SESSION['user_id'];
               echo "</li>";
             }
             $result -> free();
+            $stmt->close();
           }
 
         ?>
