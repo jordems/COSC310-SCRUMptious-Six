@@ -79,6 +79,29 @@ function login($username, $password, $mysqli) {
     }
 }
 
+function getBalance($user_id, $mysqli){
+  $user_id = $_SESSION['user_id'];
+
+  if ($stmt = $mysqli->prepare("SELECT balance
+      FROM Wallet
+     WHERE wid = ?
+      LIMIT 1")) {
+      $stmt->bind_param('i', $user_id);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+
+      // get variables from result.
+      $stmt->bind_result($balance);
+      $stmt->fetch();
+
+      if ($stmt->num_rows == 1) {
+          return $balance;
+      }
+      return -1.0;
+    }
+
+}
+
 function checkbrute($user_id, $mysqli) {
     // Get timestamp of current time
     $now = time();

@@ -2,7 +2,7 @@
 /**
  * These are the database login details
  */
-define("HOST", "localhost");     // The host you want to connect to.
+define("HOST", "scrumptiousfinance.com");     // The host you want to connect to.
 define("USER", "JamesAtWood");    // The database username.
 define("PASSWORD", "Tester");    // The database password.
 define("DATABASE", "Scrumptious");    // The database name.
