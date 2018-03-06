@@ -21,7 +21,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="images/logo.svg" alt="Logo" id="logo" />
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">

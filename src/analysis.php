@@ -26,7 +26,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
   <body>
   <header>
      <div id="upper">
-     <img src="images/logo.svg" alt="Logo" id="logo" />
+     <img src="img/sf_logo.png" alt="Logo" id="logo" />
      <div class="dropdown">
        <!-- Add php to pull user's name and add it here -->
   		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
@@ -61,9 +61,9 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
         </ul>
     </section>
     <section id="center-noleft">
-    <h1>Analyze your Bank Statements</h1>
+    <h1>Analyze your Bank Statements - Coming soon!</h1>
     <?php
-    $sql2 = $mysqli->prepare("SELECT A.title AS title, AT.statementName AS statementName, AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
+    /*$sql2 = $mysqli->prepare("SELECT A.title AS title, AT.statementName AS statementName, AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
 
     $sql2->bind_param('i', $user_id);
     $sql2->execute();
@@ -74,7 +74,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
       echo "   Date: " . $row2['date'] ;
       echo "   Deposit:" . $row2['amount'] ;
       echo "   Description:" . $row2['desc'] . "</p>";
-    }
+    }*/
 
     ?>
 

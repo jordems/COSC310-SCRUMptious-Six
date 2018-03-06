@@ -26,7 +26,7 @@ if (login_check($mysqli) == true) {
     <div class="login-container">
       <div class="login-wrap">
           <figure>
-            <img src="" alt="FinaApp Logo" id="logo">
+            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
           <figcaption>
               <strong class="title">LOG IN</strong>
           </figcaption>

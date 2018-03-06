@@ -9,7 +9,7 @@
 <body>
 <header>
    <div id="upper">
-   <img src="images/logo.svg" alt="Logo" id="logo" />
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn">User's Name</button>
