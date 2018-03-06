@@ -54,10 +54,32 @@ if (login_check($mysqli) == false) {
     </section>
     <section id="center-noleft">
     <h1>Upload Successful</h1>
-    <h2>Upload Another Statement</h2>
-    <form action="includes/upload.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="csv" value="" />
-    <input type="submit" name="submit" value="Save" /></form>
+    <h2>Upload Another Statement or Return to Analysis Tab</h2>
+    <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
+      
+				<label>Select Account</label>
+				<p><select name="Account">
+          <?php 
+          $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
+          $user_id = $_SESSION['user_id'];
+          
+          $sql->bind_param('i', $user_id);
+         
+          $sql->execute();
+          $result = $sql -> get_result();
+          if(empty($result)){
+            header('Location:addAccount.php');
+          }else{
+          while($row = $result->fetch_assoc()){
+            echo "<option>" . $row['title'] . "</option>";
+          }
+        }
+          ?>
+				</select></p>
+		
+    <p><input type="file" name="csv" value="" />
+    <input type="submit" name="submit" value="Save" /></p>
+    </form>
     </section>
   <div class="clear"></div>
   </main>

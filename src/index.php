@@ -10,7 +10,7 @@ if (login_check($mysqli) == true) {
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/login.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -19,7 +19,7 @@ if (login_check($mysqli) == true) {
   <script type="text/javaScript" src="../js/login.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  <title>Scrumptious Finance</title>
+  <title>Login | Scrumptious Finance</title>
 </head>
 <body>
   <div class="limiter">
@@ -31,7 +31,7 @@ if (login_check($mysqli) == true) {
               <strong class="title">LOG IN</strong>
           </figcaption>
           </figure>
-            <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" id="login-form">
+            <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" class="login-form">
                 <div class="input-wrap">
                   <span class="fas fa-user user"></span>
                   <input type="text" name="username" class="input" placeholder="Username">
