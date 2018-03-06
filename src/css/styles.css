@@ -25,12 +25,12 @@ header nav ul li a{color:#40483d;}
 header nav ul li a:hover{color:red;}
 
 /* CONTAINERS */
-main{padding:1px; min-height: 100%; margin-bottom: -8em;}
+main{padding:1px;}
 
 #leftColumn{
   width:25em;
   float:left;
-  height: 45em;
+  height: auto;
   margin-left: 1em;
   margin-top: 0.5em;
   position: relative;
@@ -42,7 +42,7 @@ main{padding:1px; min-height: 100%; margin-bottom: -8em;}
   margin-top: .5em;
   margin-bottom: 5em;
   margin-left: 27em;
-  height: 44em;
+  height: auto;
 }
 #center-noleft{
     margin-right:35em;
@@ -51,17 +51,17 @@ main{padding:1px; min-height: 100%; margin-bottom: -8em;}
 }
 #center-nocolumns{
 width: 100%;
-height: 44em;
+  height: auto;
 }
 #center-nocolumns fieldset{
 width: 50%;
 margin: auto;
-height: 30em;
+  height: auto;
 }
 #rightColumn{
   width:25em;
   float:right;
-  height: 44em;
+  height: auto;
   margin-right: 1em;
   margin-top: 0.5em;
   position: relative;
@@ -97,7 +97,8 @@ height: 30em;
 }
 
 /* FOOTER */
-footer{background-color:#111111; position:relative; bottom:0; width: 100%; height: 5em;
+
+footer{background-color:#111111; position:absolute; bottom:0; width: 100%;
 }
 footer p{padding: 1em 0 0 0; font:10px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
 footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 0.5em }
