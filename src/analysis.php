@@ -18,7 +18,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
   <!DOCTYPE html>
   <html>
   <head>
-  <title>SCRUMptious</title>
+  <title>SF - Analysis</title>
   <meta charset="utf-8">
   <link href="css/reset.css" rel="stylesheet" type="text/css" />
   <link href="css/styles.css" rel="stylesheet" type="text/css" />

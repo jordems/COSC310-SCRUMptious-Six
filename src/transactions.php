@@ -5,7 +5,7 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 if (login_check($mysqli) == false) {
-    // If already Logged in then send to login page
+    // If not already Logged in then send to login page
     header('Location:index.php');
 }
 $user_id = $_SESSION['user_id'];
@@ -15,9 +15,11 @@ $user_id = $_SESSION['user_id'];
 <head>
 <title>SCRUMptious</title>
 <meta charset="utf-8">
-<link href="../css/reset.css" rel="stylesheet" type="text/css" />
-<link href="../css/styles.css" rel="stylesheet" type="text/css" />
+
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 </head>
 <body>
@@ -50,10 +52,10 @@ $user_id = $_SESSION['user_id'];
     <section id="leftColumn">
       <!-- The latest updates associated with the particular user's account shown here -->
 
-        <h2>Transactions with other users</h2>
+        <h2>Recent Transactions with Other SF Users</h2>
         <ul class="transactions">
         <?php
-        $query = "SELECT * FROM Transaction WHERE fromid = ? or toid = ? ORDER BY datetime DESC LIMIT 8";
+        $query = "SELECT * FROM Transaction WHERE fromid = ? or toid = ? ORDER BY datetime DESC LIMIT 7";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('ii', $user_id, $user_id);
             $stmt->execute();    // Execute the prepared query.
@@ -125,10 +127,10 @@ $user_id = $_SESSION['user_id'];
       </form>
     </section>
     <section id="center">
-        <h2>Account Transactions</h2>
+        <h2>Recent Account Transactions</h2>
         <ul class="transactions">
         <?php
-        $query = "SELECT tid, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 5";
+        $query = "SELECT tid, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 4";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('i', $user_id);
             $stmt->execute();    // Execute the prepared query.

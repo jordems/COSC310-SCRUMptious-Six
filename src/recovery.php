@@ -20,7 +20,7 @@ if (login_check($mysqli) == true) {
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
 
-  <title>Recover Password | Scrumptious Finance</title>
+  <title>SF | Recover Password</title>
 </head>
 <body>
 <div class="limiter">
@@ -34,7 +34,7 @@ if (login_check($mysqli) == true) {
           </figure>
 
             <form action="includes/verify_code.php" method="post" class="login-form">
-              
+
                 <?php
                 $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
@@ -54,9 +54,9 @@ if (login_check($mysqli) == true) {
         </div>
       </div>
     </div>
-        
+
       </form>
-    
-  
+
+
 </body>
 </html>

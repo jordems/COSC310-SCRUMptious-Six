@@ -21,7 +21,7 @@ if (login_check($mysqli) == true) {
   <script type="text/javaScript" src="js/forms.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  <title>Forgot Password | Scrumptious Finance</title>
+  <title>SF | Forgot Password</title>
 </head>
 <body>
 <div class="limiter">
@@ -33,9 +33,9 @@ if (login_check($mysqli) == true) {
               <strong class="title">Retrieve Password</strong>
             </figcaption>
           </figure>
-      
+
             <form action="includes/process_forgot.php" method="post" class="login-form">
-             
+
                 <?php
                 $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
@@ -58,8 +58,8 @@ if (login_check($mysqli) == true) {
                   <p><a href="index.php" class="text">Login Page</a></p>
                   <p><a href="contactus.php" class="text">Contact Us</a></p>
                 </div>
-                
-              
+
+
             </form>
         </div>
       </div>

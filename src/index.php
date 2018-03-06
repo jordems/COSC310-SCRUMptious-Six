@@ -20,7 +20,7 @@ if (login_check($mysqli) == true) {
   <script type="text/javaScript" src="../js/login.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  <title>Login | Scrumptious Finance</title>
+  <title>SF | Login</title>
 </head>
 <body>
   <div class="limiter">
@@ -33,6 +33,17 @@ if (login_check($mysqli) == true) {
           </figcaption>
           </figure>
             <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" class="login-form">
+              <?php
+              $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+              $messege = filter_input(INPUT_GET, 'messege', $filter = FILTER_SANITIZE_STRING);
+
+              if (!empty($error)) {
+                  echo '<p class=\"error-msg\">'.$error.'</p>';
+              }
+              if(!empty($messege)){
+                  echo '<p class=\"success-msg\">'.$messege.'</p>';
+              }
+              ?>
                 <div class="input-wrap">
                   <span class="fas fa-user user"></span>
                   <input type="text" name="username" class="input" placeholder="Username">
