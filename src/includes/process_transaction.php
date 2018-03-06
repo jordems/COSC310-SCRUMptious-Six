@@ -15,10 +15,10 @@ if (isset($_POST['receivingUsername'], $_POST['amount'])) {
 
     if (sendTransaction($receivingUsername, $amount, $mysqli) == true) {
         // Transaction Success
-        header('Location: ../send.php?success=1');
+        header('Location: ../transactions.php?success=1');
     } else {
         // Transaction Failed
-        header('Location: ../send.php?error=1');
+        header('Location: ../transactions.php?error=1');
     }
 } else {
     // The correct POST variables were not sent to this page.
