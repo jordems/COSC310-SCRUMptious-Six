@@ -56,7 +56,7 @@ if (login_check($mysqli) == false) {
     <h1>Upload Successful</h1>
     <h2>Upload Another Statement or Return to Analysis Tab</h2>
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
-      
+    <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
           <?php 

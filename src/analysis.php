@@ -63,14 +63,15 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
     <section id="center-noleft">
     <h1>Analyze your Bank Statements</h1>
     <?php 
-    $sql2 = $mysqli->prepare("SELECT A.title AS title, AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
+    $sql2 = $mysqli->prepare("SELECT A.title AS title, AT.statementName AS statementName AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
     
     $sql2->bind_param('i', $user_id);
     $sql2->execute();
     $result2 = $sql2 -> get_result();
     while($row2 = $result2->fetch_assoc()){
       echo "<p><h2>" . $row2['title'] . "</h2>";
-      echo "Date: " . $row2['date'] ;
+      echo "Statement Name: " . $row2['statementName'] ;
+      echo "   Date: " . $row2['date'] ;
       echo "   Deposit:" . $row2['amount'] ;
       echo "   Description:" . $row2['desc'] . "</p>";
     }
@@ -80,7 +81,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
 
     <h2>Add another bank statement</h2>
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
-      
+        <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
           <?php 

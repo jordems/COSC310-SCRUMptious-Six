@@ -32,11 +32,12 @@ if($_FILES['csv']['error'] == 0){
                 $date = $data[0];
                 $amount = floatval($data[1]);
                 $desc = $data[2];
+                $statementName = filter_input(INPUT_POST, 'statement', FILTER_SANITIZE_STRING);
                 $tid = hash("sha256", $user_id.$date.$amount.$desc.$account_id.$seed); // Create a primary key for the upload
                 // Insert data into AccountTransaction table
-                $insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, date, amount, `desc`) VALUES (?,?,?,?,?,?)");
+                $insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, date, statementName, amount, `desc`) VALUES (?,?,?,?,?,?,?)");
                 
-                $insert_stmt->bind_param('siisds', $tid, $user_id, $account_id, $date, $amount, $desc);
+                $insert_stmt->bind_param('siissds', $tid, $user_id, $account_id, $date, $statementName, $amount, $desc);
                 // Execute the prepared statement.
                 $insert_stmt->execute();
                 
