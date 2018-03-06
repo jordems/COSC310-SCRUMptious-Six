@@ -402,3 +402,18 @@ function esc_url($url) {
     }
     return false;
   }
+
+  function addAccount($title, $financialinstitution,$type,$balance, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+      // Insert Account into the db
+    $insert_stmt = $mysqli->prepare("INSERT INTO Account (uid, balance, title, financialinstitution, type) VALUES (?,?,?,?,?)");
+    $insert_stmt->bind_param('idsss', $user_id,$balance, $title, $financialinstitution, $type);
+        // Execute the prepared statement.
+    if($insert_stmt->execute()){
+      return true;
+    }
+    return false;
+  }

@@ -40,7 +40,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
     <nav>
     <ul>
       <li><a href="#">OVERVIEW</a></li>
-      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
+		  <li><a href="addaccount.php">ADD ACCOUNT</a></li>
       <li><a href="#">PAYMENTS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
