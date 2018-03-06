@@ -50,7 +50,6 @@ main{padding:1px; min-height: 100%; margin-bottom: -8em;}
 }
 #center-nocolumns{
 width: 100%;
-margin: auto;
 height: 44em;
 }
 #center-nocolumns fieldset{
@@ -173,17 +172,22 @@ display: block;
 margin-top: 1em;
 margin-bottom: .5em;
 }
-input[type=text], input[type=password], input[type=number]{
+input[type=text], input[type=password], input[type=number], select{
   margin-left: 1em;
   margin: .2em 0;
   padding: .5em;
   border-radius: .3em;
+  width: 100%;
+}
+select{
+  width: 102%;
 }
 #update-submit{
 background-color: #e18b07;
 display: block;
+margin: auto;
 margin-top: 1em;
-width: 10%;
+width: 50%;
 padding: 1em 0;
 }
 #update-submit:hover{

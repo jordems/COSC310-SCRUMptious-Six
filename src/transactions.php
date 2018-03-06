@@ -36,7 +36,7 @@ $user_id = $_SESSION['user_id'];
     <nav>
     <ul>
       <li><a href="overview.php">OVERVIEW</a></li>
-      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
+		  <li><a href="addaccount.php">ADD ACCOUNT</a></li>
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>

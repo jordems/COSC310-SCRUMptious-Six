@@ -8,7 +8,7 @@ if (isset($_POST['receivingUsername'], $_POST['amount'])) {
 
     // Sanitize Data
     $receivingUsername = filter_input(INPUT_POST, 'receivingUsername', FILTER_SANITIZE_STRING);
-    $amount = filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_INT);
+    $amount = filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_FLOAT);
 
     // Make sure that the amount isn't negative
     $amount = abs($amount);
