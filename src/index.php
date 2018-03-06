@@ -1,4 +1,12 @@
-
+<?php
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+sec_session_start();
+if (login_check($mysqli) == true) {
+    // If already Logged in then send to home page
+    header('Location:overview.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
