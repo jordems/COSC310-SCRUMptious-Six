@@ -21,7 +21,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="images/logo.svg" alt="Logo" id="logo" />
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
@@ -61,7 +61,7 @@ $user_id = $_SESSION['user_id'];
     <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
     <ul>
         <li>Column A - date: Use the date format YYY-MM-DD Ex: 2018-01-23</li>
-        <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account in should not have minus signs in front of them</li>
+        <li>Column B - amount: Formatted as 'Number' to 2 decimal places, transactions for money paid out of the bank account should have minus signs in front of them (-) and transactions for money coming into the bank account should not have minus signs in front of them</li>
         <li>Column C - description: The invoice reference, or a brief description.</li>
     </ul>
     <h2>Checklist</h2>

@@ -1,15 +1,4 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
 
-sec_session_start();
-
-if (login_check($mysqli) == false) {
-    // If already Logged in then send to login page
-    header('Location:index.php');
-}
-$user_id = $_SESSION['user_id'];
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +10,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="images/logo.svg" alt="Logo" id="logo" />
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>

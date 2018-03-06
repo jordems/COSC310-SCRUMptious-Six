@@ -18,7 +18,7 @@ ul li{font:12px; color:#40483d; padding:0.5em; margin-left:0.5em; list-style-typ
 header{width:100%; height:150px;  position:relative; margin:0 auto; }
 #upper{height:100px; background-color:#111111;}
 #lower{height:50px; background-color: #e18b07;}
-#logo{position:absolute; top:50px; left:50px;}
+#logo{position:absolute; top:0px; left:30px;}
 header nav ul{padding-top:1.5em;}
 header nav ul li{margin-left:1em; display:inline; padding:2em;}
 header nav ul li a{color:#40483d;}

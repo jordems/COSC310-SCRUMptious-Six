@@ -1,12 +1,4 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
-sec_session_start();
-if (login_check($mysqli) == true) {
-    // If already Logged in then send to home page
-    header('Location:overview.php');
-}
-?>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -26,7 +18,7 @@ if (login_check($mysqli) == true) {
     <div class="login-container">
       <div class="login-wrap">
           <figure>
-            <img src="" alt="FinaApp Logo" id="logo">
+            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
           <figcaption>
               <strong class="title">LOG IN</strong>
           </figcaption>
