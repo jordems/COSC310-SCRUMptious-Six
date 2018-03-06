@@ -8,6 +8,7 @@ include_once 'includes/functions.php';
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/login.css">
+        <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
         <script type="text/javaScript" src="js/sha512.js"></script>
         <script type="text/javaScript" src="js/forms.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>

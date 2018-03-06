@@ -17,6 +17,7 @@ $user_id = $_SESSION['user_id'];
 <meta charset="utf-8">
 <link href="../css/reset.css" rel="stylesheet" type="text/css" />
 <link href="../css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 </head>
 <body>
