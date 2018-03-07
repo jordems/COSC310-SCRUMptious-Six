@@ -60,7 +60,7 @@ $user_id = $_SESSION['user_id'];
                   $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
                   if (!empty($error)) {
-                      echo '<p class=\"error-msg\">'.$error.'</p>';
+                      echo '<p class=\"error-msg\" style\"text-align:center\">'.$error.'</p>';
                   }
               ?>
               <legend>Update your Account Information</legend>

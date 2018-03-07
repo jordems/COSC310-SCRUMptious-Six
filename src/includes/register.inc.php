@@ -87,7 +87,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'], $_POST['firstName'],
             }
 
         }
-        header('Location: ./index.php?messege=Register Successful');
+        header('Location: ./index.php?messege=Registered Successful!');
     }
 }
 ?>

@@ -52,7 +52,7 @@ $user_id = $_SESSION['user_id'];
     <section id="leftColumn">
       <!-- The latest updates associated with the particular user's account shown here -->
 
-        <h2>Recent Transactions with Other SF Users</h2>
+        <h2>Recent On-Site Transactions</h2>
         <ul class="transactions">
         <?php
         $query = "SELECT * FROM Transaction WHERE fromid = ? or toid = ? ORDER BY datetime DESC LIMIT 7";
@@ -114,15 +114,15 @@ $user_id = $_SESSION['user_id'];
               echo '<p class=\"error-msg\">'.$error.'</p>';
           }
           if (!empty($success)) {
-              echo '<p class=\"success-msg\">Transfer Successful!</p>';
+              echo '<p class=\"success-msg\">Transaction Successful!</p>';
           }
           ?>
           <label for="login-user" class="input-title">Send to:</label>
           <span class="fas fa-user user"></span>
-          <input type="text" name="receivingUsername" placeholder="Username"id="send-user">
+          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%">
           <label for="login-user" class="input-title">Amount:</label>
           <span class="fas fa-dollar-sign imgsized"></span>
-          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount">
+          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%">
           <input type="submit" value="Submit" id="send-submit">
       </form>
     </section>
@@ -130,7 +130,7 @@ $user_id = $_SESSION['user_id'];
         <h2>Recent Account Transactions</h2>
         <ul class="transactions">
         <?php
-        $query = "SELECT tid, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 4";
+        $query = "SELECT tid, A.financialinstitution as financialinstitution, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 4";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('i', $user_id);
             $stmt->execute();    // Execute the prepared query.
@@ -142,6 +142,7 @@ $user_id = $_SESSION['user_id'];
             {
               echo "<li class=\"transactions-item\">";
               $tid = $row['tid'];
+              $financialinstitution = $row['financialinstitution'];
               $aid = $row['aid'];
               $date = $row['date'];
               $amount = $row['amount'];
@@ -152,11 +153,11 @@ $user_id = $_SESSION['user_id'];
               $date = strtotime($date);
 
               if($amount >= 0){
-                echo "<p class=\"transactions-title\">".$title."</p>";
+                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
                 echo "<p class=\"transactions-type\">Deposit of $".$amount." on ".date("j F Y", $date)." to ".$type."</p>";
                 echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
               }else {
-                echo "<p class=\"transactions-title\">".$title."</p>";
+                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
                 echo "<p class=\"transactions-type\">Withdrawl of $".abs($amount)." on ".date("j F Y", $date)." from ".$type."</p>";
                 echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
               }

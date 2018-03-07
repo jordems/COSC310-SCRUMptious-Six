@@ -25,7 +25,7 @@ header nav ul li a{color:#40483d;}
 header nav ul li a:hover{color:red;}
 
 /* CONTAINERS */
-main{padding:1px;}
+main{padding:1px; }
 
 #leftColumn{
   width:25em;
@@ -175,7 +175,7 @@ margin-top: 1em;
 margin-bottom: .5em;
 }
 input[type=text], input[type=password], input[type=number], select{
-  margin-left: 1em;
+  margin-left: 2em;
   margin: .2em 0;
   padding: .5em;
   border-radius: .3em;
