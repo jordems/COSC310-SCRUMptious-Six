@@ -86,7 +86,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
 				<label>Select Account</label>
 				<p><select name="Account">
           <?php
-          $sql3 = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
+          $sql3 = $mysqli->prepare("SELECT aid, title FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
 
           $sql3->bind_param('i', $user_id);
@@ -97,7 +97,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
             header('Location:addAccount.php');
           }else{
           while($row3 = $result3->fetch_assoc()){
-            echo "<option>" . $row3['title'] . "</option>";
+            echo "<option value=\"".$row3['aid']."\">" . $row3['title'] . "</option>";
           }
         }
           ?>
