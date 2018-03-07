@@ -1,4 +1,12 @@
-
+<?php
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+sec_session_start();
+if (login_check($mysqli) == false) {
+  // If not logged in then send to login page
+  header('Location:index.php');
+}
+  ?>
 <!DOCTYPE html>
 <html>
 <head>
