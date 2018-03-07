@@ -38,10 +38,10 @@ if (login_check($mysqli) == true) {
               $messege = filter_input(INPUT_GET, 'messege', $filter = FILTER_SANITIZE_STRING);
 
               if (!empty($error)) {
-                  echo '<p class=\"error-msg\">'.$error.'</p>';
+                  echo '<h2 class=\"error-msg\" style="text-align:center;color:red">'.$error.'</h2>';
               }
               if(!empty($messege)){
-                  echo '<p class=\"success-msg\">'.$messege.'</p>';
+                  echo '<h2 class=\"success-msg\" style="text-align:center;color:#3ACC27">'.$messege.'</h2>';
               }
               ?>
                 <div class="input-wrap">

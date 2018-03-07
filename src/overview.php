@@ -71,15 +71,10 @@ $user_id = $_SESSION['user_id'];
     </section>
     <section id="center" class="backlight">
         <h1>Welcome!</h1>
-        <p>Some form of info will go here, maybe a graph.</p>
-        <p>Some form of info will go here, maybe a graph. Or a jkgklgf,ku,k.</p>
-        <p>Some form of info will go here, maybe a graph. How</p>
-        <p>Some form of info will go here, maybe a graph. khf,hf,. hfjf,kjgk. pihkhfj jgfkugfhfjhgfjhgfhjgfhv jgcjhvnhgjfghjhgf jgfjhgjhfhtfyt h,gjkhgfkjgfjhg fh fytjf hgfhfhgfjh fkuyuyhguyhfhgfhgf</p>
-        <ul class="btn_more">
+        <!-- <ul class="btn_more">
           <li><a href="#">More info</a></li>
-        </ul>
-        <h2>THIS WILL BE YOU!</h2>
-        <figure>
+        </ul> -->
+        <figure style="text-align:center">
           <img src="img/graph.png" alt="graph" id="overview-img">
         </figure>
     </section>
