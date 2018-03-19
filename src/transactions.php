@@ -30,7 +30,7 @@ $user_id = $_SESSION['user_id'];
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
-			<p><a href="account.php">Account</a></p>
+			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
 		</div>
 	</div>
@@ -39,7 +39,7 @@ $user_id = $_SESSION['user_id'];
     <nav>
     <ul>
       <li><a href="overview.php">OVERVIEW</a></li>
-		  <li><a href="addaccount.php">ADD ACCOUNT</a></li>
+		  <li><a href="account.php">ACCOUNTS</a></li>
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
