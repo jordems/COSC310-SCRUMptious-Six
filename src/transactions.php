@@ -69,6 +69,7 @@ $user_id = $_SESSION['user_id'];
               $tid = $row['tid'];
               $toid = $row['toid'];
               $fromid = $row['fromid'];
+              $reason = $row['reason'];
               $datetime = $row['datetime'];
               $amount = $row['amount'];
               if($toid == $user_id){
@@ -80,7 +81,7 @@ $user_id = $_SESSION['user_id'];
                 $stmt1->bind_result($username);
                 $stmt1->fetch();
                 echo "<p class=\"transactions-type\">Recieved $".$amount." from ".$username."</p>";
-                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))."</p>";
+                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }else {
                 $stmt1 = $mysqli->prepare("SELECT username FROM Users WHERE uid = ?");
                 $stmt1->bind_param('i', $toid);
@@ -89,7 +90,7 @@ $user_id = $_SESSION['user_id'];
                 $stmt1->bind_result($username);
                 $stmt1->fetch();
                 echo "<p class=\"transactions-type\">Sent $".$amount." to ".$username."</p>";
-                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))."</p>";
+                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }
 
               echo "</li>";
@@ -111,18 +112,43 @@ $user_id = $_SESSION['user_id'];
           $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
 
           if (!empty($error)) {
-              echo '<p class=\"error-msg\">'.$error.'</p>';
+              echo '<p class="error-msg">'.$error.'</p>';
           }
           if (!empty($success)) {
-              echo '<p class=\"success-msg\">Transaction Successful!</p>';
+              echo '<p class="success-msg">Transaction Successful!</p>';
           }
           ?>
           <label for="login-user" class="input-title">Send to:</label>
           <span class="fas fa-user user"></span>
-          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%">
+          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%" required>
           <label for="login-user" class="input-title">Amount:</label>
           <span class="fas fa-dollar-sign imgsized"></span>
-          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%">
+          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%" required>
+          <label for="login-user" class="input-title">Reason:</label>
+          <span class="fas fa-angle-right imgsized"></span>
+          <input list="reason" name="reason" style="width:70%" required>
+          <datalist id="reason">
+            <?php
+            $query = "SELECT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('ii', $user_id, $user_id);
+                $stmt->execute();    // Execute the prepared query.
+
+                $result = $stmt->get_result();
+                // get variables from result.
+
+                while($row = $result->fetch_assoc())
+                {
+                  echo "<option value=\"".$row['reason']."\">";
+                }
+                $result -> free();
+                $stmt->close();
+              }
+            ?>
+            <option value="Bills">
+            <option value="Goods/Entertainment">
+            <option value="Gift">
+          </datalist>
           <input type="submit" value="Submit" id="send-submit">
       </form>
     </section>

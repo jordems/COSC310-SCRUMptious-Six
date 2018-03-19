@@ -335,7 +335,7 @@ function esc_url($url) {
     return false;
   }
 
-  function sendTransaction($receivingUsername, $amount, $mysqli){
+  function sendTransaction($receivingUsername, $amount, $reason, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return 1;
@@ -391,8 +391,8 @@ function esc_url($url) {
         $timestamp = date('Y-m-d G:i:s'); // Current timestamp in mysql format
         $tid = hash("sha256", $user_id.$receivingUser_id.$timestamp); // Create a primary key for the transaction
         // Insert Completed transaction into transaction table
-        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, datetime) VALUES (?,?,?,?,?)");
-        $insert_stmt->bind_param('siids', $tid, $user_id, $receivingUser_id, $amount, $timestamp);
+        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, reason, datetime) VALUES (?,?,?,?,?,?)");
+        $insert_stmt->bind_param('siidss', $tid, $user_id, $receivingUser_id, $amount, $reason, $timestamp);
             // Execute the prepared statement.
         $insert_stmt->execute();
         return 0;
