@@ -15,7 +15,7 @@
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn">User's Name</button>
 		<div class="dropdown-content">
-			<p><a href="account.php">Account</a></p>
+			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
     <nav>
     <ul>
       <li><a href="#">OVERVIEW</a></li>
-      <li><a href="addAccount.html">ADD ACCOUNT</a></li>
+		      <li><a href="account.php">ACCOUNTS</a></li>
       <li><a href="#">PAYMENTS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="#">ANALYSIS</a></li>
