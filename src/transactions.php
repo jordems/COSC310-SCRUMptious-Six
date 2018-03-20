@@ -154,48 +154,55 @@ $user_id = $_SESSION['user_id'];
     </section>
     <section id="center">
         <h2>Recent Account Transactions</h2>
-        <ul class="transactions">
-        <?php
-        $query = "SELECT tid, A.financialinstitution as financialinstitution, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 4";
-        if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();    // Execute the prepared query.
+        <table id="account-table">
+          <tr>
+            <thead>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Reason</th>
+              <th>Date</th>
+              <th>Statement</th>
+            </thead>
+          </tr>
+          <?php
+          $query = "SELECT tid, `date`, amount, `desc`, statementName FROM AccountTransaction WHERE uid = ? ORDER BY date DESC LIMIT 8";
+          if ($stmt = $mysqli->prepare($query)) {
+              $stmt->bind_param('i', $user_id);
+              $stmt->execute();    // Execute the prepared query.
 
-            $result = $stmt->get_result();
-            // get variables from result.
+              $result = $stmt->get_result();
+              // get variables from result.
 
-            while($row = $result->fetch_assoc())
-            {
-              echo "<li class=\"transactions-item\">";
-              $tid = $row['tid'];
-              $financialinstitution = $row['financialinstitution'];
-              $aid = $row['aid'];
-              $date = $row['date'];
-              $amount = $row['amount'];
-              $desc = $row['desc'];
-              $title = $row['title'];
-              $type = $row['type'];
+              while($row = $result->fetch_assoc())
+              {
+                $tid = $row['tid'];
+                $date = $row['date'];
+                $amount = $row['amount'];
+                $desc = $row['desc'];
+                $statementName = $row['statementName'];
+                if($amount > 0){
+                  $type = "Deposit";
+                }else{
+                  $type = "Withdrawl";
+                }
 
-              $date = strtotime($date);
-
-              if($amount >= 0){
-                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
-                echo "<p class=\"transactions-type\">Deposit of $".$amount." on ".date("j F Y", $date)." to ".$type."</p>";
-                echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
-              }else {
-                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
-                echo "<p class=\"transactions-type\">Withdrawl of $".abs($amount)." on ".date("j F Y", $date)." from ".$type."</p>";
-                echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
+                $amount = abs($amount);
+                $date = date("j F Y",  strtotime($date));
+                echo"
+                <tr class=\"$type\">
+                <td>$type</td>
+                <td>"."$ ".number_format($amount, 2)."</td>
+                <td>$desc</td>
+                <td>$date</td>
+                <td>$statementName</td>
+                </tr>
+                ";
               }
-
-              echo "</li>";
+              $result -> free();
+              $stmt->close();
             }
-            $result -> free();
-            $stmt->close();
-          }
-
-        ?>
-        </ul>
+          ?>
+        </table>
     </section>
   <div class="clear"></div>
   </main>
