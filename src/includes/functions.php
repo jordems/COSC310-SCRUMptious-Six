@@ -335,7 +335,7 @@ function esc_url($url) {
     return false;
   }
 
-  function sendTransaction($receivingUsername, $amount, $mysqli){
+  function sendTransaction($receivingUsername, $amount, $reason, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return 1;
@@ -391,8 +391,8 @@ function esc_url($url) {
         $timestamp = date('Y-m-d G:i:s'); // Current timestamp in mysql format
         $tid = hash("sha256", $user_id.$receivingUser_id.$timestamp); // Create a primary key for the transaction
         // Insert Completed transaction into transaction table
-        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, datetime) VALUES (?,?,?,?,?)");
-        $insert_stmt->bind_param('siids', $tid, $user_id, $receivingUser_id, $amount, $timestamp);
+        $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, reason, datetime) VALUES (?,?,?,?,?,?)");
+        $insert_stmt->bind_param('siidss', $tid, $user_id, $receivingUser_id, $amount, $reason, $timestamp);
             // Execute the prepared statement.
         $insert_stmt->execute();
         return 0;
@@ -417,6 +417,40 @@ function esc_url($url) {
     $insert_stmt->bind_param('idsss', $user_id,$balance, $title, $financialinstitution, $type);
         // Execute the prepared statement.
     if($insert_stmt->execute()){
+      return true;
+    }
+    return false;
+  }
+
+  function editAccount($title, $financialinstitution,$type,$balance,$aid, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+      // Insert Account into the db
+    $UPDATE_stmt = $mysqli->prepare("UPDATE Account SET balance = ?, title = ?, financialinstitution = ?, type = ? WHERE aid = ? and uid = ?");
+    $UPDATE_stmt->bind_param('dsssii', $balance, $title, $financialinstitution, $type,$aid, $user_id);
+        // Execute the prepared statement.
+    if($UPDATE_stmt->execute()){
+      return true;
+    }
+    return false;
+  }
+
+  function userHasAccount($user_id, $aid, $mysqli){
+    if($user_id == null)
+      return false;
+
+    $stmt = $mysqli->prepare("SELECT uid FROM Account WHERE uid = ? and aid = ?");
+    $stmt->bind_param('ii', $user_id, $aid);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->bind_result($receivingUser_id);
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows == 1) {
       return true;
     }
     return false;

@@ -69,6 +69,7 @@ $user_id = $_SESSION['user_id'];
               $tid = $row['tid'];
               $toid = $row['toid'];
               $fromid = $row['fromid'];
+              $reason = $row['reason'];
               $datetime = $row['datetime'];
               $amount = $row['amount'];
               if($toid == $user_id){
@@ -80,7 +81,7 @@ $user_id = $_SESSION['user_id'];
                 $stmt1->bind_result($username);
                 $stmt1->fetch();
                 echo "<p class=\"transactions-type\">Recieved $".$amount." from ".$username."</p>";
-                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))."</p>";
+                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }else {
                 $stmt1 = $mysqli->prepare("SELECT username FROM Users WHERE uid = ?");
                 $stmt1->bind_param('i', $toid);
@@ -89,7 +90,7 @@ $user_id = $_SESSION['user_id'];
                 $stmt1->bind_result($username);
                 $stmt1->fetch();
                 echo "<p class=\"transactions-type\">Sent $".$amount." to ".$username."</p>";
-                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))."</p>";
+                echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }
 
               echo "</li>";
@@ -111,65 +112,97 @@ $user_id = $_SESSION['user_id'];
           $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
 
           if (!empty($error)) {
-              echo '<p class=\"error-msg\">'.$error.'</p>';
+              echo '<p class="error-msg">'.$error.'</p>';
           }
           if (!empty($success)) {
-              echo '<p class=\"success-msg\">Transaction Successful!</p>';
+              echo '<p class="success-msg">Transaction Successful!</p>';
           }
           ?>
           <label for="login-user" class="input-title">Send to:</label>
           <span class="fas fa-user user"></span>
-          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%">
+          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%" required>
           <label for="login-user" class="input-title">Amount:</label>
           <span class="fas fa-dollar-sign imgsized"></span>
-          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%">
+          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%" required>
+          <label for="login-user" class="input-title">Reason:</label>
+          <span class="fas fa-angle-right imgsized"></span>
+          <input list="reason" name="reason" style="width:70%" required>
+          <datalist id="reason">
+            <?php
+            $query = "SELECT DISTINCT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('ii', $user_id, $user_id);
+                $stmt->execute();    // Execute the prepared query.
+
+                $result = $stmt->get_result();
+                // get variables from result.
+
+                while($row = $result->fetch_assoc())
+                {
+                  echo "<option value=\"".$row['reason']."\">";
+                }
+                $result -> free();
+                $stmt->close();
+              }
+            ?>
+            <option value="Bills">
+            <option value="Goods/Entertainment">
+            <option value="Gift">
+          </datalist>
           <input type="submit" value="Submit" id="send-submit">
       </form>
     </section>
     <section id="center">
         <h2>Recent Account Transactions</h2>
-        <ul class="transactions">
-        <?php
-        $query = "SELECT tid, A.financialinstitution as financialinstitution, AT.aid as aid, AT.date as date, AT.amount as amount, AT.`desc` as `desc`, A.title as title, A.type as type FROM AccountTransaction as AT, Account as A WHERE AT.aid = A.aid AND AT.uid = ? ORDER BY date DESC LIMIT 4";
-        if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();    // Execute the prepared query.
+        <table id="account-table">
+          <tr>
+            <thead>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Reason</th>
+              <th>Date</th>
+              <th>Statement</th>
+            </thead>
+          </tr>
+          <?php
+          $query = "SELECT tid, `date`, amount, `desc`, statementName FROM AccountTransaction WHERE uid = ? ORDER BY date DESC LIMIT 8";
+          if ($stmt = $mysqli->prepare($query)) {
+              $stmt->bind_param('i', $user_id);
+              $stmt->execute();    // Execute the prepared query.
 
-            $result = $stmt->get_result();
-            // get variables from result.
+              $result = $stmt->get_result();
+              // get variables from result.
 
-            while($row = $result->fetch_assoc())
-            {
-              echo "<li class=\"transactions-item\">";
-              $tid = $row['tid'];
-              $financialinstitution = $row['financialinstitution'];
-              $aid = $row['aid'];
-              $date = $row['date'];
-              $amount = $row['amount'];
-              $desc = $row['desc'];
-              $title = $row['title'];
-              $type = $row['type'];
+              while($row = $result->fetch_assoc())
+              {
+                $tid = $row['tid'];
+                $date = $row['date'];
+                $amount = $row['amount'];
+                $desc = $row['desc'];
+                $statementName = $row['statementName'];
+                if($amount > 0){
+                  $type = "Deposit";
+                }else{
+                  $type = "Withdrawl";
+                }
 
-              $date = strtotime($date);
-
-              if($amount >= 0){
-                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
-                echo "<p class=\"transactions-type\">Deposit of $".$amount." on ".date("j F Y", $date)." to ".$type."</p>";
-                echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
-              }else {
-                echo "<p class=\"transactions-title\">".$title." of ".$financialinstitution."</p>";
-                echo "<p class=\"transactions-type\">Withdrawl of $".abs($amount)." on ".date("j F Y", $date)." from ".$type."</p>";
-                echo "<p class=\"transactions-desc\">Description: ".$desc."</p>";
+                $amount = abs($amount);
+                $date = date("j F Y",  strtotime($date));
+                echo"
+                <tr class=\"$type\">
+                <td>$type</td>
+                <td>"."$ ".number_format($amount, 2)."</td>
+                <td>$desc</td>
+                <td>$date</td>
+                <td>$statementName</td>
+                </tr>
+                ";
               }
-
-              echo "</li>";
+              $result -> free();
+              $stmt->close();
             }
-            $result -> free();
-            $stmt->close();
-          }
-
-        ?>
-        </ul>
+          ?>
+        </table>
     </section>
   <div class="clear"></div>
   </main>
