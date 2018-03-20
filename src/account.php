@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 <!DOCTYPE html>
 <html>
 	<head lang = "en">
-		<title>SF - Add Account</title>
+		<title>SF - Accounts</title>
 		<meta charset="utf-8">
 		<link href="css/reset.css" rel="stylesheet" type="text/css" />
 		<link href="css/styles.css" rel="stylesheet" type="text/css" />
@@ -46,37 +46,94 @@ $user_id = $_SESSION['user_id'];
 		   </div>
 		</header>
 		<main>
-			<section id="center-nocolumns">
-				<form method="post" action="includes/process_addaccount.php" id="addaccount-form">
-					<fieldset>
-						<legend>Add an Account</legend>
-					<label>Title: </label>
-					<input type="text" name="title">
-					<label>Financial Institution:</label>
-					<select name="financialinstitution">
-					<option value="RBC">RBC</option>
-					<option value="HSBC">HSBC</option>
-					<option value="CIBC">CIBC</option>
-					<option value="BMO">BMO</option>
-					<option value="Scotiabank">Scotiabank</option>
-					<option value="Credit Union">Credit Union</option>
-					<option value="TD Bank">TD Bank</option>
-					<option value="Tangerine">Tangerine</option>
-					<option disabled>More soon...</option>
-				</select>
-				<label>Account Type:</label>
-				<select name="type">
-					<option value="Savings Account">Savings Account</option>
-					<option value="Checking Account">Checking Account</option>
-					<option value="RESP Account">RESP Account</option>
-					<option value="RRSP Account">RRSP Account</option>
-				</select>
-				<label>Balance:</label>
-				 <input type="number" name="balance" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00">
-				<button type="submit" value="Submit" id="update-submit">Add Account</button>
-			</fieldset>
-		</form>
-	</section>
+      <section id="leftColumn" class="backlight">
+        <!-- The latest finacial news and events from the world or user's particular area shown here -->
+        <h2 class="centered">Summary</h2>
+        <?php
+        $query = "SELECT SUM(balance) as totalBalance FROM Account WHERE uid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();    // Execute the prepared query.
+            $stmt->store_result();
+            $stmt->bind_result($totalBalance);
+            $stmt->fetch();
+            if ($stmt->num_rows == 1) {
+              if($totalBalance != null)
+                echo "<p class=\"account-summary\">Total Balance: \$$totalBalance</p>";
+              else
+                echo "<p class=\"account-summary\">Total Balance: \$0.00</p>";
+            }
+            $stmt->close();
+          }
+
+          echo "<h3 class=\"account-title\">Last 30 Days:</h2>";
+          $query = "SELECT SUM(amount) as totalDeposits FROM AccountTransaction WHERE amount > 0 AND uid = ? AND date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()";
+          if ($stmt = $mysqli->prepare($query)) {
+              $stmt->bind_param('i', $user_id);
+              $stmt->execute();    // Execute the prepared query.
+              $stmt->store_result();
+              $stmt->bind_result($totalDeposits);
+              $stmt->fetch();
+              if ($stmt->num_rows == 1) {
+                if($totalDeposits != null)
+                  echo "<p class=\"account-summary\">Total Recieved: \$$totalDeposits</p>";
+                else
+                  echo "<p class=\"account-summary\">Total Recieved: \$0.00</p>";
+              }
+              $stmt->close();
+            }
+            // Get the Combination of the Amount spent over all accounts in the last 30 days
+            $query = "SELECT SUM(amount) as totalSpent FROM AccountTransaction WHERE amount < 0 AND uid = ? AND date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('i', $user_id);
+                $stmt->execute();    // Execute the prepared query.
+                $stmt->store_result();
+                $stmt->bind_result($totalSpent);
+                $stmt->fetch();
+                if ($stmt->num_rows == 1) {
+                  if($totalSpent != null){
+                    $totalSpent = abs($totalSpent);
+                    echo "<p class=\"account-summary\">Total Spend: \$$totalSpent</p>";
+                  }else
+                    echo "<p class=\"account-summary\">Total Spend: \$0.00</p>";
+                }
+                $stmt->close();
+              }
+        ?>
+      </section>
+			<section id="center-noright">
+			<h2 id="account-title">Accounts</h2>
+      <a href="addaccount.php" id="new-account-button">New Account</a>
+      <ul>
+        <?php
+        $query = "SELECT aid, title, balance, financialinstitution, type FROM Account WHERE uid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            // get variables from result.
+
+            while($row = $result->fetch_assoc())
+            {
+              $aid = $row['aid'];
+              $title = $row['title'];
+              $balance = $row['balance'];
+              $financialinstitution = $row['financialinstitution'];
+              $type = $row['type'];
+              echo "<a href=\"accountdetails.php?aid=$aid\"><li class=\"account-entry\">";
+              echo "<p class=\"account-title\">$title</p>";
+              echo "<p class=\"account-type\">Balance: \$$balance</p>";
+              echo "<p class=\"account-type\">$type with $financialinstitution</p>";
+              echo "</li></a>";
+            }
+            $result -> free();
+            $stmt->close();
+          }
+
+        ?>
+      </ul>
+	    </section>
 	</main>
 	</body>
 <html>

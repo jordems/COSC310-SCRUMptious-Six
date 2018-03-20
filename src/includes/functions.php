@@ -421,3 +421,22 @@ function esc_url($url) {
     }
     return false;
   }
+
+  function userHasAccount($user_id, $aid, $mysqli){
+    if($user_id == null)
+      return false;
+
+    $stmt = $mysqli->prepare("SELECT uid FROM Account WHERE uid = ? and aid = ?");
+    $stmt->bind_param('ii', $user_id, $aid);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->bind_result($receivingUser_id);
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows == 1) {
+      return true;
+    }
+    return false;
+  }

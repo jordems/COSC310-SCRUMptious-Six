@@ -129,7 +129,7 @@ $user_id = $_SESSION['user_id'];
           <input list="reason" name="reason" style="width:70%" required>
           <datalist id="reason">
             <?php
-            $query = "SELECT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
+            $query = "SELECT DISTINCT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
             if ($stmt = $mysqli->prepare($query)) {
                 $stmt->bind_param('ii', $user_id, $user_id);
                 $stmt->execute();    // Execute the prepared query.
