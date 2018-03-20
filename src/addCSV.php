@@ -20,7 +20,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="img/sf_logo.png" alt="Logo" id="logo" />
+   <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
@@ -38,8 +38,7 @@ $user_id = $_SESSION['user_id'];
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
-      <li><a href="calendar.html">CALENDAR</a></li>
-    </ul>
+		      <li><a href="calendar.php">CALENDAR</a></li>    </ul>
     </nav>
    </div>
 </header>
@@ -68,7 +67,7 @@ $user_id = $_SESSION['user_id'];
               }
               ?>
     <h1>Upload Bank Statements in CSV Format</h1>
-   
+
     <h2>How to format your CSV file:</h2>
     <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
     <ul>
@@ -90,7 +89,7 @@ $user_id = $_SESSION['user_id'];
     </ul>
     <div class="formcontainer">
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
-   
+
     <label>Name Your Statement (Ex: January 2018)</label>
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>

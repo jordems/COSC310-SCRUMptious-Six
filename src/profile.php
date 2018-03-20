@@ -22,7 +22,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="img/sf_logo.png" alt="Logo" id="logo" />
+   <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
@@ -36,8 +36,6 @@ $user_id = $_SESSION['user_id'];
     <ul>
       <li><a href="overview.php">OVERVIEW</a></li>
       <li><a href="profile.php">ACCOUNT</a></li>
-      <li><a href="#">TRANSACTION HISTORY</a></li>
-      <li><a href="#">SETTINGS</a></li>
     </ul>
     </nav>
    </div>
@@ -61,10 +59,10 @@ $user_id = $_SESSION['user_id'];
                   $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
 
                   if (!empty($error)) {
-                      echo '<p class=\"error-msg\" style\"text-align:center\">'.$error.'</p>';
+                      echo '<p class="error-msg" style="text-align:center">'.$error.'</p>';
                   }
                   if (!empty($success)) {
-                      echo '<p class=\"sucess-msg\" style\"text-align:center\">Information Updated!</p>';
+                      echo '<p class="success-msg" style="text-align:center">Information Updated!</p>';
                   }
               ?>
               <legend>Update your Account Information</legend>

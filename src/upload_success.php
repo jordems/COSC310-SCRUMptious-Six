@@ -23,7 +23,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 <header>
    <div id="upper">
-   <img src="img/sf_logo.png" alt="Logo" id="logo" />
+   <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
 		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
@@ -42,7 +42,7 @@ $user_id = $_SESSION['user_id'];
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
-      <li><a href="calendar.html">CALENDAR</a></li>
+      <li><a href="calendar.php">CALENDAR</a></li>
     </ul>
     </nav>
    </div>

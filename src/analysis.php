@@ -42,8 +42,8 @@ $user_id = $_SESSION['user_id'];
         <li><a href="transactions.php">TRANSACTIONS</a></li>
         <li><a href="#">INVESTMENTS</a></li>
         <li><a href="analysis.php">ANALYSIS</a></li>
-        <li><a href="calendar.html">CALENDAR</a></li>
-      </ul>
+		      <li><a href="calendar.php">CALENDAR</a></li>
+              </ul>
       </nav>
      </div>
   </header>
@@ -77,7 +77,7 @@ $user_id = $_SESSION['user_id'];
             "theme": "zune"
         },
         "data": [
-                {"label": "Jan", "value": "4200"}, 
+                {"label": "Jan", "value": "4200"},
                 {"label": "Feb", "value": "8100"},
                 {"label": "Mar", "value": "7200"},
                 {"label": "Apr", "value": "5500"},
@@ -137,7 +137,7 @@ $user_id = $_SESSION['user_id'];
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Bills", "value": "420"}, 
+                    {"label": "Bills", "value": "420"},
                     {"label": "Entertainment", "value": "810"},
                     {"label": "Food", "value": "220"},
                     {"label": "Work/Education", "value": "1550"},

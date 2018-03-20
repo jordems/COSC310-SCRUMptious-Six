@@ -436,6 +436,30 @@ function esc_url($url) {
     }
     return false;
   }
+  function deleteAccount($aid, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+    $remove_stmt = "DELETE FROM AccountTransaction WHERE aid = ? and uid = ?";
+    $stmt = $mysqli->prepare($remove_stmt);
+    // check existing email
+    if ($stmt) {
+        $stmt->bind_param('ii',$aid,$user_id);
+        if($stmt->execute()){
+          $DELETE_stmt = $mysqli->prepare("DELETE FROM Account WHERE aid = ? and uid = ?");
+          $DELETE_stmt->bind_param('ii', $aid, $user_id);
+              // Execute the prepared statement.
+          if($DELETE_stmt->execute()){
+            $DELETE_stmt->close();
+            return true;
+          }
+          $DELETE_stmt->close();
+        }
+    $stmt->close();
+    }
+    return false;
+  }
 
   function userHasAccount($user_id, $aid, $mysqli){
     if($user_id == null)
