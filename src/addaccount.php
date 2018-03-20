@@ -27,7 +27,7 @@ $user_id = $_SESSION['user_id'];
 		     <!-- Add php to pull user's name and add it here -->
 				<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 				<div class="dropdown-content">
-					<p><a href="account.php">Account</a></p>
+					<p><a href="profile.php">Account</a></p>
 					<p><a href="includes/logout.php">Logout</a></p>
 				</div>
 			</div>
@@ -36,7 +36,7 @@ $user_id = $_SESSION['user_id'];
 		    <nav>
 		    <ul>
 		      <li><a href="overview.php">OVERVIEW</a></li>
-		      <li><a href="addaccount.php">ADD ACCOUNT</a></li>
+		      <li><a href="account.php">ACCOUNTS</a></li>
 		      <li><a href="transactions.php">TRANSACTIONS</a></li>
 		      <li><a href="#">INVESTMENTS</a></li>
 		      <li><a href="analysis.php">ANALYSIS</a></li>
@@ -67,12 +67,12 @@ $user_id = $_SESSION['user_id'];
 				<label>Account Type:</label>
 				<select name="type">
 					<option value="Savings Account">Savings Account</option>
-					<option value="Checking Account">Checking Account</option>
+					<option value="Chequing Account">Chequing Account</option>
 					<option value="RESP Account">RESP Account</option>
 					<option value="RRSP Account">RRSP Account</option>
 				</select>
 				<label>Balance:</label>
-				 <input type="number" name="balance" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00">
+				 <input type="number" name="balance" min="0.01" step="0.01" max="999999999.99" placeholder="0.00">
 				<button type="submit" value="Submit" id="update-submit">Add Account</button>
 			</fieldset>
 		</form>

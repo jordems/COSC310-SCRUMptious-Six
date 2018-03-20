@@ -12,70 +12,128 @@ $user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>SF - Edit Profile</title>
-    <meta charset="utf-8">
-    <link href="css/reset.css" rel="stylesheet" type="text/css" />
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
-</head>
-<body>
-<header>
-   <div id="upper">
-   <img src="img/sf_logo.png" alt="Logo" id="logo" />
-   <div class="dropdown">
-		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
-		<div class="dropdown-content">
-			<p><a href="account.php">Account</a></p>
-			<p><a href="includes/logout.php">Logout</a></p>
-		</div>
-	</div>
-   </div>
-   <div id="lower">
-    <nav>
-    <ul>
-      <li><a href="overview.php">OVERVIEW</a></li>
-      <li><a href="account.php">ACCOUNT</a></li>
-      <li><a href="#">TRANSACTION HISTORY</a></li>
-      <li><a href="#">SETTINGS</a></li>
-    </ul>
-    </nav>
-   </div>
-</header>
-<main>
-    <?php
-    // Selects current data from User and places it into field
-    $stmt = $mysqli->prepare("SELECT email, firstName, lastName, billingAddress FROM Users Where uid = ?");
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();    // Execute the prepared query.
-    $stmt->store_result();
-    $stmt->bind_result($email, $firstName, $lastName, $address);
-    $stmt->fetch();
+	<head lang = "en">
+		<title>SF - Accounts</title>
+		<meta charset="utf-8">
+		<link href="css/reset.css" rel="stylesheet" type="text/css" />
+		<link href="css/styles.css" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+		</head>
+		<body>
+		<header>
+		   <div id="upper">
+		   <img src="img/sf_logo.png" alt="Logo" id="logo" />
+		   <div class="dropdown">
+		     <!-- Add php to pull user's name and add it here -->
+				<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
+				<div class="dropdown-content">
+					<p><a href="profile.php">Account</a></p>
+					<p><a href="includes/logout.php">Logout</a></p>
+				</div>
+			</div>
+		   </div>
+		   <div id="lower">
+		    <nav>
+		    <ul>
+		      <li><a href="overview.php">OVERVIEW</a></li>
+		      <li><a href="account.php">ACCOUNTS</a></li>
+		      <li><a href="transactions.php">TRANSACTIONS</a></li>
+		      <li><a href="#">INVESTMENTS</a></li>
+		      <li><a href="analysis.php">ANALYSIS</a></li>
+		      <li><a href="calendar.html">CALENDAR</a></li>
+		    </ul>
+		    </nav>
+		   </div>
+		</header>
+		<main>
+      <section id="leftColumn" class="backlight">
+        <!-- The latest finacial news and events from the world or user's particular area shown here -->
+        <h2 class="centered">Summary</h2>
+        <?php
+        $query = "SELECT SUM(balance) as totalBalance FROM Account WHERE uid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();    // Execute the prepared query.
+            $stmt->store_result();
+            $stmt->bind_result($totalBalance);
+            $stmt->fetch();
+            if ($stmt->num_rows == 1) {
+              if($totalBalance != null)
+                echo "<p class=\"account-summary\">Total Balance: \$$totalBalance</p>";
+              else
+                echo "<p class=\"account-summary\">Total Balance: \$0.00</p>";
+            }
+            $stmt->close();
+          }
 
-    ?>
-    <section id="center-nocolumns">
-      <form action="includes/updateUser.php" method="post" name="update_form" id="update-form">
-          <fieldset>
-              <?php
-                  $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+          echo "<h3 class=\"account-title\">Last 30 Days:</h2>";
+          $query = "SELECT SUM(amount) as totalDeposits FROM AccountTransaction WHERE amount > 0 AND uid = ? AND date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()";
+          if ($stmt = $mysqli->prepare($query)) {
+              $stmt->bind_param('i', $user_id);
+              $stmt->execute();    // Execute the prepared query.
+              $stmt->store_result();
+              $stmt->bind_result($totalDeposits);
+              $stmt->fetch();
+              if ($stmt->num_rows == 1) {
+                if($totalDeposits != null)
+                  echo "<p class=\"account-summary\">Total Recieved: \$$totalDeposits</p>";
+                else
+                  echo "<p class=\"account-summary\">Total Recieved: \$0.00</p>";
+              }
+              $stmt->close();
+            }
+            // Get the Combination of the Amount spent over all accounts in the last 30 days
+            $query = "SELECT SUM(amount) as totalSpent FROM AccountTransaction WHERE amount < 0 AND uid = ? AND date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('i', $user_id);
+                $stmt->execute();    // Execute the prepared query.
+                $stmt->store_result();
+                $stmt->bind_result($totalSpent);
+                $stmt->fetch();
+                if ($stmt->num_rows == 1) {
+                  if($totalSpent != null){
+                    $totalSpent = abs($totalSpent);
+                    echo "<p class=\"account-summary\">Total Spend: \$$totalSpent</p>";
+                  }else
+                    echo "<p class=\"account-summary\">Total Spend: \$0.00</p>";
+                }
+                $stmt->close();
+              }
+        ?>
+      </section>
+			<section id="center-noright">
+			<h2 id="account-title">Accounts</h2>
+      <a href="addaccount.php" id="new-account-button">New Account</a>
+      <ul>
+        <?php
+        $query = "SELECT aid, title, balance, financialinstitution, type FROM Account WHERE uid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();    // Execute the prepared query.
 
-                  if (!empty($error)) {
-                      echo '<p class=\"error-msg\" style\"text-align:center\">'.$error.'</p>';
-                  }
-              ?>
-              <legend>Update your Account Information</legend>
-              <label for="email">Email:</label> <input type="text" name="email" id="update-email" value="<?php echo $email;?>"/>
-              <label for="firstName">First Name:</label> <input type="text" name="firstName" id="update-firstName" value="<?php echo $firstName;?>"/>
-              <label for="lastName">Last Name:</label> <input type="text" name="lastName" id="update-lastName" value="<?php echo $lastName;?>"/>
-              <label for="address">Address:</label> <input type="text" name="address" id="update-address" value="<?php echo $address;?>"/>
-              <input type="submit" value="Update" id="update-submit">
-          </fieldset>
-      </form>
-    </section>
-</main>
-<footer>
-     <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
-     <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
-</footer>
-</body>
-</html>
+            $result = $stmt->get_result();
+            // get variables from result.
+
+            while($row = $result->fetch_assoc())
+            {
+              $aid = $row['aid'];
+              $title = $row['title'];
+              $balance = $row['balance'];
+              $financialinstitution = $row['financialinstitution'];
+              $type = $row['type'];
+              echo "<a href=\"accountdetails.php?aid=$aid\"><li class=\"account-entry\">";
+              echo "<p class=\"account-title\">$title</p>";
+              echo "<p class=\"account-type\">Balance: \$$balance</p>";
+              echo "<p class=\"account-type\">$type with $financialinstitution</p>";
+              echo "</li></a>";
+            }
+            $result -> free();
+            $stmt->close();
+          }
+
+        ?>
+      </ul>
+	    </section>
+	</main>
+	</body>
+<html>
