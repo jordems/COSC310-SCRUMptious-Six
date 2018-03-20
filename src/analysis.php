@@ -40,10 +40,10 @@ $user_id = $_SESSION['user_id'];
         <li><a href="account.php">ACCOUNTS</a></li>
         <li><a href="addCSV.php">BANK STATEMENTS</a></li>
         <li><a href="transactions.php">TRANSACTIONS</a></li>
-        <li><a href="#">INVESTMENTS</a></li>
+        <li><a href="Investments.php">INVESTMENTS</a></li>
         <li><a href="analysis.php">ANALYSIS</a></li>
-		      <li><a href="calendar.php">CALENDAR</a></li>
-              </ul>
+        <li><a href="calendar.php">CALENDAR</a></li>
+      </ul>
       </nav>
      </div>
   </header>
@@ -61,7 +61,7 @@ $user_id = $_SESSION['user_id'];
     <section id="center-noleft" class="backlight">
     <h1>Financial Analysis</h1>
     <?php
-   
+
     $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
     '{
         "chart": {
@@ -107,7 +107,7 @@ $user_id = $_SESSION['user_id'];
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Jan", "value": "920"}, 
+                    {"label": "Jan", "value": "920"},
                     {"label": "Feb", "value": "230"},
                     {"label": "Mar", "value": "520"},
                     {"label": "Apr", "value": "550"},

@@ -50,7 +50,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
           <li><a href="account.php">ACCOUNTS</a></li>
           <li><a href="addCSV.php">BANK STATEMENTS</a></li>
 		      <li><a href="transactions.php">TRANSACTIONS</a></li>
-		      <li><a href="#">INVESTMENTS</a></li>
+          <li><a href="Investments.php">INVESTMENTS</a></li>
 		      <li><a href="analysis.php">ANALYSIS</a></li>
 		      <li><a href="calendar.php">CALENDAR</a></li>
 		    </ul>
