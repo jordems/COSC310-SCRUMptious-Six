@@ -27,7 +27,7 @@ if (login_check($mysqli) == true) {
     <div class="login-container">
       <div class="login-wrap">
           <figure>
-            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
+            <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
             <figcaption>
               <strong class="title">Verification Code Sent</strong>
             </figcaption>

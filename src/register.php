@@ -20,18 +20,18 @@ include_once 'includes/functions.php';
         <div class="login-container">
           <div class="login-wrap">
               <figure>
-                <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
+                <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
                 <figcaption>
                   <strong class="title">REGISTER</strong>
                 </figcaption>
               </figure>
-            
+
                 <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>"
                         class="login-form"
                         method="post"
                         name="registration_form"
                         onsubmit="return regformhash(this, this.username, this.email, this.password, this.confirm, this.firstName, this.lastName, this.address);">
-      
+
                       <?php
                       /*Registration form to be output if the input from user is not
                       Properly formatted. Should only be activated if User is attempting to bypass js.*/
@@ -40,15 +40,15 @@ include_once 'includes/functions.php';
                       }
                       ?>
                       <div class="input-wrap">
-                      
+
                       <input type='text' name='username' placeholder="Username" class="input"/>
                       </div>
                       <div class="input-wrap">
-                      
+
                       <input type="password" name="password" placeholder="Password" class="input">
                       </div>
                       <div class="input-wrap">
-                      
+
                       <input type="password" name="confirm" placeholder="Confirm Password" class="input">
                       </div>
                       <div class="input-wrap">
@@ -69,11 +69,11 @@ include_once 'includes/functions.php';
                       <div id="login-anchors">
                       <p><a href="index.php" class="text">Already have an Account?</a></p>
                       </div>
-                    
+
                 </form>
            </div>
         </div>
      </div>
-    
+
     </body>
 </html>

@@ -27,14 +27,14 @@ if (login_check($mysqli) == true) {
     <div class="login-container">
       <div class="login-wrap">
           <figure>
-            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
+            <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
             <figcaption>
               <strong class="title">Create a New Password</strong>
             </figcaption>
           </figure>
-        
+
             <form action="includes/update_password.php" method="post" onsubmit="formhash(this, this.password);" class="login-form">
-              
+
                 <?
                 $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
 
@@ -55,7 +55,7 @@ if (login_check($mysqli) == true) {
         </div>
       </div>
     </div>
-    
- 
+
+
 </body>
 </html>

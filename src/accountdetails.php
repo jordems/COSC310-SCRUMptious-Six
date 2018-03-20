@@ -52,7 +52,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
 		      <li><a href="transactions.php">TRANSACTIONS</a></li>
 		      <li><a href="#">INVESTMENTS</a></li>
 		      <li><a href="analysis.php">ANALYSIS</a></li>
-		      <li><a href="calendar.html">CALENDAR</a></li>
+		      <li><a href="calendar.php">CALENDAR</a></li>
 		    </ul>
 		    </nav>
 		   </div>
