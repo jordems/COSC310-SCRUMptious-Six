@@ -14,10 +14,10 @@ if (isset($_POST['title'], $_POST['financialinstitution'], $_POST['type'], $_POS
 
     if (addAccount($title, $financialinstitution,$type,$balance, $mysqli) == true) {
         // Account Created
-        header('Location: ../addaccount.php?success=1');
+        header('Location: ../account.php?addsuccess=1');
     } else {
         // Failed
-        header('Location: ../addaccount.php?error=1');
+        header('Location: ../account.php?adderror=1');
     }
 } else {
     // The correct POST variables were not sent to this page.

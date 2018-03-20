@@ -29,7 +29,6 @@ if (isset($_POST['aid'],$_POST['statementName'])) {
 
         if ($stmt->num_rows == 1) {
 
-            // A user with this email address already exists
           $remove_stmt = "DELETE FROM AccountTransaction WHERE aid = ? and statementName = ? and uid = ?";
           $stmt = $mysqli->prepare($remove_stmt);
           // check existing email

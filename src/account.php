@@ -105,6 +105,27 @@ $user_id = $_SESSION['user_id'];
 			<section id="center-noright">
 			<h2 id="account-title">Accounts</h2>
       <a href="addaccount.php" id="new-account-button">New Account</a>
+      <?php
+      $error = filter_input(INPUT_GET, 'deleteerror', $filter = FILTER_SANITIZE_STRING);
+      $success = filter_input(INPUT_GET, 'deletesuccess', $filter = FILTER_SANITIZE_STRING);
+
+      if (!empty($error)) {
+          echo '<p class="error-msg">Error 503</p>';
+      }
+      if (!empty($success)) {
+          echo '<p class="success-msg">Deleted Account!</p>';
+      }
+
+      $error = filter_input(INPUT_GET, 'adderror', $filter = FILTER_SANITIZE_STRING);
+      $success = filter_input(INPUT_GET, 'addsuccess', $filter = FILTER_SANITIZE_STRING);
+
+      if (!empty($error)) {
+          echo '<p class="error-msg">Error 503</p>';
+      }
+      if (!empty($success)) {
+          echo '<p class="success-msg">Added Account!</p>';
+      }
+      ?>
       <ul>
         <?php
         $query = "SELECT aid, title, balance, financialinstitution, type FROM Account WHERE uid = ?";

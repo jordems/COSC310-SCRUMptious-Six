@@ -114,7 +114,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
                 }
           ?>
         </div>
-        <a href="analysis.php">
+        <a href="addCSV.php">
         <div class="backlight">
           <h2 class="centered">Add a Statement</h2>
         </div>
@@ -239,6 +239,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
           }
         ?>
       </table>
+                    <a href="includes/process_deleteaccount.php?aid=<?php echo $aid;?>" id="new-account-button">Delete Account</a>
 	    </section>
 	</main>
 	</body>
