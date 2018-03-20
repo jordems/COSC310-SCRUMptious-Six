@@ -6,7 +6,7 @@ sec_session_start();
 
 if (login_check($mysqli) == false) {
     // If not already Logged in then send to login page
-    header('Location:index.php');
+    header('Location:login.php');
 }
 $user_id = $_SESSION['user_id'];
 ?>

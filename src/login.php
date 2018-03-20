@@ -17,7 +17,7 @@ if (login_check($mysqli) == true) {
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
-  <script type="text/javaScript" src="../js/login.js"></script>
+  <script type="text/javaScript" src="js/login.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
   <title>SF | Login</title>

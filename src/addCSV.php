@@ -1,11 +1,12 @@
 <?php
-/*include_once 'includes/db_connect.php';
+include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
   // If not logged in then send to login page
-  header('Location:index.php');
-}*/
+  header('Location:login.php');
+}
+$user_id = $_SESSION['user_id'];
   ?>
 <!DOCTYPE html>
 <html>
@@ -21,8 +22,7 @@ if (login_check($mysqli) == false) {
    <div id="upper">
    <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
-     <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php /*echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);*/?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
 		<div class="dropdown-content">
 			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -56,7 +56,19 @@ if (login_check($mysqli) == false) {
     </section>
     <section id="center-noleft">
     <div class="csvinstruct backlight">
+    <?php
+              $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+              $message = filter_input(INPUT_GET, 'message', $filter = FILTER_SANITIZE_STRING);
+
+              if (!empty($error)) {
+                  echo '<h2 class=\"error-msg\" style="text-align:center;color:red">'.$error.'</h2>';
+              }
+              if(!empty($message)){
+                  echo '<h2 class=\"success-msg\" style="text-align:center;color:#3ACC27">'.$message.'</h2>';
+              }
+              ?>
     <h1>Upload Bank Statements in CSV Format</h1>
+   
     <h2>How to format your CSV file:</h2>
     <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
     <ul>
@@ -78,11 +90,12 @@ if (login_check($mysqli) == false) {
     </ul>
     <div class="formcontainer">
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
+   
     <label>Name Your Statement (Ex: January 2018)</label>
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
-          <?php/*
+          <?php
           $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
 
@@ -96,7 +109,7 @@ if (login_check($mysqli) == false) {
           while($row = $result->fetch_assoc()){
             echo "<option>" . $row['title'] . "</option>";
           }
-        }*/
+        }
           ?>
 				</select></p>
 

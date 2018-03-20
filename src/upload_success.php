@@ -48,7 +48,7 @@ $user_id = $_SESSION['user_id'];
    </div>
 </header>
 <main>
-    <section id="rightColumn">
+    <section id="rightColumn" class="backlight">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
@@ -58,9 +58,10 @@ $user_id = $_SESSION['user_id'];
           <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
         </ul>
     </section>
-    <section id="center-noleft">
+    <section id="center-noleft" class="backlight">
     <h1>Upload Successful</h1>
-    <h2>Upload Another Statement or Return to Analysis Tab</h2>
+    <h2>Upload Another Statement</h2>
+    <div class="csvinstruct">
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
@@ -84,12 +85,13 @@ $user_id = $_SESSION['user_id'];
 				</select></p>
 
     <p><input type="file" name="csv" value="" />
-    <input type="submit" name="submit" value="Save" /></p>
+    <input type="submit" name="submit" value="Save" class="savebtn"/></p>
     </form>
+      </div>
     </section>
   <div class="clear"></div>
   </main>
-  <footer>
+  <footer class="absolute">
     <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
     <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
   </footer>
