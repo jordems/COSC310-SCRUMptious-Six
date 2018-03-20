@@ -6,7 +6,7 @@ sec_session_start();
 
 if (login_check($mysqli) == false) {
     // If already Logged in then send to login page
-    header('Location:index.php');
+    header('Location:login.php');
 }
 $user_id = $_SESSION['user_id'];
 ?>
@@ -36,7 +36,8 @@ $user_id = $_SESSION['user_id'];
 		    <nav>
 		    <ul>
 		      <li><a href="overview.php">OVERVIEW</a></li>
-		      <li><a href="account.php">ACCOUNTS</a></li>
+          <li><a href="account.php">ACCOUNTS</a></li>
+          <li><a href="addCSV.php">BANK STATEMENTS</a></li>
 		      <li><a href="transactions.php">TRANSACTIONS</a></li>
 		      <li><a href="#">INVESTMENTS</a></li>
 		      <li><a href="analysis.php">ANALYSIS</a></li>
@@ -134,6 +135,10 @@ $user_id = $_SESSION['user_id'];
         ?>
       </ul>
 	    </section>
-	</main>
+  </main>
+  <footer class="absolute">
+    <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
+  </footer>
 	</body>
 <html>

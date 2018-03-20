@@ -1,20 +1,14 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
+include 'includes/fusioncharts.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
   // If not logged in then send to login page
-  header('Location:index.php');
+  header('Location:login.php');
 }
-$sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
-  $user_id = $_SESSION['user_id'];
-  $sql->bind_param('i', $user_id);
-  $sql->execute();
-  $result = $sql -> get_result();
-  if(empty($result)){
-    header('Location:addCSV.php');
-  }
-  ?>
+$user_id = $_SESSION['user_id'];
+?>
   <!DOCTYPE html>
   <html>
   <head>
@@ -23,6 +17,8 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
   <link href="css/reset.css" rel="stylesheet" type="text/css" />
   <link href="css/styles.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+  <script src="js/fusioncharts.js"></script>
+  <script src="js/fusioncharts.charts.js"></script>
   </head>
   <body>
   <header>
@@ -41,7 +37,8 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
       <nav>
       <ul>
         <li><a href="overview.php">OVERVIEW</a></li>
-	      <li><a href="account.php">ACCOUNTS</a></li>
+        <li><a href="account.php">ACCOUNTS</a></li>
+        <li><a href="addCSV.php">BANK STATEMENTS</a></li>
         <li><a href="transactions.php">TRANSACTIONS</a></li>
         <li><a href="#">INVESTMENTS</a></li>
         <li><a href="analysis.php">ANALYSIS</a></li>
@@ -51,7 +48,7 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
      </div>
   </header>
   <main>
-    <section id="rightColumn">
+    <section id="rightColumn" class="backlight">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
@@ -61,51 +58,97 @@ $sql = $mysqli->prepare("SELECT `desc` FROM AccountTransaction WHERE uid = ?");
           <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
         </ul>
     </section>
-    <section id="center-noleft">
-    <h1>Analyze your Bank Statements - Coming soon!</h1>
+    <section id="center-noleft" class="backlight">
+    <h1>Financial Analysis</h1>
     <?php
-    /*$sql2 = $mysqli->prepare("SELECT A.title AS title, AT.statementName AS statementName, AT.date AS date, AT.amount AS amount, AT.`desc` AS `desc` FROM AccountTransaction AS AT, Account AS A WHERE A.aid = AT.aid AND A.uid = ?");
+    $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
+    '{
+        "chart": {
+            "caption": "Monthly Income for Last Year",
+            "bgColor": "#555555",
+            "borderColor": "#666666",
+            "borderThickness": "4",
+            "borderAlpha": "80",
+            "xAxisName": "Month",
+            "yAxisName": "Income",
+            "numberPrefix": "$",
+            "theme": "zune"
+        },
+        "data": [
+                {"label": "Jan", "value": "4200"}, 
+                {"label": "Feb", "value": "8100"},
+                {"label": "Mar", "value": "7200"},
+                {"label": "Apr", "value": "5500"},
+                {"label": "May", "value": "9100"},
+                {"label": "Jun", "value": "5100"},
+                {"label": "Jul", "value": "6800"},
+                {"label": "Aug", "value": "6200"},
+                {"label": "Sep", "value": "6100"},
+                {"label": "Oct", "value": "4900"},
+                {"label": "Nov", "value": "9000"},
+                {"label": "Dec", "value": "7300"}
+            ]
+        }');
 
-    $sql2->bind_param('i', $user_id);
-    $sql2->execute();
-    $result2 = $sql2 -> get_result();
-    while($row2 = $result2->fetch_assoc()){
-      echo "<p><h2>" . $row2['title'] . "</h2>";
-      echo "Statement Name: " . $row2['statementName'] ;
-      echo "   Date: " . $row2['date'] ;
-      echo "   Deposit:" . $row2['amount'] ;
-      echo "   Description:" . $row2['desc'] . "</p>";
-    }*/
+        $columnChart2 = new FusionCharts("Column2D", "secondChart", "100%", 400, "chart-2", "json",
+        '{
+            "chart": {
+                "caption": "Monthly Expenses for Last Year",
+                "bgColor": "#555555",
+                "borderColor": "#666666",
+            "borderThickness": "4",
+            "borderAlpha": "80",
+                "xAxisName": "Month",
+                "yAxisName": "Expenses",
+                "numberPrefix": "$",
+                "theme": "zune"
+            },
+            "data": [
+                    {"label": "Jan", "value": "520"}, 
+                    {"label": "Feb", "value": "830"},
+                    {"label": "Mar", "value": "720"},
+                    {"label": "Apr", "value": "550"},
+                    {"label": "May", "value": "910"},
+                    {"label": "Jun", "value": "510"},
+                    {"label": "Jul", "value": "680"},
+                    {"label": "Aug", "value": "620"},
+                    {"label": "Sep", "value": "610"},
+                    {"label": "Oct", "value": "490"},
+                    {"label": "Nov", "value": "900"},
+                    {"label": "Dec", "value": "730"}
+                ]
+            }');
 
+            $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-3", "json",
+        '{
+            "chart": {
+                "caption": "Transaction Amount per Category",
+                "bgColor": "#555555",
+                "borderColor": "#666666",
+                "borderThickness": "4",
+                "borderAlpha": "80",
+                "xAxisName": "Month",
+                "yAxisName": "Revenues",
+                "numberPrefix": "$",
+                "theme": "zune"
+            },
+            "data": [
+                    {"label": "Bills", "value": "420"}, 
+                    {"label": "Entertainment", "value": "810"},
+                    {"label": "Food", "value": "720"},
+                    {"label": "Work/Education", "value": "550"},
+                    {"label": "Insurance", "value": "910"},
+                    {"label": "Other", "value": "510"}
+                ]
+            }');
+
+      $columnChart->render();
+      $columnChart2->render();
+      $pieChart->render();
     ?>
-
-
-    <h2>Add another bank statement</h2>
-    <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
-        <input type="text" placeholder="Enter Statement Name" name="statement">
-				<label>Select Account</label>
-				<p><select name="Account">
-          <?php
-          $sql3 = $mysqli->prepare("SELECT aid, title FROM Account WHERE uid = ?");
-          $user_id = $_SESSION['user_id'];
-
-          $sql3->bind_param('i', $user_id);
-
-          $sql3->execute();
-          $result3 = $sql3 -> get_result();
-          if(empty($result3)){
-            header('Location:addAccount.php');
-          }else{
-          while($row3 = $result3->fetch_assoc()){
-            echo "<option value=\"".$row3['aid']."\">" . $row3['title'] . "</option>";
-          }
-        }
-          ?>
-				</select></p>
-
-    <p><input type="file" name="csv" value="" />
-    <input type="submit" name="submit" value="Save" /></p>
-    </form>
+    <div id="chart-1"></div>
+    <div id="chart-2"></div>
+    <div id="chart-3"></div>
     </section>
   <div class="clear"></div>
   </main>
