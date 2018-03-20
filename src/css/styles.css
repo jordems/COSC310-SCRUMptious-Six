@@ -3,26 +3,33 @@ body{padding:0; margin:0; background-color:#d9d9cd; color:#40483d; font:12px Tah
 
 .clear {clear: both; margin: 0; height:0}
 
-h1{font-size:18px; color:#646b61; padding:0.5em;}
-h2{font-size:16px; color:#646b61; padding:0.5em;}
+h1{font-size:18px; color:#646b61; padding:0.5em; font-weight: bold;}
+h2{font-size:16px; color:#646b61; padding:0.5em; font-weight: bold;}
 p{color:#40483d; padding:0.5em; font:12px}
 p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
 p a:hover{ color:#40483d; text-decoration:none;}
 ul {margin-left: 0.5em;}
-ul li{font:12px; color:#40483d; padding:0.5em; margin-left:0.5em; list-style-type: none;}
-.headline{font:12px Tahoma, Geneva, sans-serif; color:#e18b07; font-weight:bold}
+ul li{font:12px; color:#40483d; padding:0.5em; list-style-type: none;}
+
+strong{font-weight: bold; color: #40483d}
+em{font-style: italic; color: #40483d}
 
 .help-block{color:red;}
 
 /* HEADER */
 header{width:100%; height:150px;  position:relative; margin:0 auto; }
 #upper{height:100px; background-color:#111111;}
-#lower{height:50px; background-color: #e18b07;}
+#lower{height:50px; background: #BA7306;
+  background: -webkit-linear-gradient(bottom, #B57006, #e18b07);
+  background: -o-linear-gradient(bottom, #B57006, #e18b07);
+  background: -moz-linear-gradient(bottom, #B57006, #e18b07);
+  background: linear-gradient(bottom, #B57006, #e18b07);}
 #logo{position:absolute; top:0px; left:30px;}
 header nav ul{padding-top:1.5em;}
 header nav ul li{margin-left:1em; display:inline; padding:2em;}
 header nav ul li a{color:#40483d;}
 header nav ul li a:hover{color:red;}
+.headline{font:12px Tahoma, Geneva, sans-serif; color:#e18b07; font-weight:bold}
 
 /* CONTAINERS */
 main{padding:1px; }
@@ -50,13 +57,13 @@ main{padding:1px; }
 
 }
 #center-nocolumns{
-width: 100%;
-margin: auto;
+  width: 100%;
+  margin: auto;
   height: auto;
 }
 #center-nocolumns fieldset{
-width: 50%;
-margin: auto;
+  width: 50%;
+  margin: auto;
   height: auto;
 }
 #rightColumn{
@@ -77,12 +84,16 @@ margin: auto;
 #leftColumn h2{margin-bottom:1em;}
 #leftColumn p{margin:0 0 0 0;}
 
+#leftColumn ul li{font:12px Tahoma, sans-serif;}
+#leftColumn ul li a{color:#646b61; text-decoration:underline;}
+#leftColumn ul li a:hover{color:#fff; text-decoration:none; background:#646b61}
+
 
 #spotlight h2{margin-bottom:1em;}
 
 #rightColumn {margin-bottom: 2em;}
 
-#rightColumn ul li{font:12px Tahoma, sans-serif; padding-top: 1em;}
+#rightColumn ul li{font:12px Tahoma, sans-serif;}
 #rightColumn ul li a{color:#646b61; text-decoration:underline;}
 #rightColumn ul li a:hover{color:#fff; text-decoration:none; background:#646b61}
 
@@ -101,7 +112,7 @@ margin: auto;
 
 footer{background-color:#111111; position:absolute; bottom:0; width: 100%; height: 5em;}
 footer p{padding: 1em 0 0 0; font:10px Tahoma, sans-serif; font-weight:normal; text-align:center; color:#d9d9cd;}
-footer p a{font:10px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 0.5em }
+footer p a{font:12px Tahoma, sans-serif; font-weight:normal; color:#d9d9cd; text-decoration:none; padding: 0 0.5em }
 footer p a:hover{text-decoration:none; background:#fff; color:#111}
 #overview-img{
 width: 50%;
@@ -109,7 +120,11 @@ width: 50%;
 
 /*DROPDOWN MENU*/
 .dropbtn {
-    background-color: #e18b07;
+    background: #BA7306;
+    background: -webkit-linear-gradient(bottom, #B57006, #e18b07);
+    background: -o-linear-gradient(bottom, #B57006, #e18b07);
+    background: -moz-linear-gradient(bottom, #B57006, #e18b07);
+    background: linear-gradient(bottom, #B57006, #e18b07);
     color: #40483d;
     padding: 16px;
     font-size: 16px;
@@ -160,6 +175,38 @@ width: 50%;
     background-color: #e18b07;
 }
 
+/*SPECIAL ICONS*/
+.icon1{
+  font-size: 40px;
+  float:left; 
+  padding-right: 0.5em;
+  padding-left: 0.3em;
+  padding-bottom:0.1em;
+}
+
+.icon2{
+  font-size: 40px;
+  float:left; 
+  padding-right: 0.4em;
+  padding-left: 0.3em;
+  padding-bottom:0.1em;
+}
+
+.icon3{
+  font-size: 40px;
+  float:left; 
+  padding-right: 0.3em;
+  padding-left: 0.3em;
+  padding-bottom:0.1em;
+}
+
+.icon4{
+  font-size: 40px;
+  float:left; 
+  padding-right: 0.8em;
+  padding-left: 0.3em;
+  padding-bottom:0.1em;
+}
 /*FORMS*/
 #update-content {
 	margin: auto;

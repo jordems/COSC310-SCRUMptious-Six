@@ -382,7 +382,7 @@ iframe {
   background: -webkit-linear-gradient(bottom, #B57006, #e18b07);
   background: -o-linear-gradient(bottom, #B57006, #e18b07);
   background: -moz-linear-gradient(bottom, #B57006, #e18b07);
-  background: linear-gradient(bottom, #B57006, ##e18b07);
+  background: linear-gradient(bottom, #B57006, #e18b07);
   color:#FFF;
 }
 
