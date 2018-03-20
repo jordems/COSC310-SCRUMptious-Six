@@ -67,26 +67,26 @@ $user_id = $_SESSION['user_id'];
             "caption": "Monthly Income for Last Year",
             "bgColor": "#555555",
             "borderColor": "#666666",
-        "borderThickness": "4",
-        "borderAlpha": "80",
+            "borderThickness": "4",
+            "borderAlpha": "80",
             "xAxisName": "Month",
-            "yAxisName": "Revenues",
+            "yAxisName": "Income",
             "numberPrefix": "$",
             "theme": "zune"
         },
         "data": [
-                {"label": "Jan", "value": "420000"}, 
-                {"label": "Feb", "value": "810000"},
-                {"label": "Mar", "value": "720000"},
-                {"label": "Apr", "value": "550000"},
-                {"label": "May", "value": "910000"},
-                {"label": "Jun", "value": "510000"},
-                {"label": "Jul", "value": "680000"},
-                {"label": "Aug", "value": "620000"},
-                {"label": "Sep", "value": "610000"},
-                {"label": "Oct", "value": "490000"},
-                {"label": "Nov", "value": "900000"},
-                {"label": "Dec", "value": "730000"}
+                {"label": "Jan", "value": "4200"}, 
+                {"label": "Feb", "value": "8100"},
+                {"label": "Mar", "value": "7200"},
+                {"label": "Apr", "value": "5500"},
+                {"label": "May", "value": "9100"},
+                {"label": "Jun", "value": "5100"},
+                {"label": "Jul", "value": "6800"},
+                {"label": "Aug", "value": "6200"},
+                {"label": "Sep", "value": "6100"},
+                {"label": "Oct", "value": "4900"},
+                {"label": "Nov", "value": "9000"},
+                {"label": "Dec", "value": "7300"}
             ]
         }');
 
@@ -99,23 +99,23 @@ $user_id = $_SESSION['user_id'];
             "borderThickness": "4",
             "borderAlpha": "80",
                 "xAxisName": "Month",
-                "yAxisName": "Revenues",
+                "yAxisName": "Expenses",
                 "numberPrefix": "$",
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Jan", "value": "420000"}, 
-                    {"label": "Feb", "value": "810000"},
-                    {"label": "Mar", "value": "720000"},
-                    {"label": "Apr", "value": "550000"},
-                    {"label": "May", "value": "910000"},
-                    {"label": "Jun", "value": "510000"},
-                    {"label": "Jul", "value": "680000"},
-                    {"label": "Aug", "value": "620000"},
-                    {"label": "Sep", "value": "610000"},
-                    {"label": "Oct", "value": "490000"},
-                    {"label": "Nov", "value": "900000"},
-                    {"label": "Dec", "value": "730000"}
+                    {"label": "Jan", "value": "520"}, 
+                    {"label": "Feb", "value": "830"},
+                    {"label": "Mar", "value": "720"},
+                    {"label": "Apr", "value": "550"},
+                    {"label": "May", "value": "910"},
+                    {"label": "Jun", "value": "510"},
+                    {"label": "Jul", "value": "680"},
+                    {"label": "Aug", "value": "620"},
+                    {"label": "Sep", "value": "610"},
+                    {"label": "Oct", "value": "490"},
+                    {"label": "Nov", "value": "900"},
+                    {"label": "Dec", "value": "730"}
                 ]
             }');
 
@@ -125,20 +125,20 @@ $user_id = $_SESSION['user_id'];
                 "caption": "Transaction Amount per Category",
                 "bgColor": "#555555",
                 "borderColor": "#666666",
-            "borderThickness": "4",
-            "borderAlpha": "80",
+                "borderThickness": "4",
+                "borderAlpha": "80",
                 "xAxisName": "Month",
                 "yAxisName": "Revenues",
                 "numberPrefix": "$",
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Bills", "value": "420000"}, 
-                    {"label": "Entertainment", "value": "810000"},
-                    {"label": "Food", "value": "720000"},
-                    {"label": "Work/Education", "value": "550000"},
-                    {"label": "", "value": "910000"},
-                    {"label": "Jun", "value": "510000"}
+                    {"label": "Bills", "value": "420"}, 
+                    {"label": "Entertainment", "value": "810"},
+                    {"label": "Food", "value": "720"},
+                    {"label": "Work/Education", "value": "550"},
+                    {"label": "Insurance", "value": "910"},
+                    {"label": "Other", "value": "510"}
                 ]
             }');
 

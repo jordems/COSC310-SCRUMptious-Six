@@ -96,7 +96,7 @@ $user_id = $_SESSION['user_id'];
 				<label>Select Account</label>
 				<p><select name="Account">
           <?php
-          $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
+          $sql = $mysqli->prepare("SELECT title, aid FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
 
           $sql->bind_param('i', $user_id);
@@ -107,7 +107,7 @@ $user_id = $_SESSION['user_id'];
             header('Location:addAccount.php');
           }else{
           while($row = $result->fetch_assoc()){
-            echo "<option>" . $row['title'] . "</option>";
+            echo "<option value=\"" . $row['aid'] . "\">" . $row['title'] . "</option>";
           }
         }
           ?>
