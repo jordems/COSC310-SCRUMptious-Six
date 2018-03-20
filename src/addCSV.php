@@ -1,11 +1,11 @@
 <?php
-include_once 'includes/db_connect.php';
+/*include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
   // If not logged in then send to login page
   header('Location:index.php');
-}
+}*/
   ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@ if (login_check($mysqli) == false) {
    <img src="img/sf_logo.png" alt="Logo" id="logo" />
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
+		<button class="dropbtn"><?php /*echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);*/?></button>
 		<div class="dropdown-content">
 			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -34,6 +34,7 @@ if (login_check($mysqli) == false) {
     <ul>
       <li><a href="overview.php">OVERVIEW</a></li>
       <li><a href="account.php">ACCOUNTS</a></li>
+      <li><a href="addCSV.php">BANK STATEMENTS</a></li>
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
@@ -43,7 +44,7 @@ if (login_check($mysqli) == false) {
    </div>
 </header>
   <main>
-    <section id="rightColumn">
+    <section id="rightColumn" class="backlight">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
@@ -54,7 +55,8 @@ if (login_check($mysqli) == false) {
         </ul>
     </section>
     <section id="center-noleft">
-    <h1>You don't have any data for anaylsis yet. Upload a bank statement in CSV format to utilize this feature.</h1>
+    <div class="csvinstruct backlight">
+    <h1>Upload Bank Statements in CSV Format</h1>
     <h2>How to format your CSV file:</h2>
     <p>To create a basic CSV to upload to Scrumptious Finance you need to include three columns: date, amount and description.</p>
     <ul>
@@ -74,11 +76,13 @@ if (login_check($mysqli) == false) {
         <li>The file format is .csv (not .xls or .xlsx)</li>
         <li>A character delimiter of comma ',' is being used when you export your CSV file.</li>
     </ul>
+    <div class="formcontainer">
     <form action="includes/upload.php" method="post" enctype="multipart/form-data" class="upload-form">
+    <label>Name Your Statement (Ex: January 2018)</label>
     <input type="text" placeholder="Enter Statement Name" name="statement">
 				<label>Select Account</label>
 				<p><select name="Account">
-          <?php
+          <?php/*
           $sql = $mysqli->prepare("SELECT title FROM Account WHERE uid = ?");
           $user_id = $_SESSION['user_id'];
 
@@ -92,13 +96,15 @@ if (login_check($mysqli) == false) {
           while($row = $result->fetch_assoc()){
             echo "<option>" . $row['title'] . "</option>";
           }
-        }
+        }*/
           ?>
 				</select></p>
 
     <p><input type="file" name="csv" value="" />
-    <input type="submit" name="submit" value="Save" /></p>
+    <input type="submit" name="submit" value="Save" class="savebtn"/></p>
     </form>
+      </div>
+    </div>
     </section>
   <div class="clear"></div>
   </main>

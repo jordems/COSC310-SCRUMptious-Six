@@ -1,13 +1,4 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
-sec_session_start();
-/*if (login_check($mysqli) == false) {
-    // If not Logged in then send to login page
-    header('Location:index.php');
-}*/
-//$user_id = $_SESSION['user_id'];
-?>
+<?php ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +36,8 @@ sec_session_start();
     <nav>
     <ul>
       <li><a href="login.php">OVERVIEW</a></li>
-	  <li><a href="login.php">ADD ACCOUNT</a></li>
+      <li><a href="login.php">ACCOUNTS</a></li>
+      <li><a href="login.php">BANK STATEMENTS</a></li>
       <li><a href="login.php">TRANSACTIONS</a></li>
       <li><a href="login.php">INVESTMENTS</a></li>
       <li><a href="login.php">ANALYSIS</a></li>
