@@ -24,7 +24,8 @@
     <nav>
     <ul>
       <li><a href="#">OVERVIEW</a></li>
-		      <li><a href="account.php">ACCOUNTS</a></li>
+      <li><a href="account.php">ACCOUNTS</a></li>
+      <li><a href="addCSV.php">BANK STATEMENTS</a></li>
       <li><a href="#">PAYMENTS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="#">ANALYSIS</a></li>

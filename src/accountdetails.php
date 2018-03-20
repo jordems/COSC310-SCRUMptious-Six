@@ -6,7 +6,7 @@ sec_session_start();
 if(isset($_GET['aid']))
   $aid = filter_input(INPUT_GET, 'aid', FILTER_SANITIZE_STRING);
 else
-  header('Location:index.php'); // Redirect if no account id is given
+  header('Location:login.php'); // Redirect if no account id is given
 
 if (login_check($mysqli) == false) {
     // If already Logged in then send to login page
@@ -47,7 +47,8 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
 		    <nav>
 		    <ul>
 		      <li><a href="overview.php">OVERVIEW</a></li>
-		      <li><a href="account.php">ACCOUNTS</a></li>
+          <li><a href="account.php">ACCOUNTS</a></li>
+          <li><a href="addCSV.php">BANK STATEMENTS</a></li>
 		      <li><a href="transactions.php">TRANSACTIONS</a></li>
 		      <li><a href="#">INVESTMENTS</a></li>
 		      <li><a href="analysis.php">ANALYSIS</a></li>

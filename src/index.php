@@ -1,73 +1,111 @@
-<?php
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
-sec_session_start();
-if (login_check($mysqli) == true) {
-    // If already Logged in then send to home page
-    header('Location:overview.php');
-}
-?>
+<?php ?>
 <!DOCTYPE html>
 <html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/login.css">
-  <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javaScript" src="js/sha512.js"></script>
-  <script type="text/javaScript" src="js/forms.js"></script>
-  <script type="text/javaScript" src="../js/login.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
-  <title>SF | Login</title>
+<head>
+<title>SCRUMptious</title>
+<meta charset="utf-8">
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+<link href="css/slider.css" rel="stylesheet" type="text/css" media="screen">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+		$('#slider').slider({
+			timeOut: 4000
+		});
+	});
+</script>
 </head>
 <body>
-  <div class="limiter">
-    <div class="login-container">
-      <div class="login-wrap">
-          <figure>
-            <img src="img/sf_logo.png" alt="FinaApp Logo" id="logo">
-          <figcaption>
-              <strong class="title">LOG IN</strong>
-          </figcaption>
-          </figure>
-            <form action="includes/process_login.php" method="post" onsubmit="formhash(this, this.password);" class="login-form">
-              <?php
-              $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
-              $messege = filter_input(INPUT_GET, 'messege', $filter = FILTER_SANITIZE_STRING);
+<header>
+   <div id="upper">
+   <img src="img/sf_logo.png" alt="Logo" id="logo" />
+   <div class="dropdown">
+     <!-- Add php to pull user's name and add it here -->
+		<button class="dropbtn">Guest</button>
+		<div class="dropdown-content">
+			<p><a href="login.php">Log in</a></p>
+			<p><a href="register.php">Register</a></p>
+		</div>
+	</div>
+   </div>
+   <div id="lower">
+    <nav>
+    <ul>
+      <li><a href="login.php">OVERVIEW</a></li>
+      <li><a href="login.php">ACCOUNTS</a></li>
+      <li><a href="login.php">BANK STATEMENTS</a></li>
+      <li><a href="login.php">TRANSACTIONS</a></li>
+      <li><a href="login.php">INVESTMENTS</a></li>
+      <li><a href="login.php">ANALYSIS</a></li>
+      <li><a href="login.php">CALENDAR</a></li>
+    </ul>
+    </nav>
+   </div>
+</header>
+  <main>
+  
+    <section id="leftColumn" class="backlight">
+      <!-- The latest finacial news and events from the world or user's particular area shown here -->
+      <h2>News and Events</h2>
+        <ul>
+          <li><a href="#">False alarm, everything is going to be okay.</a></li>
+          <li><a href="#">The stock market has crashed, the end of the world is near.</a></li>
+          <li><a href="#">A new bank has opened in your area.</a></li>
+          <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
+        </ul>
 
-              if (!empty($error)) {
-                  echo '<h2 class=\"error-msg\" style="text-align:center;color:red">'.$error.'</h2>';
-              }
-              if(!empty($messege)){
-                  echo '<h2 class=\"success-msg\" style="text-align:center;color:#3ACC27">'.$messege.'</h2>';
-              }
-              ?>
-                <div class="input-wrap">
-                  <span class="fas fa-user user"></span>
-                  <input type="text" name="username" class="input" placeholder="Username">
-                </div>
-                <div class="input-wrap">
-                  <span class="fas fa-lock lock"></span>
-                  <input type="password" name="password" class="input" placeholder="Password">
-                </div>
-                <div class="checkbox">
-                  <input class="input-checkbox" id="ckb1" type="checkbox" name="remember-me">
-                  <label class="label-checkbox" for="ckb1">
-                    Remember me
-                  </label>
-                </div>
-                <div class="button-container">
-                <input type="submit" value="Login" class="button">
-                </div>
-                <div id="login-anchors">
-                  <p><a href="forgot.php" class="text">Forgot Password?</a></p>
-                  <p><a href="register.php" class="text">Don't Have an Account?</a></p>
-                </div>
-            </form>
-    </div>
-  </div>
-</div>
+    </section>
+    <section id="rightColumn" class="backlight">
+
+        <h2>Featured Services</h2>
+
+        <span class="far fa-calendar-alt icon1"></span><p><strong>Stay organized by keeping track of your information with our intuitive built-in calendar application.</strong></p>
+        <span class="fas fa-chart-line icon2"></span><p><strong>Upload your financial data to take advantage of our various analytical tools.</strong></p>
+        <span class="fas fa-newspaper icon3"></span><p><strong>Keep up to date with the latest global and local finacial news and events relevant to you.</strong></p>
+        <span class="fas fa-mobile-alt icon4"></span><p><strong>Our site is mobile friendly, so you can use our services everywhere you go!</strong></p>
+        
+    </section>
+    <section id="center" class="backlight">
+        <h1>Welcome!</h1>
+        <div id="slider">
+    <ul id="sliderContent">
+        <li class="sliderImage">
+            <img class="banner" src="img/banner1.png">
+            
+        </li>
+        <li class="sliderImage">
+            <img class="banner" src="img/banner3.png">
+            <span></span>
+        </li>
+        <li class="sliderImage">
+            <img class="banner" src="img/banner2.png">
+            <span></span>
+        </li>
+        <li class="sliderImage">
+            <img class="banner" src="img/banner1.png">
+            <span></span>
+        </li>
+        <li class="sliderImage">
+            <img class="banner" src="img/banner3.png">
+            <span></span>
+        </li>
+        <li class="sliderImage">
+            <img class="banner" src="img/banner2.png">
+            <span></span>
+        </li>
+        <div class="clear sliderImage"></div>
+    </ul>
+   </div>
+    </section>
+  <div class="clear"></div>
+  </main>
+  <footer class="absolute">
+    <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
+  </footer>
 </body>
 </html>

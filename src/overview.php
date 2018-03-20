@@ -1,10 +1,11 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
+include 'includes/fusioncharts.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
     // If not Logged in then send to login page
-    header('Location:index.php');
+    header('Location:login.php');
 }
 $user_id = $_SESSION['user_id'];
 ?>
@@ -16,6 +17,8 @@ $user_id = $_SESSION['user_id'];
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+<script src="js/fusioncharts.js"></script>
+<script src="js/fusioncharts.charts.js"></script>
 </head>
 <body>
 <header>
@@ -35,6 +38,7 @@ $user_id = $_SESSION['user_id'];
     <ul>
       <li><a href="overview.php">OVERVIEW</a></li>
       <li><a href="account.php">ACCOUNTS</a></li>
+      <li><a href="addCSV.php">BANK STATEMENTS</a></li>
       <li><a href="transactions.php">TRANSACTIONS</a></li>
       <li><a href="#">INVESTMENTS</a></li>
       <li><a href="analysis.php">ANALYSIS</a></li>
@@ -70,19 +74,40 @@ $user_id = $_SESSION['user_id'];
         </ul>
     </section>
     <section id="center" class="backlight">
-        <h1>Welcome!</h1>
-        <!-- <ul class="btn_more">
-          <li><a href="#">More info</a></li>
-        </ul> -->
-        <figure style="text-align:center">
-          <img src="img/graph.png" alt="graph" id="overview-img">
-        </figure>
+      <h2>Overview</h2>
+        <?php 
+        $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json",
+        '{
+            "chart": {
+                "caption": "Transaction Amount per Category",
+                "bgColor": "#555555",
+                "borderColor": "#666666",
+                "borderThickness": "4",
+                "borderAlpha": "80",
+                "xAxisName": "Month",
+                "yAxisName": "Revenues",
+                "numberPrefix": "$",
+                "theme": "zune"
+            },
+            "data": [
+                    {"label": "Bills", "value": "420"}, 
+                    {"label": "Entertainment", "value": "810"},
+                    {"label": "Food", "value": "720"},
+                    {"label": "Work/Education", "value": "550"},
+                    {"label": "Insurance", "value": "910"},
+                    {"label": "Other", "value": "510"}
+                ]
+            }');
+
+            $pieChart->render();
+        ?>
+        <div id="chart-1"></div>
     </section>
   <div class="clear"></div>
   </main>
   <footer>
     <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
-    <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>
 </body>
 </html>

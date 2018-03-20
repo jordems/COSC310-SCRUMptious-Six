@@ -6,7 +6,7 @@ sec_session_start();
 
 if (login_check($mysqli) == true) {
     // If already Logged in then send to home page
-    header('Location:index.php');
+    header('Location:login.php');
 }
 ?>
 <!DOCTYPE html>

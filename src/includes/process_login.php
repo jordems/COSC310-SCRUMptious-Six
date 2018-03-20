@@ -15,7 +15,7 @@ if (isset($_POST['username'], $_POST['p'])) {
         header('Location: ../overview.php');
     } else {
         // Login failed
-        header('Location: ../index.php?error=Username or Password Incorrect');
+        header('Location: ../login.php?error=Username or Password Incorrect');
     }
 } else {
     // The correct POST variables were not sent to this page.
