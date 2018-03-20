@@ -53,13 +53,13 @@ $user_id = $_SESSION['user_id'];
 
         <h2>Latest Updates</h2>
         <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
-        <p><span class="headline">Feb 11, 2018</span></p>
-         <p>The value of your Bitcoin investment increased 5%.</p>
-        <p><span class="headline">Jan 21, 2018</span> </p>
-        <p>You deposited $300.00 in your savings account.</p>
-        <p><span class="headline">Jan 1, 2018</span></p>
-         <p>You recieved $1020.00 from John.</p>
-        <p><span class="headline">Dec 29, 2017</span> </p>
+        <p><span class="headline">Mar 11, 2018</span></p>
+         <p>The value of your investment increased $50.00.</p>
+        <p><span class="headline">Mar 9, 2018</span> </p>
+        <p>You deposited $300.00 in your savings account with RBC.</p>
+        <p><span class="headline">Mar 1, 2018</span></p>
+         <p>You recieved $102.00 from jordems.</p>
+        <p><span class="headline">Feb 27, 2018</span> </p>
         <p>Your account with Scrumptious Finance was created!</p>
 
     </section>
@@ -79,11 +79,12 @@ $user_id = $_SESSION['user_id'];
         $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json",
         '{
             "chart": {
-                "caption": "Transaction Amount per Category",
+                "caption": "Transactions - Amount per Category",
                 "bgColor": "#555555",
                 "borderColor": "#666666",
                 "borderThickness": "4",
                 "borderAlpha": "80",
+                "baseFontSize": "12",
                 "xAxisName": "Month",
                 "yAxisName": "Revenues",
                 "numberPrefix": "$",
@@ -92,8 +93,8 @@ $user_id = $_SESSION['user_id'];
             "data": [
                     {"label": "Bills", "value": "420"},
                     {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "720"},
-                    {"label": "Work/Education", "value": "550"},
+                    {"label": "Food", "value": "220"},
+                    {"label": "Work/Education", "value": "1550"},
                     {"label": "Insurance", "value": "910"},
                     {"label": "Other", "value": "510"}
                 ]

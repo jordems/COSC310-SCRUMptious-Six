@@ -61,6 +61,7 @@ $user_id = $_SESSION['user_id'];
     <section id="center-noleft" class="backlight">
     <h1>Financial Analysis</h1>
     <?php
+   
     $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
     '{
         "chart": {
@@ -69,6 +70,7 @@ $user_id = $_SESSION['user_id'];
             "borderColor": "#666666",
             "borderThickness": "4",
             "borderAlpha": "80",
+            "baseFontSize": "12",
             "xAxisName": "Month",
             "yAxisName": "Income",
             "numberPrefix": "$",
@@ -96,25 +98,26 @@ $user_id = $_SESSION['user_id'];
                 "caption": "Monthly Expenses for Last Year",
                 "bgColor": "#555555",
                 "borderColor": "#666666",
-            "borderThickness": "4",
-            "borderAlpha": "80",
+                "borderThickness": "4",
+                "borderAlpha": "80",
+                "baseFontSize": "12",
                 "xAxisName": "Month",
                 "yAxisName": "Expenses",
                 "numberPrefix": "$",
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Jan", "value": "520"},
-                    {"label": "Feb", "value": "830"},
-                    {"label": "Mar", "value": "720"},
+                    {"label": "Jan", "value": "920"}, 
+                    {"label": "Feb", "value": "230"},
+                    {"label": "Mar", "value": "520"},
                     {"label": "Apr", "value": "550"},
-                    {"label": "May", "value": "910"},
-                    {"label": "Jun", "value": "510"},
+                    {"label": "May", "value": "410"},
+                    {"label": "Jun", "value": "110"},
                     {"label": "Jul", "value": "680"},
-                    {"label": "Aug", "value": "620"},
-                    {"label": "Sep", "value": "610"},
+                    {"label": "Aug", "value": "820"},
+                    {"label": "Sep", "value": "310"},
                     {"label": "Oct", "value": "490"},
-                    {"label": "Nov", "value": "900"},
+                    {"label": "Nov", "value": "200"},
                     {"label": "Dec", "value": "730"}
                 ]
             }');
@@ -122,11 +125,12 @@ $user_id = $_SESSION['user_id'];
             $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-3", "json",
         '{
             "chart": {
-                "caption": "Transaction Amount per Category",
+                "caption": "Transactions - Amount per Category",
                 "bgColor": "#555555",
                 "borderColor": "#666666",
                 "borderThickness": "4",
                 "borderAlpha": "80",
+                "baseFontSize": "12",
                 "xAxisName": "Month",
                 "yAxisName": "Revenues",
                 "numberPrefix": "$",
@@ -135,8 +139,8 @@ $user_id = $_SESSION['user_id'];
             "data": [
                     {"label": "Bills", "value": "420"},
                     {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "720"},
-                    {"label": "Work/Education", "value": "550"},
+                    {"label": "Food", "value": "220"},
+                    {"label": "Work/Education", "value": "1550"},
                     {"label": "Insurance", "value": "910"},
                     {"label": "Other", "value": "510"}
                 ]
