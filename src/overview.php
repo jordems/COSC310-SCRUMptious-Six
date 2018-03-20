@@ -54,7 +54,7 @@ $user_id = $_SESSION['user_id'];
         <h2>Latest Updates</h2>
         <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
         <p><span class="headline">Mar 11, 2018</span></p>
-         <p>The value of your investment increased $50.</p>
+         <p>The value of your investment increased $50.00.</p>
         <p><span class="headline">Mar 9, 2018</span> </p>
         <p>You deposited $300.00 in your savings account with RBC.</p>
         <p><span class="headline">Mar 1, 2018</span></p>
