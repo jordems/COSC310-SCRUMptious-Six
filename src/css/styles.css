@@ -28,6 +28,12 @@ ul li{font:12px; color:#40483d; padding:0.5em; margin-left:0.5em; list-style-typ
   font-size: 150%;
   border-radius: .3em;
 }
+.Deposit{
+  background-color: rgba(0,255,0,.1);
+}
+.Withdrawl{
+  background-color: rgba(255,0,0,.1);
+}
 
 /* HEADER */
 header{width:100%; height:150px;  position:relative; margin:0 auto; }
@@ -265,6 +271,11 @@ input[type=submit] {
 #new-account-button:active{
   border: 2px inset orange;
 }
+.edit-button{
+  margin-top: .5em;
+  margin-right: .5em;
+  width: 16em;
+}
 
 /* Transactions */
 ul.transactions, .transactions li, .transactions p{
@@ -297,6 +308,7 @@ ul.transactions, .transactions li, .transactions p{
 
 /*ACCOUNTS*/
 .account-entry{
+  position: relative;
   background-color: #CFCFC3;
   border-radius: .6em;
   border: 2px outset #BDBDB2;

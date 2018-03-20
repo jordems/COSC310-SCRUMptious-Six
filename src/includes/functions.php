@@ -422,6 +422,21 @@ function esc_url($url) {
     return false;
   }
 
+  function editAccount($title, $financialinstitution,$type,$balance,$aid, $mysqli){
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return false;
+
+      // Insert Account into the db
+    $UPDATE_stmt = $mysqli->prepare("UPDATE Account SET balance = ?, title = ?, financialinstitution = ?, type = ? WHERE aid = ? and uid = ?");
+    $UPDATE_stmt->bind_param('dsssii', $balance, $title, $financialinstitution, $type,$aid, $user_id);
+        // Execute the prepared statement.
+    if($UPDATE_stmt->execute()){
+      return true;
+    }
+    return false;
+  }
+
   function userHasAccount($user_id, $aid, $mysqli){
     if($user_id == null)
       return false;

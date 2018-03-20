@@ -159,6 +159,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
 
 
       </section>
+      <a href="editaccount.php?aid=<?php echo $aid;?>" id="new-account-button" class="edit-button">Edit Account</a>
 			<section id="center-noright">
       <ul>
         <?php
@@ -214,15 +215,16 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
               $amount = $row['amount'];
               $desc = $row['desc'];
               $statementName = $row['statementName'];
-              if($amount > 0)
+              if($amount > 0){
                 $type = "Deposit";
-              else
+              }else{
                 $type = "Withdrawl";
+              }
 
               $amount = abs($amount);
               $date = date("j F Y",  strtotime($date));
               echo"
-              <tr>
+              <tr class=\"$type\">
               <td>$type</td>
               <td>"."$ ".number_format($amount, 2)."</td>
               <td>$desc</td>
