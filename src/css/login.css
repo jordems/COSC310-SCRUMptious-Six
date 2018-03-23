@@ -1,0 +1,51 @@
+/*Spacing and Alignment*/
+header{
+  width: 50%;
+  text-align: center;
+  margin: auto;
+}
+#logo {
+  margin-top: 10em;
+}
+#login-content {
+  margin: auto;
+  width: 50em;
+}
+fieldset{
+  margin: 1.5em 0;
+}
+label{
+  display: block;
+  margin-top: 1em;
+  margin-bottom: .2em;
+}
+input{
+  width: 30em;
+}
+input[type=text], input[type=password]{
+  padding: .4em;
+}
+.input-title{
+  margin-left: 1em;
+}
+input[type=submit] {
+  display: inline-block;
+}
+#login-anchors{
+  margin: .4em;
+}
+footer{
+  text-align: center;
+}
+#bottom-dir li{
+  display: inline;
+}
+
+/*Text Related CSS*/
+body  {
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+  font-size: 1.5em;
+}
+input[type=text], input[type=password]{
+  font-size: 1.5em;
+}

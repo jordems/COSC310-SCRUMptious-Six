@@ -6,6 +6,8 @@ getNowCalendarPar();
 
 
 
+var yearShow ="20000";
+var monthoShow = "13";
 
 function Init_Info_Form(Year, Month) {
   var str = '';
@@ -16,6 +18,8 @@ function Init_Info_Form(Year, Month) {
   str += "<input class='button' type='button' value='Next Year' Onclick='Nex_Year(" + Year + "," + Month + ")'></input>";
   var objDom1 = document.getElementById('aa');
   objDom1.innerHTML = str;
+	yearShow = Year;
+	monthoShow = Month;
 }
 
 
@@ -197,6 +201,37 @@ function showText() {
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
         oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
+		
+		event.preventDefault();
+						alert("The form was submitted");
+						var comment = document.getElementById("comment").value;
+			if(comment){
+				alert("this is comment");
+				$.ajax
+			({
+				type: 'post',
+				url: 'post_comments.php',
+			data: 
+			{
+					user_comm:comment,
+					user_id:1
+	     
+			},
+				success: function (response) 
+			{
+				alert("after success");
+				console.log("hi");
+				oDiv.innerHTML=response + oDiv.innerHTML;
+				
+       
+  
+			}
+			});
+						}
+		
+		
+	
+		
       };
 		
 			table.rows[i].cells[j].onclick = function () {
