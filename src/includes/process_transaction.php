@@ -22,11 +22,11 @@ if (isset($_POST['receivingUsername'], $_POST['amount'], $_POST['reason'])) {
         header('Location: ../transactions.php?error=Database Communication Error, Please Contact Us');
         break;
       case 2:
-        // Transaction Failed DB error
+        // Transaction Failed Insufficient Funds error
         header('Location: ../transactions.php?error=Insufficient funds');
         break;
       case 3:
-        // Transaction Failed DB error
+        // Transaction Failed Username Doesn't Exist error
         header('Location: ../transactions.php?error=Username doesn\'t Exist');
         break;
     }

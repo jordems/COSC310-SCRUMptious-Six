@@ -1,10 +1,11 @@
 
-
 getWeekName();
 getNowCalendarPar();
 
 
 
+var yearShow ="20000";
+var monthoShow = "13";
 
 function Init_Info_Form(Year, Month) {
   var str = '';
@@ -15,6 +16,8 @@ function Init_Info_Form(Year, Month) {
   str += "<input class='button' type='button' value='Next Year' Onclick='Nex_Year(" + Year + "," + Month + ")'></input>";
   var objDom1 = document.getElementById('aa');
   objDom1.innerHTML = str;
+	yearShow = Year;
+	monthoShow = Month;
 }
 
 
@@ -164,10 +167,15 @@ window.onload = function showText1() {
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
         oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
+			//oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " ,<?php echo $greting ?> : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
+
       };
-      table.rows[i].cells[j].onclick = function () {
-			openModal();
-      };
+
+			table.rows[i].cells[j].onclick = function () {
+
+					openModal();
+
+			};
 
     }
   }
@@ -183,7 +191,7 @@ function showText() {
 
 
   // table rows
-  for (var i = 1; i < table.rows.length; i++) {
+	 for (var i = 0; i < table.rows.length; i++) {
     // row cells
     for (var j = 0; j < table.rows[i].cells.length; j++) {
       table.rows[i].cells[j].onmouseover = function () {
@@ -191,7 +199,45 @@ function showText() {
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
         oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
+
+		event.preventDefault();
+						alert("The form was submitted");
+						var comment = document.getElementById("comment").value;
+			if(comment){
+				alert("this is comment");
+				$.ajax
+			({
+				type: 'post',
+				url: 'post_comments.php',
+			data:
+			{
+					user_comm:comment,
+					user_id:1
+
+			},
+				success: function (response)
+			{
+				alert("after success");
+				console.log("hi");
+				oDiv.innerHTML=response + oDiv.innerHTML;
+
+
+
+			}
+			});
+						}
+
+
+
+
       };
+
+			table.rows[i].cells[j].onclick = function () {
+
+					openModal();
+
+			};
+
     }
   }
 
@@ -244,25 +290,6 @@ $('select[name=outcome]').change(function() {
             .attr('value', newValue)
             .insertBefore($('option[value=]', this));
         $(this).val(newValue);
-		
+
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

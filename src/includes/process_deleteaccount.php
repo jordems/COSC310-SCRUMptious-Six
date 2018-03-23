@@ -22,7 +22,7 @@ if (isset($_GET['aid'])) {
     }
 
     if (deleteAccount($aid, $mysqli) == true) {
-        // Account Created
+        // Account Deleted
         header('Location: ../account.php?deletesuccess=1');
     } else {
         // Failed
