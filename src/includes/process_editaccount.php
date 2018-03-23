@@ -14,7 +14,7 @@ if (isset($_POST['title'], $_POST['financialinstitution'], $_POST['type'], $_POS
     $aid = filter_input(INPUT_POST,'aid' ,FILTER_SANITIZE_NUMBER_INT);
 
     if (editAccount($title, $financialinstitution,$type,$balance,$aid, $mysqli) == true) {
-        // Account Created
+        // Account Edited
         header('Location: ../editaccount.php?aid='.$aid.'&success=1');
     } else {
         // Failed

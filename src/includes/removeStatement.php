@@ -19,8 +19,8 @@ if (isset($_POST['aid'],$_POST['statementName'])) {
 
     $prep_stmt = "SELECT statementName FROM AccountTransaction WHERE aid = ? and statementName = ? and uid = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
-    // check existing email
 
+    // Query to Find if the Statment requesting deletion exists
     if ($stmt) {
 
         $stmt->bind_param('isi',$aid,$statementName,$user_id);
@@ -28,13 +28,14 @@ if (isset($_POST['aid'],$_POST['statementName'])) {
         $stmt->store_result();
 
         if ($stmt->num_rows == 1) {
-
+          // Delete Statment
           $remove_stmt = "DELETE FROM AccountTransaction WHERE aid = ? and statementName = ? and uid = ?";
           $stmt = $mysqli->prepare($remove_stmt);
-          // check existing email
+
           if ($stmt) {
               $stmt->bind_param('isi',$aid,$statementName,$user_id);
               $stmt->execute();
+              // Deletion Success
               header('Location: ../accountdetails.php?aid='.$aid.'&success=1');
           $stmt->close();
         }
@@ -43,6 +44,7 @@ if (isset($_POST['aid'],$_POST['statementName'])) {
     }
 }
 }else{
+    // Database Error
     header('Location: ../accountdetails.php?aid='.$aid.'&error=Error 503');
   }
 
