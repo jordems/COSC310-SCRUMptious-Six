@@ -119,7 +119,7 @@ $user_id = $_SESSION['user_id'];
           }
           ?>
           <form method="POST" action="includes/changeMainAccount.php">
-            <select name="account" id="acc" required>
+            <select name="account" id="acc" style="width:100%" required>
               <?php
               $query = "SELECT aid, title, balance FROM Account WHERE aid = (SELECT mainAcc FROM Users WHERE uid = ?);";
               if ($stmt = $mysqli->prepare($query)) {
@@ -179,10 +179,10 @@ $user_id = $_SESSION['user_id'];
       $success = filter_input(INPUT_GET, 'addsuccess', $filter = FILTER_SANITIZE_STRING);
 
       if (!empty($error)) {
-          echo '<p class="error-msg">Error 503</p>';
+          echo '<p class="error-msg" style="margin-left:1em">Error 503</p>';
       }
       if (!empty($success)) {
-          echo '<p class="success-msg">Added Account!</p>';
+          echo '<p class="success-msg" style="margin-left:1em">Added Account!</p>';
       }
       ?>
       <ul>
@@ -223,9 +223,9 @@ $user_id = $_SESSION['user_id'];
       </ul>
 	    </section>
   </main>
-  <footer class="absolute">
+  <!--<footer class="absolute">
     <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
     <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
-  </footer>
+  </footer> -->
 	</body>
 <html>
