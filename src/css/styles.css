@@ -211,7 +211,7 @@ width: 50%;
 /*SPECIAL ICONS*/
 .icon1{
   font-size: 40px;
-  float:left; 
+  float:left;
   padding-right: 0.5em;
   padding-left: 0.3em;
   padding-bottom:0.1em;
@@ -219,7 +219,7 @@ width: 50%;
 
 .icon2{
   font-size: 40px;
-  float:left; 
+  float:left;
   padding-right: 0.4em;
   padding-left: 0.3em;
   padding-bottom:0.1em;
@@ -227,7 +227,7 @@ width: 50%;
 
 .icon3{
   font-size: 40px;
-  float:left; 
+  float:left;
   padding-right: 0.3em;
   padding-left: 0.3em;
   padding-bottom:0.1em;
@@ -235,7 +235,7 @@ width: 50%;
 
 .icon4{
   font-size: 40px;
-  float:left; 
+  float:left;
   padding-right: 0.8em;
   padding-left: 0.3em;
   padding-bottom:0.1em;
@@ -394,7 +394,7 @@ ul.transactions, .transactions li, .transactions p{
 }
 #account-table td, #account-table th{
   text-align: right;
-  font-size: 170%;
+  font-size: 130%;
   color:#40483d;
   padding: .5em;
   border-bottom: 1px solid #BDBDB2;
