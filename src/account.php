@@ -25,7 +25,7 @@ $user_id = $_SESSION['user_id'];
 		   <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
 		   <div class="dropdown">
 		     <!-- Add php to pull user's name and add it here -->
-				<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
 				<div class="dropdown-content">
 					<p><a href="profile.php">Account</a></p>
 					<p><a href="includes/logout.php">Logout</a></p>
@@ -47,16 +47,17 @@ $user_id = $_SESSION['user_id'];
 		   </div>
 		</header>
 		<main>
-      <section id="leftColumn" class="backlight">
+      <section id="leftColumn">
         <!-- The latest finacial news and events from the world or user's particular area shown here -->
+        <div class="backlight">
         <h2 class="centered">Summary</h2>
         <?php
-        $query = "SELECT SUM(balance) as totalBalance FROM Account WHERE uid = ?";
+        $query = "SELECT SUM(balance) as totalBalance, COUNT(aid) FROM Account WHERE uid = ?";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('i', $user_id);
             $stmt->execute();    // Execute the prepared query.
             $stmt->store_result();
-            $stmt->bind_result($totalBalance);
+            $stmt->bind_result($totalBalance, $numAccount);
             $stmt->fetch();
             if ($stmt->num_rows == 1) {
               if($totalBalance != null)
@@ -101,7 +102,65 @@ $user_id = $_SESSION['user_id'];
                 $stmt->close();
               }
         ?>
+      </div>
+      <?php if($numAccount > 0) { ?>
+        <div class="backlight">
+          <h2 class="centered" style="margin-bottom:0;">Set Main Account</h2>
+          <p class="centered"><em>(For Recieving Money)</em></p>
+          <?php
+          $error = filter_input(INPUT_GET, 'mainaccerror', $filter = FILTER_SANITIZE_STRING);
+          $success = filter_input(INPUT_GET, 'mainaccsuccess', $filter = FILTER_SANITIZE_STRING);
+
+          if (!empty($error)) {
+              echo '<p class="error-msg">'.$error.'</p>';
+          }
+          if (!empty($success)) {
+              echo '<p class="success-msg">Main Account Changed</p>';
+          }
+          ?>
+          <form method="POST" action="includes/changeMainAccount.php">
+            <select name="account" id="acc" required>
+              <?php
+              $query = "SELECT aid, title, balance FROM Account WHERE aid = (SELECT mainAcc FROM Users WHERE uid = ?);";
+              if ($stmt = $mysqli->prepare($query)) {
+                  $stmt->bind_param('i', $user_id);
+                  $stmt->execute();    // Execute the prepared query.
+
+                  $result = $stmt->get_result();
+                  // get variables from result.
+
+                  if($row = $result->fetch_assoc())
+                  {
+                    $mainacc = $row['aid'];
+                    echo "<option value=\"".$row['aid']."\" selected>".$row['title']." | \$".$row['balance']."</option>";
+                  }
+                  $result -> free();
+                  $stmt->close();
+                }
+              $query = "SELECT aid, title, balance FROM Account WHERE uid = ? and aid != ?";
+              if ($stmt = $mysqli->prepare($query)) {
+                  $stmt->bind_param('ii', $user_id,$mainacc);
+                  $stmt->execute();    // Execute the prepared query.
+
+                  $result = $stmt->get_result();
+                  // get variables from result.
+
+                  while($row = $result->fetch_assoc())
+                  {
+                    echo "<option value=\"".$row['aid']."\">".$row['title']." | \$".$row['balance']."</option>";
+                  }
+                  $result -> free();
+                  $stmt->close();
+                }
+              ?>
+            </select>
+            <input type="submit" value="Update" id="send-submit">
+
+          </form>
+        </div>
+      <?php } ?>
       </section>
+
 			<section id="center-noright">
 			<h2 id="account-title">Accounts</h2>
       <a href="addaccount.php" id="new-account-button">New Account</a>
@@ -135,24 +194,31 @@ $user_id = $_SESSION['user_id'];
 
             $result = $stmt->get_result();
             // get variables from result.
+            $hasAccount = FALSE;
+              while($row = $result->fetch_assoc())
+              {
+                $hasAccount = TRUE;
+                $aid = $row['aid'];
+                $title = $row['title'];
+                $balance = $row['balance'];
+                $financialinstitution = $row['financialinstitution'];
+                $type = $row['type'];
+                echo "<a href=\"accountdetails.php?aid=$aid\"><li class=\"account-entry\">";
+                echo "<p class=\"account-title\">$title</p>";
+                echo "<p class=\"account-type\">Balance: \$$balance</p>";
+                echo "<p class=\"account-type\">$type with $financialinstitution</p>";
+                echo "</li></a>";
+              }
 
-            while($row = $result->fetch_assoc())
-            {
-              $aid = $row['aid'];
-              $title = $row['title'];
-              $balance = $row['balance'];
-              $financialinstitution = $row['financialinstitution'];
-              $type = $row['type'];
-              echo "<a href=\"accountdetails.php?aid=$aid\"><li class=\"account-entry\">";
-              echo "<p class=\"account-title\">$title</p>";
-              echo "<p class=\"account-type\">Balance: \$$balance</p>";
-              echo "<p class=\"account-type\">$type with $financialinstitution</p>";
-              echo "</li></a>";
-            }
-            $result -> free();
-            $stmt->close();
-          }
-
+              if(!$hasAccount){
+                echo "
+                <a href=\"addaccount.php\">
+                <li class=\"account-entry\"><p class=\"account-title\">Create an Account so you can Start Sending / Recieving Money</p></li>
+                </a>";
+              }
+              $result -> free();
+              $stmt->close();
+        }
         ?>
       </ul>
 	    </section>

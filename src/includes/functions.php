@@ -79,29 +79,6 @@ function login($username, $password, $mysqli) {
     }
 }
 
-function getBalance($user_id, $mysqli){
-  $user_id = $_SESSION['user_id'];
-
-  if ($stmt = $mysqli->prepare("SELECT balance
-      FROM Wallet
-     WHERE wid = ?
-      LIMIT 1")) {
-      $stmt->bind_param('i', $user_id);
-      $stmt->execute();    // Execute the prepared query.
-      $stmt->store_result();
-
-      // get variables from result.
-      $stmt->bind_result($balance);
-      $stmt->fetch();
-
-      if ($stmt->num_rows == 1) {
-          return $balance;
-      }
-      return -1.0;
-    }
-
-}
-
 function checkbrute($user_id, $mysqli) {
     // Get timestamp of current time
     $now = time();
@@ -335,39 +312,51 @@ function esc_url($url) {
     return false;
   }
 
-  function sendTransaction($receivingUsername, $amount, $reason, $mysqli){
+  function sendTransaction($receivingUsername, $amount, $reason, $account, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
-      return 1;
+      return 5;
 
+    // Make sure that the account belongs to logged in User
     // Query that the sending user has enough money and their account is not frozen
-    $stmt = $mysqli->prepare("SELECT wid FROM Wallet WHERE wid = ? and balance >= ? and !isFrozen");
-    $stmt->bind_param('sd', $user_id, $amount);
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and uid = ?");
+    $stmt->bind_param('ii', $account, $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows != 1) {
+      return 5;
+    }
+
+    // Query that the sending user has enough money
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and balance >= ?");
+    $stmt->bind_param('id', $account, $amount);
     $stmt->execute();    // Execute the prepared query.
     $stmt->store_result();
 
-    $stmt->bind_result($receivingUser_id);
     $stmt->fetch();
 
     // if the sending user has enough balance then:
     if ($stmt->num_rows == 1) {
 
-      // Query that the  "$receivingUsername" exists in the database
-      $stmt = $mysqli->prepare("SELECT uid FROM Users WHERE username = ?");
+      // Query that the  "$receivingUsername" exists in the database and Has an Account to send the money too
+      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE username = ? and (mainAcc IS NOT NULL or mainAcc != -1)");
       $stmt->bind_param('s', $receivingUsername);
       $stmt->execute();    // Execute the prepared query.
       $stmt->store_result();
 
       // get variables from result.
-      $stmt->bind_result($receivingUser_id);
+      $stmt->bind_result($receiving_Account);
       $stmt->fetch();
 
-      // if the "$receivingUsername" exists in the database then:
+      // if the "$receivingUsername" exists and has an account in the database then:
       if ($stmt->num_rows == 1) {
 
         // Remove the balance from the sender first
-        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance - ? WHERE wid = ?");
-        $update_stmt->bind_param('di', $amount, $user_id);
+        $update_stmt = $mysqli->prepare("UPDATE Account SET balance = balance - ? WHERE aid = ?");
+        $update_stmt->bind_param('di', $amount, $account);
 
         if(!$update_stmt->execute()){
           // Problem has Occured removing the balance from sender
@@ -375,32 +364,27 @@ function esc_url($url) {
         }
 
         // Update the balance of the receiever
-        $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
-        $update_stmt->bind_param('di', $amount, $receivingUser_id);
+        $update_stmt = $mysqli->prepare("UPDATE Account SET balance = balance + ? WHERE aid = ?");
+        $update_stmt->bind_param('di', $amount, $receiving_Account);
 
         if(!$update_stmt->execute()){
-          /* Problem has Occured adding the balance to the receiver
-          *  Therefore, we must reimburse the sender*/
-          $update_stmt = $mysqli->prepare("UPDATE Wallet SET balance = balance + ? WHERE wid = ?");
-          $update_stmt->bind_param('di', $amount, $user_id);
-          $update_stmt->execute();
+          // Error Occured
           return 1;
         }
 
         date_default_timezone_set("Canada/Pacific"); // So the time taken is PST
         $timestamp = date('Y-m-d G:i:s'); // Current timestamp in mysql format
-        $tid = hash("sha256", $user_id.$receivingUser_id.$timestamp); // Create a primary key for the transaction
+        $tid = hash("sha256", $account.$receiving_Account.$timestamp); // Create a primary key for the transaction
         // Insert Completed transaction into transaction table
         $insert_stmt = $mysqli->prepare("INSERT INTO Transaction (tid, fromid, toid, amount, reason, datetime) VALUES (?,?,?,?,?,?)");
-        $insert_stmt->bind_param('siidss', $tid, $user_id, $receivingUser_id, $amount, $reason, $timestamp);
+        $insert_stmt->bind_param('siidss', $tid, $account, $receiving_Account, $amount, $reason, $timestamp);
             // Execute the prepared statement.
         $insert_stmt->execute();
+        $mysqli->commit();
         return 0;
-
       }else{
         return 3;
       }
-
     }else{
       return 2;
     }
@@ -411,12 +395,35 @@ function esc_url($url) {
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return false;
+    // Check if the user has an accounts already, if not make this account their main account
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE uid = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
 
+    $stmt->fetch();
+
+    $hasAccount = false;
+    if ($stmt->num_rows == 1) {
+      $hasAccount = true;
+    }
       // Insert Account into the db
     $insert_stmt = $mysqli->prepare("INSERT INTO Account (uid, balance, title, financialinstitution, type) VALUES (?,?,?,?,?)");
     $insert_stmt->bind_param('idsss', $user_id,$balance, $title, $financialinstitution, $type);
         // Execute the prepared statement.
     if($insert_stmt->execute()){
+      //If this is the users first account make it their Main Account
+      if(!$hasAccount){
+        $aid = mysql_insert_id();
+        $update_sql = "UPDATE Users SET mainAcc = ? WHERE uid = ?";
+        $stmt = $mysqli->prepare($update_sql);
+        if ($stmt) {
+          $stmt->bind_param('ii',$aid,$user_id);
+          $stmt->execute();
+          $stmt->close();
+        }
+      }
+
       return true;
     }
     return false;
@@ -441,6 +448,17 @@ function esc_url($url) {
     if($user_id == null)
       return false;
 
+    $stmt = $mysqli->prepare("SELECT uid FROM Users WHERE mainAcc = ? and uid = ?");
+    $stmt->bind_param('ii',$aid, $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->fetch();
+
+    $isMainAccount = false;
+    if ($stmt->num_rows == 1) {
+      $isMainAccount = true;
+    }
     $remove_stmt = "DELETE FROM AccountTransaction WHERE aid = ? and uid = ?";
     $stmt = $mysqli->prepare($remove_stmt);
     // check existing email
@@ -452,6 +470,28 @@ function esc_url($url) {
               // Execute the prepared statement.
           if($DELETE_stmt->execute()){
             $DELETE_stmt->close();
+
+            if($isMainAccount){
+              // Must change current Main Account
+              $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE uid = ?");
+              $stmt->bind_param('i',$user_id);
+              $stmt->execute();    // Execute the prepared query.
+              $stmt->store_result();
+              $stmt->bind_result($aid);
+              $stmt->fetch();
+
+              if ($stmt->num_rows == 0) {
+                $aid = -1;
+              }
+              $update_sql = "UPDATE Users SET mainAcc = ? WHERE uid = ?";
+              $stmt = $mysqli->prepare($update_sql);
+
+              if ($stmt) {
+                  $stmt->bind_param('ii',$aid,$user_id);
+                  $stmt->execute();
+                  $stmt->close();
+              }
+            }
             return true;
           }
           $DELETE_stmt->close();
