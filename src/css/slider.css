@@ -1,13 +1,13 @@
 #slider {
-    width: 100%; /* important to be same as image width */
-    height: 100%; /* important to be same as image height */
+    width: 100%; 
+    height: 100%; 
     margin-bottom:30px;
     position: relative; 
     overflow: hidden; 
 }
  
 #sliderContent {
-    width: 100%; /* important to be same as image width or wider */
+    width: 100%; 
     position: relative; 
     top: 0; 
     margin-left: 0; 
@@ -33,7 +33,7 @@
     background-color: #000;
     text-align:center;
     
-    /*Opacity of black box that pops down*/
+    /*Opacity of black box that pops down (not currently in use) */
     filter: alpha(opacity=70); 
     -moz-opacity: 0.7; 
     -khtml-opacity: 0.7; 

@@ -61,7 +61,7 @@ $user_id = $_SESSION['user_id'];
     <section id="center-noleft" class="backlight">
     <h1>Financial Analysis</h1>
     <?php
-
+    // Pull user statement data from database, convert to JSON, add to data section of charts
     $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
     '{
         "chart": {
@@ -150,6 +150,7 @@ $user_id = $_SESSION['user_id'];
       $columnChart2->render();
       $pieChart->render();
     ?>
+    <!-- containers for inserting charts -->
     <div id="chart-1"></div>
     <div id="chart-2"></div>
     <div id="chart-3"></div>

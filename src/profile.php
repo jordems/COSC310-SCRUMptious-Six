@@ -75,7 +75,7 @@ $user_id = $_SESSION['user_id'];
       </form>
     </section>
 </main>
-<footer>
+<footer class="absolute">
      <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
      <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
 </footer>

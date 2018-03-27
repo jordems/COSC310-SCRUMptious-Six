@@ -50,9 +50,7 @@ $user_id = $_SESSION['user_id'];
   <main>
     <section id="leftColumn" class="backlight">
       <!-- The latest updates associated with the particular user's account shown here -->
-
         <h2>Latest Updates</h2>
-        <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
         <p><span class="headline">Mar 11, 2018</span></p>
          <p>The value of your investment increased $50.00.</p>
         <p><span class="headline">Mar 9, 2018</span> </p>
@@ -76,6 +74,7 @@ $user_id = $_SESSION['user_id'];
     <section id="center" class="backlight">
       <h2>Overview</h2>
         <?php
+        // Pull user statement data from database, convert to JSON, add to data section of charts
         $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json",
         '{
             "chart": {
