@@ -13,7 +13,7 @@ if (isset($_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['addr
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header('Location: /../account.php?error=Improper Email Format');
+        header('Location: /../profile.php?error=Improper Email Format');
         exit(0);
     }
 
@@ -87,7 +87,7 @@ if (isset($_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['addr
 
 
   }else{
-      header('Location: ../account.php?error=Empty Text Fields');
+      header('Location: ../profile.php?error=Empty Text Fields');
   }
 
 ?>

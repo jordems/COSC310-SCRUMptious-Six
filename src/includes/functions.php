@@ -414,17 +414,22 @@ function esc_url($url) {
     if($insert_stmt->execute()){
       //If this is the users first account make it their Main Account
       if(!$hasAccount){
-        $aid = mysql_insert_id();
+        $aid = mysqli_insert_id($mysqli);
         $update_sql = "UPDATE Users SET mainAcc = ? WHERE uid = ?";
         $stmt = $mysqli->prepare($update_sql);
         if ($stmt) {
           $stmt->bind_param('ii',$aid,$user_id);
           $stmt->execute();
           $stmt->close();
-        }
-      }
 
-      return true;
+          $mysqli->commit();
+          return true;
+        }
+      }else{
+        $mysqli->commit();
+        return true;
+      }
+      return false;
     }
     return false;
   }
