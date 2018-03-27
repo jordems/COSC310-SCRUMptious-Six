@@ -9,7 +9,7 @@ type="text/javascript"></script>
 margin-top : 10px;
 margin-left: auto;
 margin-right: auto;
-width : 440px;
+width : 100%;
 font-size: 12px;
 color: #9CADD0;
 }
