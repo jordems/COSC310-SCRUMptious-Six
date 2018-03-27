@@ -5,6 +5,7 @@ body{padding:0; margin:0; background-color:#d9d9cd; color:#40483d; font:12px Tah
 
 h1{font-size:18px; color:#646b61; padding:0.5em; font-weight: bold;}
 h2{font-size:16px; color:#646b61; padding:0.5em; font-weight: bold;}
+h2 a{font-size:16px; color:#646b61; padding:0.5em; padding-left:0; font-weight: bold;}
 h3{font-size:14px; color:rgba(0,0,0,.8); padding:0.3em; padding-left: .5em;}
 p{color:#40483d; padding:0.5em; font:12px}
 p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
@@ -394,7 +395,7 @@ ul.transactions, .transactions li, .transactions p{
 }
 #account-table td, #account-table th{
   text-align: right;
-  font-size: 170%;
+  font-size: 130%;
   color:#40483d;
   padding: .5em;
   border-bottom: 1px solid #BDBDB2;

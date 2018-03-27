@@ -36,7 +36,7 @@ include_once 'includes/functions.php';
                       /*Registration form to be output if the input from user is not
                       Properly formatted. Should only be activated if User is attempting to bypass js.*/
                       if (!empty($error_msg)) {
-                          echo $error_msg;
+                          echo '<h2 class="error-msg">'.$error_msg.'</h2>';
                       }
                       ?>
                       <div class="input-wrap">
@@ -67,7 +67,7 @@ include_once 'includes/functions.php';
                       <input type="submit" value="Register" class="button">
                       </div>
                       <div id="login-anchors">
-                      <p><a href="index.php" class="text">Already have an Account?</a></p>
+                      <p><a href="login.php" class="text">Already have an Account?</a></p>
                       </div>
 
                 </form>
