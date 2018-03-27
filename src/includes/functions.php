@@ -81,7 +81,7 @@ function login($username, $password, $mysqli) {
 
 function getBalance($user_id, $mysqli){
   $user_id = $_SESSION['user_id'];
-
+  
   if ($stmt = $mysqli->prepare("SELECT balance
       FROM Wallet
      WHERE wid = ?
