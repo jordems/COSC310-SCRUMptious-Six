@@ -395,7 +395,7 @@ ul.transactions, .transactions li, .transactions p{
 }
 #account-table td, #account-table th{
   text-align: right;
-  font-size: 170%;
+  font-size: 130%;
   color:#40483d;
   padding: .5em;
   border-bottom: 1px solid #BDBDB2;
