@@ -12,6 +12,8 @@ if (isset($_POST['title'], $_POST['financialinstitution'], $_POST['type'], $_POS
     $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
     $balance = filter_input(INPUT_POST,'balance' ,FILTER_SANITIZE_NUMBER_FLOAT);
 
+    $mysqli->autocommit(FALSE);
+
     if (addAccount($title, $financialinstitution,$type,$balance, $mysqli) == true) {
         // Account Created
         header('Location: ../account.php?addsuccess=1');
@@ -19,6 +21,8 @@ if (isset($_POST['title'], $_POST['financialinstitution'], $_POST['type'], $_POS
         // Failed
         header('Location: ../account.php?adderror=1');
     }
+    $mysqli->autocommit(TRUE);
+    $mysqli->close();
 } else {
     // The correct POST variables were not sent to this page.
     echo 'Invalid Request';
