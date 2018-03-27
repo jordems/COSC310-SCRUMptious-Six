@@ -28,7 +28,7 @@ $user_id = $_SESSION['user_id'];
    <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
 		<div class="dropdown-content">
 			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>
@@ -53,10 +53,11 @@ $user_id = $_SESSION['user_id'];
     <section id="leftColumn">
       <!-- The latest updates associated with the particular user's account shown here -->
 
-        <h2>Recent On-Site Transactions</h2>
+        <h2>Recent Money Transfers</h2>
         <ul class="transactions">
         <?php
-        $query = "SELECT * FROM Transaction WHERE fromid = ? or toid = ? ORDER BY datetime DESC LIMIT 7";
+        // Grabs all Transfers from all Accounts
+        $query = "SELECT * FROM Transaction WHERE fromid IN (SELECT aid FROM Account WHERE uid = ?) or toid IN (SELECT aid FROM Account WHERE uid = ?) ORDER BY datetime DESC LIMIT 7";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('ii', $user_id, $user_id);
             $stmt->execute();    // Execute the prepared query.
@@ -119,16 +120,16 @@ $user_id = $_SESSION['user_id'];
               echo '<p class="success-msg">Transaction Successful!</p>';
           }
           ?>
-          <label for="login-user" class="input-title">Send to:</label>
+          <label class="input-title">Send to:</label>
           <span class="fas fa-user user"></span>
           <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%" required>
-          <label for="login-user" class="input-title">Amount:</label>
+          <label class="input-title">Amount:</label>
           <span class="fas fa-dollar-sign imgsized"></span>
           <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%" required>
-          <label for="login-user" class="input-title">Reason:</label>
+          <label class="input-title">Reason:</label>
           <span class="fas fa-angle-right imgsized"></span>
           <input list="reason" name="reason" style="width:70%" required>
-          <datalist id="reason">
+          <datalist id="reason" required>
             <?php
             $query = "SELECT DISTINCT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
             if ($stmt = $mysqli->prepare($query)) {
@@ -150,6 +151,26 @@ $user_id = $_SESSION['user_id'];
             <option value="Goods/Entertainment">
             <option value="Gift">
           </datalist>
+          <label class="input-title">Withdrawing Account:</label>
+          <select name="account" id="acc" required>
+            <?php
+            $query = "SELECT aid, title, balance FROM Account WHERE uid = ?";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('i', $user_id);
+                $stmt->execute();    // Execute the prepared query.
+
+                $result = $stmt->get_result();
+                // get variables from result.
+
+                while($row = $result->fetch_assoc())
+                {
+                  echo "<option value=\"".$row['aid']."\">".$row['title']." | \$".$row['balance']."</option>";
+                }
+                $result -> free();
+                $stmt->close();
+              }
+            ?>
+          </select>
           <input type="submit" value="Submit" id="send-submit">
       </form>
     </section>

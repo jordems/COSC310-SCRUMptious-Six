@@ -26,7 +26,7 @@ $user_id = $_SESSION['user_id'];
    <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
-		<button class="dropbtn"><?php echo $_SESSION['username']." | $".getBalance($user_id, $mysqli);?></button>
+		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
 		<div class="dropdown-content">
 			<p><a href="profile.php">Account</a></p>
 			<p><a href="includes/logout.php">Logout</a></p>

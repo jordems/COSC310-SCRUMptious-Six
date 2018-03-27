@@ -41,7 +41,7 @@ CREATE TABLE Account(
 CREATE TABLE AccountTransaction(
     tid CHAR(64) NOT NULL,
 	uid int NOT NULL,
-	aid int NOT NULL, 
+	aid int NOT NULL,
     date DATE NOT NULL,
     statementName VARCHAR(255) NOT NULL,
     amount DECIMAL(18,2) NOT NULL,
@@ -63,14 +63,14 @@ CREATE TABLE Wallet(
 ) ENGINE = InnoDB;
 
 CREATE TABLE Transaction(
-    tid CHAR(64) NOT NULL, 
+    tid CHAR(64) NOT NULL,
     fromid int NOT NULL,
     toid int NOT NULL,
     datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     amount DECIMAL(18,2) NOT NULL,
     PRIMARY KEY (tid),
-    FOREIGN KEY (fromid) REFERENCES Wallet(wid)
+    FOREIGN KEY (fromid) REFERENCES Account(aid)
     	ON UPDATE NO ACTION ON DELETE NO ACTION,
-    FOREIGN KEY (toid) REFERENCES Wallet(wid)
+    FOREIGN KEY (toid) REFERENCES Account(aid)
     	ON UPDATE NO ACTION ON DELETE NO ACTION
 ) ENGINE = InnoDB;
