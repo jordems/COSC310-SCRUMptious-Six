@@ -78,9 +78,9 @@ $user_id = $_SESSION['user_id'];
               $stmt->fetch();
               if ($stmt->num_rows == 1) {
                 if($totalDeposits != null)
-                  echo "<p class=\"account-summary\">Total Recieved: \$$totalDeposits</p>";
+                  echo "<p class=\"account-summary\">Total Received: \$$totalDeposits</p>";
                 else
-                  echo "<p class=\"account-summary\">Total Recieved: \$0.00</p>";
+                  echo "<p class=\"account-summary\">Total Received: \$0.00</p>";
               }
               $stmt->close();
             }

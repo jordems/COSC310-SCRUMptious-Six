@@ -1,13 +1,18 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include 'includes/fusioncharts.php';
+include_once 'includes/getMonthlyData.php';
+include_once 'includes/fusioncharts.php';
+
 sec_session_start();
+
 if (login_check($mysqli) == false) {
   // If not logged in then send to login page
   header('Location:login.php');
 }
+
 $user_id = $_SESSION['user_id'];
+
 ?>
   <!DOCTYPE html>
   <html>
@@ -61,8 +66,44 @@ $user_id = $_SESSION['user_id'];
     <section id="center-noleft" class="backlight">
     <h1>Financial Analysis</h1>
     <?php
+    $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
+    if ($stmt = $mysqli->prepare($query)) {
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->bind_result($mainAccount);
+        $stmt->fetch();
+    }
     // Pull user statement data from database, convert to JSON, add to data section of charts
-    $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
+    $janIncome = getMonthlyIncome($mysqli, $mainAccount, 1);
+    if($janIncome == NULL || $janIncome == 0){
+        echo "NOOOOO";
+    }
+    $febIncome = getMonthlyIncome($mysqli, $mainAccount, 2);
+    $marIncome = getMonthlyIncome($mysqli, $mainAccount, 3);
+    $aprilIncome = getMonthlyIncome($mysqli, $mainAccount, 4);
+    $mayIncome = getMonthlyIncome($mysqli, $mainAccount, 5);
+    $juneIncome = getMonthlyIncome($mysqli, $mainAccount, 6);
+    $julyIncome = getMonthlyIncome($mysqli, $mainAccount, 7);
+    $augIncome = getMonthlyIncome($mysqli, $mainAccount, 8);
+    $sepIncome = getMonthlyIncome($mysqli, $mainAccount, 9);
+    $octIncome = getMonthlyIncome($mysqli, $mainAccount, 10);
+    $novIncome = getMonthlyIncome($mysqli, $mainAccount, 11);
+    $decIncome = getMonthlyIncome($mysqli, $mainAccount, 12);
+
+    $janExpenses = getMonthlyExpenses($mysqli, $mainAccount, 1);
+    $febExpenses = getMonthlyExpenses($mysqli, $mainAccount, 2);
+    $marExpenses = getMonthlyExpenses($mysqli, $mainAccount, 3);
+    $aprilExpenses = getMonthlyExpenses($mysqli, $mainAccount, 4);
+    $mayExpenses = getMonthlyExpenses($mysqli, $mainAccount, 5);
+    $juneExpenses = getMonthlyExpenses($mysqli, $mainAccount, 6);
+    $julyExpenses = getMonthlyExpenses($mysqli, $mainAccount, 7);
+    $augExpenses = getMonthlyExpenses($mysqli, $mainAccount, 8);
+    $sepExpenses = getMonthlyExpenses($mysqli, $mainAccount, 9);
+    $octExpenses = getMonthlyExpenses($mysqli, $mainAccount, 10);
+    $novExpenses = getMonthlyExpenses($mysqli, $mainAccount, 11);
+    $decExpenses = getMonthlyExpenses($mysqli, $mainAccount, 12);
+
+    $columnChart = new FusionCharts("Column2D", "incomeChart" , "100%", 400, "chart-1", "json",
     '{
         "chart": {
             "caption": "Monthly Income for Last Year",
@@ -77,22 +118,22 @@ $user_id = $_SESSION['user_id'];
             "theme": "zune"
         },
         "data": [
-                {"label": "Jan", "value": "4200"},
-                {"label": "Feb", "value": "8100"},
-                {"label": "Mar", "value": "7200"},
-                {"label": "Apr", "value": "5500"},
-                {"label": "May", "value": "9100"},
-                {"label": "Jun", "value": "5100"},
-                {"label": "Jul", "value": "6800"},
-                {"label": "Aug", "value": "6200"},
-                {"label": "Sep", "value": "6100"},
-                {"label": "Oct", "value": "4900"},
-                {"label": "Nov", "value": "9000"},
-                {"label": "Dec", "value": "7300"}
+                {"label": "Jan", "value": "'.$janIncome.'"},
+                {"label": "Feb", "value": "'.$febIncome.'"},
+                {"label": "Mar", "value": "'.$marIncome.'"},
+                {"label": "Apr", "value": "'.$aprilIncome.'"},
+                {"label": "May", "value": "'.$mayIncome.'"},
+                {"label": "Jun", "value": "'.$juneIncome.'"},
+                {"label": "Jul", "value": "'.$julyIncome.'"},
+                {"label": "Aug", "value": "'.$augIncome.'"},
+                {"label": "Sep", "value": "'.$sepIncome.'"},
+                {"label": "Oct", "value": "'.$octIncome.'"},
+                {"label": "Nov", "value": "'.$novIncome.'"},
+                {"label": "Dec", "value": "'.$decIncome.'"}
             ]
         }');
 
-        $columnChart2 = new FusionCharts("Column2D", "secondChart", "100%", 400, "chart-2", "json",
+        $columnChart2 = new FusionCharts("Column2D", "expensesChart", "100%", 400, "chart-2", "json",
         '{
             "chart": {
                 "caption": "Monthly Expenses for Last Year",
@@ -107,18 +148,18 @@ $user_id = $_SESSION['user_id'];
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Jan", "value": "920"},
-                    {"label": "Feb", "value": "230"},
-                    {"label": "Mar", "value": "520"},
-                    {"label": "Apr", "value": "550"},
-                    {"label": "May", "value": "410"},
-                    {"label": "Jun", "value": "110"},
-                    {"label": "Jul", "value": "680"},
-                    {"label": "Aug", "value": "820"},
-                    {"label": "Sep", "value": "310"},
-                    {"label": "Oct", "value": "490"},
-                    {"label": "Nov", "value": "200"},
-                    {"label": "Dec", "value": "730"}
+                    {"label": "Jan", "value": "'.$janExpenses.'"},
+                    {"label": "Feb", "value": "'.$febExpenses.'"},
+                    {"label": "Mar", "value": "'.$marExpenses.'"},
+                    {"label": "Apr", "value": "'.$aprilExpenses.'"},
+                    {"label": "May", "value": "'.$mayExpenses.'"},
+                    {"label": "Jun", "value": "'.$juneExpenses.'"},
+                    {"label": "Jul", "value": "'.$julyExpenses.'"},
+                    {"label": "Aug", "value": "'.$augExpenses.'"},
+                    {"label": "Sep", "value": "'.$sepExpenses.'"},
+                    {"label": "Oct", "value": "'.$octExpenses.'"},
+                    {"label": "Nov", "value": "'.$novExpenses.'"},
+                    {"label": "Dec", "value": "'.$decExpenses.'"}
                 ]
             }');
 
