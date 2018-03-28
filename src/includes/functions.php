@@ -390,6 +390,35 @@ function esc_url($url) {
     }
 
   }
+  
+  function getAccountBalance($aid, $mysqli){
+      $stmt = $mysqli->prepare("SELECT balance FROM Account WHERE aid = ?");
+      $stmt->bind_param('i', $aid);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+      $stmt->bind_result($balance);
+      $stmt->fetch();
+      
+      // if the sending user has enough balance then:
+      if ($stmt->num_rows == 1) {
+          return floatval($balance);
+      }
+      return -1;
+  }
+  function getAccountBalanceofUser($username, $mysqli){
+      $stmt = $mysqli->prepare("SELECT balance FROM Account as a,Users as u WHERE a.aid = u.mainAcc and username = ?");
+      $stmt->bind_param('s', $username);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+      $stmt->bind_result($balance);
+      $stmt->fetch();
+      
+      // if the sending user has enough balance then:
+      if ($stmt->num_rows == 1) {
+          return floatval($balance);
+      }
+      return -1;
+  }
 
   function addAccount($title, $financialinstitution,$type,$balance, $mysqli){
     $user_id = $_SESSION['user_id'];
