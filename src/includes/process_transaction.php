@@ -23,19 +23,19 @@ if (isset($_POST['receivingUsername'], $_POST['amount'], $_POST['reason'], $_POS
         header('Location: ../transactions.php?success=1');
         break;
       case 1:
-        // Transaction Failed DB error
+        // Transaction Failed DB 
         header('Location: ../transactions.php?error=Database Communication Error, Please Contact Us');
         break;
       case 2:
-        // Transaction Failed Insufficient Funds error
+        // Transaction Failed Insufficient Funds 
         header('Location: ../transactions.php?error=Insufficient funds');
         break;
       case 3:
-        // Transaction Failed Username Doesn't Exist error
+        // Transaction Failed Receiving Username Doesn't have a main Account
         header('Location: ../transactions.php?error=Username doesn\'t Exist or User Hasen\'t Set up an Account');
         break;
       case 5:
-        // Transaction Failed Username Doesn't Exist error
+          // Transaction Failed Receiving Username Doesn't Exist
         header('Location: ../transactions.php?error=You are not linked to this account!');
         break;
       default:
