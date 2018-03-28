@@ -37,10 +37,11 @@ class transactionTest extends TestCase{
         }
     }
     
-    
+    /*This test is for Completeing a Valid transaction*/
     public function testTransactionA(){
         $mysqli = $this->mysqli;
-        // Setting the Session for our test User
+        
+        // **WE ASSUME THAT DATA IS ALREADY SANITIZED AT THIS STAGE**
         $toUsername = "jordems";
         $amount = 12.12;
         $reason = "Money Owed";
@@ -54,12 +55,12 @@ class transactionTest extends TestCase{
         echo "\n\n-----Transaction A-----";
  
         $code = sendTransaction($toUsername, $amount, $reason, $accoundid ,$mysqli);
-        echo "\n Sent Transaction('jordems', 12.12, \"Money Owed\", 36) in format(tousername,amount,reason,fromaccountid)";
-        echo "\n Expecting Successful Transaction";
+        echo "\n Sent Transaction('$toUsername', $amount, \"$reason\", $accoundid) in format(tousername,amount,reason,fromaccountid)";
+        echo "\n ***Expecting Successful Transaction***";
         switch($code){
             case 0:
                 echo "\n Transaction A's Request is Successful";
-                echo "\n\n --Verifying with Database Data--";
+                echo "\n\n --Verifying with Database's Account Data--";
                 
                 // Getting the Resulting Balances
                 $fromBalanceAfter = getAccountBalance($accoundid, $mysqli);
@@ -79,7 +80,7 @@ class transactionTest extends TestCase{
                 
                 // If the amount deposited into the account is different from the amount sent assert false
                 if($amountDeposited != $amount) $this->assertTrue(false);
-                echo "\n-----Transaction A is SUCCESSFUL!-----";
+                echo "\n-----Transaction A's test is SUCCESSFUL!-----";
                 
                 $this->assertTrue(true); // Transaction Sent Successfully
                 break;
@@ -106,6 +107,56 @@ class transactionTest extends TestCase{
         }     
     }
 
+    /*This test is for Sending an amount to a username that doesn't exist*/
+    public function testTransactionB(){
+        $mysqli = $this->mysqli;
+        
+        // **WE ASSUME THAT DATA IS ALREADY SANITIZED AT THIS STAGE**
+        $toUsername = "NOtExistentUser";
+        $amount = 12.12;
+        $reason = "Money Owed";
+        $accoundid = 36; // Don't Change (just for testing purposes)
+        
+        /* Get the account balance from the test user's id, and from the receiving username
+         * Before the transaction to compare with resulting balances*/
+        $fromBalanceBefore= getAccountBalance($accoundid, $mysqli);
+        
+        echo "\n\n-----Transaction B-----";
+        
+        $code = sendTransaction($toUsername, $amount, $reason, $accoundid ,$mysqli);
+        echo "\n Sent Transaction('$toUsername', $amount, \"$reason\", $accoundid) in format(tousername,amount,reason,fromaccountid)";
+        echo "\n ***Expecting Failed Transaction as Username Doesn't Exist***";
+        switch($code){
+            case 0:
+                echo "\n  Transaction B's Request is Successful";
+                echo "\n-----Transaction B's Test has Failed!-----";
+                $this->assertTrue(false); // Transaction Sent Successfully
+                break;
+            case 1:
+                echo "\n  Transaction A Failed, Database Error";
+                echo "\n-----Transaction B's Test has Failed!-----";
+                $this->assertTrue(false); // Transaction Failed, Database Error
+                break;
+            case 2:
+                echo "\n  Transaction B Failed, Insufficient Funds";
+                echo "\n-----Transaction B's Test has Failed!-----";
+                $this->assertTrue(false); // Transaction Failed, Insufficient Funds
+                break;
+            case 3:
+                echo "\n  Transaction B Failed, Receiving Username Doesn't exist or Doesn't have a main Account";
+                $fromBalanceAfter = getAccountBalance($accoundid, $mysqli);
+                echo "\n  FromAccount Balance Before: \$$fromBalanceBefore";
+                echo "\n  FromAccount Balance After: \$$fromBalanceAfter";
+                $amountWithdrew = round($fromBalanceBefore-$fromBalanceAfter,2);
+                echo "\n  Amount withdrew: \$".($amountWithdrew);
+                
+                // If the amount taken out of the account is different from the amount sent assert false
+                if($amountWithdrew != 0) $this->assertTrue(false);
+                echo "\n-----Transaction B's Test is a SUCCESS!-----";
+                $this->assertTrue(true); // Transaction Failed, Receiving Username Doesn't exist or Doesn't have a main Account
+                break;
+        }
+    }
     
     protected function tearDown(){
         $this->mysqli->close();
