@@ -68,7 +68,15 @@ $user_id = $_SESSION['user_id'];
       <h2>News and Events</h2>
         <ul>
           <div id="body">
-            <div id="feedControl">Loading...</div>
+	<p><span class="headline">Feb 11, 2018</span></p>
+         <p>The value of your Bitcoin investment increased 5%.</p>
+        <p><span class="headline">Jan 21, 2018</span> </p>
+        <p>You deposited $300.00 in your savings account.</p>
+        <p><span class="headline">Jan 1, 2018</span></p>
+         <p>You recieved $1020.00 from John.</p>
+        <p><span class="headline">Dec 29, 2017</span> </p>
+        <p>Your account with Scrumptious Finance was created!</p>
+            <!-- <div id="feedControl">Loading...</div> -->
           </div>
         </ul>
     </section>
