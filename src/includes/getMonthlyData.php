@@ -3,7 +3,7 @@
 
 function getMonthlyIncome($mysqli, $aid, $month){
     // Get the total income over all accounts for a user in the last year
-    $query = "SELECT SUM(amount) FROM AccountTransaction WHERE amount > 0 AND aid = ? AND MONTH(`date`) = ? LIMIT 1";
+    $query = "SELECT SUM(amount) FROM AccountTransaction WHERE amount > 0 AND aid = ? AND YEAR(`date`) = (YEAR(CURDATE()) - 1) AND MONTH(`date`) = ? LIMIT 1";
     if ($stmt = $mysqli->prepare($query)) {
         $stmt->bind_param('ii', $aid, $month);
         $stmt->execute();    // Execute the prepared query.
@@ -25,7 +25,7 @@ function getMonthlyIncome($mysqli, $aid, $month){
 
 function getMonthlyExpenses($mysqli, $aid, $month){
     // Get the total expenses over all accounts for a user in the last year
-    $query = "SELECT SUM(amount) FROM AccountTransaction WHERE amount < 0 AND aid = ? AND MONTH(`date`) = ? LIMIT 1";
+    $query = "SELECT SUM(amount) FROM AccountTransaction WHERE amount < 0 AND aid = ? AND YEAR(`date`) = (YEAR(CURDATE()) - 1) AND MONTH(`date`) = ? LIMIT 1";
     if ($stmt = $mysqli->prepare($query)) {
         $stmt->bind_param('ii', $aid, $month);
         $stmt->execute();    // Execute the prepared query.
@@ -34,7 +34,7 @@ function getMonthlyExpenses($mysqli, $aid, $month){
         $stmt->fetch();
         if ($stmt->num_rows == 1) {
           if($totalExpenses != null){
-            return $totalExpenses;
+            return abs($totalExpenses);
           }else{
             return null;
           }

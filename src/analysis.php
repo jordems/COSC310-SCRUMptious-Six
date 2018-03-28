@@ -72,12 +72,11 @@ $user_id = $_SESSION['user_id'];
         $stmt->execute();    // Execute the prepared query.
         $stmt->bind_result($mainAccount);
         $stmt->fetch();
+        $stmt->close();
     }
+    
     // Pull user statement data from database, convert to JSON, add to data section of charts
     $janIncome = getMonthlyIncome($mysqli, $mainAccount, 1);
-    if($janIncome == NULL || $janIncome == 0){
-        echo "NOOOOO";
-    }
     $febIncome = getMonthlyIncome($mysqli, $mainAccount, 2);
     $marIncome = getMonthlyIncome($mysqli, $mainAccount, 3);
     $aprilIncome = getMonthlyIncome($mysqli, $mainAccount, 4);
