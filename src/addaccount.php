@@ -73,7 +73,7 @@ $user_id = $_SESSION['user_id'];
 					<option value="RRSP Account">RRSP Account</option>
 				</select>
 				<label>Balance:</label>
-				 <input type="number" name="balance" min="0.01" step="0.01" max="999999999.99" placeholder="0.00">
+				 <input type="number" name="balance" min="0.00" step="0.01" max="999999999.99" placeholder="0.00">
 				<button type="submit" value="Submit" id="update-submit">Add Account</button>
 			</fieldset>
 		</form>

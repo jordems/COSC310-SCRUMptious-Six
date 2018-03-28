@@ -74,18 +74,26 @@ $user_id = $_SESSION['user_id'];
               $reason = $row['reason'];
               $datetime = $row['datetime'];
               $amount = $row['amount'];
-              if($toid == $user_id){
 
-                $stmt1 = $mysqli->prepare("SELECT username FROM Users WHERE uid = ?");
+              $query = "SELECT aid FROM Account WHERE uid = ? and aid = ?";
+              if ($stmt1 = $mysqli->prepare($query)) {
+                  $stmt1->bind_param('ii', $user_id, $toid);
+                  $stmt1->execute();    // Execute the prepared query.
+                  $stmt1->store_result();
+                  $stmt1->fetch();
+
+              if ($stmt1->num_rows == 1) {
+
+                $stmt1 = $mysqli->prepare("SELECT username FROM Users as u, Account as a WHERE a.uid = u.uid and aid = ?");
                 $stmt1->bind_param('i', $fromid);
                 $stmt1->execute();    // Execute the prepared query.
                 $stmt1->store_result();
                 $stmt1->bind_result($username);
                 $stmt1->fetch();
-                echo "<p class=\"transactions-type\">Recieved $".$amount." from ".$username."</p>";
+                echo "<p class=\"transactions-type\">Received $".$amount." from ".$username."</p>";
                 echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }else {
-                $stmt1 = $mysqli->prepare("SELECT username FROM Users WHERE uid = ?");
+                $stmt1 = $mysqli->prepare("SELECT username FROM Users as u, Account as a WHERE a.uid = u.uid and aid = ?");
                 $stmt1->bind_param('i', $toid);
                 $stmt1->execute();    // Execute the prepared query.
                 $stmt1->store_result();
@@ -94,11 +102,12 @@ $user_id = $_SESSION['user_id'];
                 echo "<p class=\"transactions-type\">Sent $".$amount." to ".$username."</p>";
                 echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }
-
+            }
               echo "</li>";
             }
             $result -> free();
             $stmt->close();
+            $stmt1->close();
           }
 
         ?>
@@ -205,7 +214,7 @@ $user_id = $_SESSION['user_id'];
                 if($amount > 0){
                   $type = "Deposit";
                 }else{
-                  $type = "Withdrawl";
+                  $type = "Withdrawal";
                 }
 
                 $amount = abs($amount);

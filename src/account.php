@@ -78,9 +78,9 @@ $user_id = $_SESSION['user_id'];
               $stmt->fetch();
               if ($stmt->num_rows == 1) {
                 if($totalDeposits != null)
-                  echo "<p class=\"account-summary\">Total Recieved: \$$totalDeposits</p>";
+                  echo "<p class=\"account-summary\">Total Received: \$$totalDeposits</p>";
                 else
-                  echo "<p class=\"account-summary\">Total Recieved: \$0.00</p>";
+                  echo "<p class=\"account-summary\">Total Received: \$0.00</p>";
               }
               $stmt->close();
             }
@@ -95,9 +95,9 @@ $user_id = $_SESSION['user_id'];
                 if ($stmt->num_rows == 1) {
                   if($totalSpent != null){
                     $totalSpent = abs($totalSpent);
-                    echo "<p class=\"account-summary\">Total Spend: \$$totalSpent</p>";
+                    echo "<p class=\"account-summary\">Total Spent: \$$totalSpent</p>";
                   }else
-                    echo "<p class=\"account-summary\">Total Spend: \$0.00</p>";
+                    echo "<p class=\"account-summary\">Total Spent: \$0.00</p>";
                 }
                 $stmt->close();
               }
@@ -106,7 +106,7 @@ $user_id = $_SESSION['user_id'];
       <?php if($numAccount > 0) { ?>
         <div class="backlight">
           <h2 class="centered" style="margin-bottom:0;">Set Main Account</h2>
-          <p class="centered"><em>(For Recieving Money)</em></p>
+          <p class="centered"><em>(For Receiving Money)</em></p>
           <?php
           $error = filter_input(INPUT_GET, 'mainaccerror', $filter = FILTER_SANITIZE_STRING);
           $success = filter_input(INPUT_GET, 'mainaccsuccess', $filter = FILTER_SANITIZE_STRING);
