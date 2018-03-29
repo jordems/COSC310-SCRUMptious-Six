@@ -313,6 +313,12 @@ function esc_url($url) {
   }
 
   function sendTransaction($receivingUsername, $amount, $reason, $account, $mysqli){
+    
+      if($amount < 0){
+          // Make sure that amount sent is not negative
+          return 2;
+      }
+      
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return 5;
@@ -342,8 +348,9 @@ function esc_url($url) {
     if ($stmt->num_rows == 1) {
 
       // Query that the  "$receivingUsername" exists in the database and Has an Account to send the money too
-      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE username = ? and (mainAcc IS NOT NULL or mainAcc != -1)");
-      $stmt->bind_param('s', $receivingUsername);
+      // Also Making sure that they arn't trying to send money to them self (Wouldn't be a problem, But they should be able too)
+      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE username = ? and uid != ? and (mainAcc IS NOT NULL or mainAcc != -1)");
+      $stmt->bind_param('si', $receivingUsername,$user_id);
       $stmt->execute();    // Execute the prepared query.
       $stmt->store_result();
 
@@ -403,7 +410,7 @@ function esc_url($url) {
       if ($stmt->num_rows == 1) {
           return floatval($balance);
       }
-      return -1;
+      return 0;
   }
   function getAccountBalanceofUser($username, $mysqli){
       $stmt = $mysqli->prepare("SELECT balance FROM Account as a,Users as u WHERE a.aid = u.mainAcc and username = ?");
@@ -417,7 +424,7 @@ function esc_url($url) {
       if ($stmt->num_rows == 1) {
           return floatval($balance);
       }
-      return -1;
+      return 0;
   }
 
   function addAccount($title, $financialinstitution,$type,$balance, $mysqli){
