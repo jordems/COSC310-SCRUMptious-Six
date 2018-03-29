@@ -14,8 +14,6 @@ if (isset($_POST['receivingUsername'], $_POST['amount'], $_POST['reason'], $_POS
     // Make sure that the amount isn't negative
     $amount = abs($amount);
 
-    // Doing this allows us to automatically role back if an error happens
-    $mysqli->autocommit(FALSE);
 
     switch(sendTransaction($receivingUsername, $amount, $reason ,$account, $mysqli)) {
       case 0:
@@ -23,11 +21,11 @@ if (isset($_POST['receivingUsername'], $_POST['amount'], $_POST['reason'], $_POS
         header('Location: ../transactions.php?success=1');
         break;
       case 1:
-        // Transaction Failed DB 
+        // Transaction Failed DB
         header('Location: ../transactions.php?error=Database Communication Error, Please Contact Us');
         break;
       case 2:
-        // Transaction Failed Insufficient Funds 
+        // Transaction Failed Insufficient Funds
         header('Location: ../transactions.php?error=Insufficient funds');
         break;
       case 3:
@@ -42,7 +40,6 @@ if (isset($_POST['receivingUsername'], $_POST['amount'], $_POST['reason'], $_POS
         header('Location: ../transactions.php?error=Unknown Error, Please Contact Us');
         break;
     }
-    $mysqli->autocommit(TRUE); // Reset Auto Commit to True
     mysqli_close($mysqli);
 } else {
     // The correct POST variables were not sent to this page.

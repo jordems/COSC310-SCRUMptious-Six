@@ -313,12 +313,14 @@ function esc_url($url) {
   }
 
   function sendTransaction($receivingUsername, $amount, $reason, $account, $mysqli){
-    
+    // Doing this allows us to automatically role back if an error happens
+    $mysqli->autocommit(FALSE);
+
       if($amount < 0){
           // Make sure that amount sent is not negative
           return 2;
       }
-      
+
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return 5;
@@ -397,7 +399,7 @@ function esc_url($url) {
     }
 
   }
-  
+
   function getAccountBalance($aid, $mysqli){
       $stmt = $mysqli->prepare("SELECT balance FROM Account WHERE aid = ?");
       $stmt->bind_param('i', $aid);
@@ -405,7 +407,7 @@ function esc_url($url) {
       $stmt->store_result();
       $stmt->bind_result($balance);
       $stmt->fetch();
-      
+
       // if the sending user has enough balance then:
       if ($stmt->num_rows == 1) {
           return floatval($balance);
@@ -419,7 +421,7 @@ function esc_url($url) {
       $stmt->store_result();
       $stmt->bind_result($balance);
       $stmt->fetch();
-      
+
       // if the sending user has enough balance then:
       if ($stmt->num_rows == 1) {
           return floatval($balance);
