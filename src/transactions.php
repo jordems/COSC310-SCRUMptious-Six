@@ -102,12 +102,13 @@ $user_id = $_SESSION['user_id'];
                 echo "<p class=\"transactions-type\">Sent $".$amount." to ".$username."</p>";
                 echo "<p class=\"transactions-time\">".date("g:i a F j, Y ", strtotime($datetime))." | Reason: $reason</p>";
               }
+                      $stmt1->close();
             }
               echo "</li>";
             }
             $result -> free();
             $stmt->close();
-            $stmt1->close();
+
           }
 
         ?>
