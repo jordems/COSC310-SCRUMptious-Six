@@ -29,8 +29,7 @@ function removeTransactions($aid,$mysqli){
 }
 
 
-function resetAccountTest($aid,$mysqli){
-    // TODO:
+function resetAccountTest($mysqli){
     return true;
 }
 

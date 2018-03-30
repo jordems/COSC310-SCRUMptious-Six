@@ -38,7 +38,6 @@ class transactionTest extends TestCase{
     
     // Test to make sure that the Database reset is working correctly
     public function testTransactionUnitTestReset(){
-        
         $this->assertTrue(resetTransactionsTest($this->aid,$this->mysqli));
     }
     

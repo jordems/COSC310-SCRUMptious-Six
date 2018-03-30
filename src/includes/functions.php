@@ -397,6 +397,26 @@ function esc_url($url) {
     }
 
   }
+  function getMainAccount($mysqli){
+      $user_id = $_SESSION['user_id'];
+      if($user_id == null)
+          return false;
+      
+      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE uid = ?");
+      $stmt->bind_param('i', $user_id);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+      
+      // get variables from result.
+      $stmt->bind_result($receiving_Account);
+      $stmt->fetch();
+      
+      // if the "$receivingUsername" exists and has an account in the database then:
+      if ($stmt->num_rows == 1) {
+          return $receiving_Account;
+      }
+      return -1;
+  }
   
   function getAccountBalance($aid, $mysqli){
       $stmt = $mysqli->prepare("SELECT balance FROM Account WHERE aid = ?");
@@ -484,6 +504,7 @@ function esc_url($url) {
     }
     return false;
   }
+  
   function deleteAccount($aid, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
@@ -522,7 +543,7 @@ function esc_url($url) {
               $stmt->fetch();
 
               if ($stmt->num_rows == 0) {
-                $aid = -1;
+                $aid = null;
               }
               $update_sql = "UPDATE Users SET mainAcc = ? WHERE uid = ?";
               $stmt = $mysqli->prepare($update_sql);
