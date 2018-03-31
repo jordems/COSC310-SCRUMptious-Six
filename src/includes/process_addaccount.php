@@ -10,7 +10,7 @@ if (isset($_POST['title'], $_POST['financialinstitution'], $_POST['type'], $_POS
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
     $financialinstitution = filter_input(INPUT_POST, 'financialinstitution', FILTER_SANITIZE_STRING);
     $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
-    $balance = filter_input(INPUT_POST,'balance' ,FILTER_SANITIZE_NUMBER_FLOAT);
+    $balance = filter_input(INPUT_POST,'balance' ,FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
     $mysqli->autocommit(FALSE);
 

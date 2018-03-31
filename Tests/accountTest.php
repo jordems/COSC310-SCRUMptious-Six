@@ -34,12 +34,6 @@ class accountTest extends TestCase{
         }
     }
     
-    // Test to make sure that the Database reset is working correctly
-    public function testAccountUnitTestReset(){
-        
-        $this->assertTrue(resetAccountTest($this->mysqli));
-    }
-    
     public function testAddAccount(){
         $mysqli = $this->mysqli;
         $user_id = $_SESSION['user_id'];
@@ -162,7 +156,6 @@ class accountTest extends TestCase{
     }
     
     protected function tearDown(){
-        resetAccountTest($this->mysqli);
         $this->mysqli->close();
     }
     
