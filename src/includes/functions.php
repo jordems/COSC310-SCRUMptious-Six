@@ -1,4 +1,7 @@
 <?php
+/*
+ * PHP Functions Document Created By: Jordan Emslie
+*/
 include_once 'psl-config.php';
 
 function sec_session_start() {
@@ -399,31 +402,27 @@ function esc_url($url) {
     }
 
   }
-<<<<<<< HEAD
   function getMainAccount($mysqli){
       $user_id = $_SESSION['user_id'];
       if($user_id == null)
           return false;
-      
+
       $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE uid = ?");
       $stmt->bind_param('i', $user_id);
       $stmt->execute();    // Execute the prepared query.
       $stmt->store_result();
-      
+
       // get variables from result.
       $stmt->bind_result($receiving_Account);
       $stmt->fetch();
-      
+
       // if the "$receivingUsername" exists and has an account in the database then:
       if ($stmt->num_rows == 1) {
           return $receiving_Account;
       }
       return -1;
   }
-  
-=======
 
->>>>>>> befbf7a10b2bd79703b909b27ed7607fe26ca151
   function getAccountBalance($aid, $mysqli){
       $stmt = $mysqli->prepare("SELECT balance FROM Account WHERE aid = ?");
       $stmt->bind_param('i', $aid);
@@ -510,7 +509,7 @@ function esc_url($url) {
     }
     return false;
   }
-  
+
   function deleteAccount($aid, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)

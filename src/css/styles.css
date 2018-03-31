@@ -291,6 +291,15 @@ input[type=submit] {
   padding-top: .3em;
   margin: 1em;
 }
+#send-form-disabled{
+  opacity: .5;
+  background-color: #CFCFC3;
+  border-radius: .6em;
+  border: 1px solid #BDBDB2;
+  padding: 1em;
+  padding-top: .3em;
+  margin: 1em;
+}
 .centered{
   text-align: center;
 }
@@ -325,6 +334,21 @@ input[type=submit] {
   opacity: .8;
 }
 #new-account-button:active{
+  border: 2px inset orange;
+}
+#new-account-button2{
+  position: relative;
+  bottom: 15em;
+  text-align: center;
+  padding: 1em;
+  background-color: orange;
+  border-radius: .3em;
+  border: 2px outset orange;
+}
+#new-account-button2:hover{
+  opacity: .8;
+}
+#new-account-button2:active{
   border: 2px inset orange;
 }
 .edit-button{

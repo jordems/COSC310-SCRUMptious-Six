@@ -17,7 +17,7 @@ class transactionTest extends TestCase{
         $this->aid = 36;
         $_SESSION['user_id'] = 1;
     }
-    
+
     // Test to confirm that the Database is working correctly
     public function testDBConnection(){
         $mysqli = $this->mysqli;
@@ -38,10 +38,6 @@ class transactionTest extends TestCase{
 
     // Test to make sure that the Database reset is working correctly
     public function testTransactionUnitTestReset(){
-<<<<<<< HEAD
-=======
-
->>>>>>> befbf7a10b2bd79703b909b27ed7607fe26ca151
         $this->assertTrue(resetTransactionsTest($this->aid,$this->mysqli));
     }
 
