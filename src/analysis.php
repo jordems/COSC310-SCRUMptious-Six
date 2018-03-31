@@ -53,17 +53,7 @@ $user_id = $_SESSION['user_id'];
      </div>
   </header>
   <main>
-    <section id="rightColumn" class="backlight">
-      <!-- The latest finacial news and events from the world or user's particular area shown here -->
-      <h2>News and Events</h2>
-        <ul>
-          <li><a href="#">False alarm, everything is going to be okay.</a></li>
-          <li><a href="#">The stock market has crashed, the end of the world is near.</a></li>
-          <li><a href="#">A new bank has opened in your area.</a></li>
-          <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
-        </ul>
-    </section>
-    <section id="center-noleft" class="backlight">
+    <section id="leftHalf" class="backlight">
     <h1>Financial Analysis</h1>
     <?php
     $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
@@ -101,8 +91,8 @@ $user_id = $_SESSION['user_id'];
     $octExpenses = getMonthlyExpenses($mysqli, $mainAccount, 10);
     $novExpenses = getMonthlyExpenses($mysqli, $mainAccount, 11);
     $decExpenses = getMonthlyExpenses($mysqli, $mainAccount, 12);
-
-    $columnChart = new FusionCharts("Column2D", "incomeChart" , "100%", 400, "chart-1", "json",
+    
+    $columnChart = new FusionCharts("Column2D", "incomeChart" , "49.8%", 400, "chart-1", "json",
     '{
         "chart": {
             "caption": "Monthly Income for Last Year",
@@ -132,7 +122,7 @@ $user_id = $_SESSION['user_id'];
             ]
         }');
 
-        $columnChart2 = new FusionCharts("Column2D", "expensesChart", "100%", 400, "chart-2", "json",
+        $columnChart2 = new FusionCharts("Column2D", "expensesChart", "49.8%", 400, "chart-2", "json",
         '{
             "chart": {
                 "caption": "Monthly Expenses for Last Year",
@@ -162,7 +152,7 @@ $user_id = $_SESSION['user_id'];
                 ]
             }');
 
-            $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-3", "json",
+            $pieChart = new FusionCharts("Pie2D", "thirdChart", "49.8%", 400, "chart-3", "json",
         '{
             "chart": {
                 "caption": "Transactions - Amount per Category",

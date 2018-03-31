@@ -75,29 +75,65 @@ $user_id = $_SESSION['user_id'];
       <h2>Overview</h2>
         <?php
         // Pull user statement data from database, convert to JSON, add to data section of charts
-        $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json",
-        '{
-            "chart": {
-                "caption": "Transactions - Amount per Category",
-                "bgColor": "#555555",
-                "borderColor": "#666666",
-                "borderThickness": "4",
-                "borderAlpha": "80",
-                "baseFontSize": "12",
-                "xAxisName": "Month",
-                "yAxisName": "Revenues",
-                "numberPrefix": "$",
-                "theme": "zune"
-            },
-            "data": [
-                    {"label": "Bills", "value": "420"},
-                    {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "220"},
-                    {"label": "Work/Education", "value": "1550"},
-                    {"label": "Insurance", "value": "910"},
-                    {"label": "Other", "value": "510"}
-                ]
-            }');
+        $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
+        if ($stmt = $mysqli->prepare($query)) {
+          $stmt->bind_param('i', $user_id);
+          $stmt->execute();    // Execute the prepared query.
+          $stmt->bind_result($mainAccount);
+          $stmt->fetch();
+          $stmt->close();
+        }
+
+        $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $arrData is the associative array that is initialized to store the chart attributes
+
+            $arrData = array(
+              "chart" => array(
+                  "caption"=> "Transactions - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actualData is the array that is initialized to store the data
+            $actualData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $desc = $row['desc'];
+              $amount = abs($amount);
+              $actualData += [$desc => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $arrData['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actualData as $key => $value) {
+          array_push($arrData['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonEncodedData = json_encode($arrData);
+
+       // echo $jsonEncodedData;
+        $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json", $jsonEncodedData);
 
             $pieChart->render();
         ?>
