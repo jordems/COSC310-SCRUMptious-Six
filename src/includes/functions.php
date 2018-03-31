@@ -1,4 +1,7 @@
 <?php
+/*
+ * PHP Functions Document Created By: Jordan Emslie
+*/
 include_once 'psl-config.php';
 
 function sec_session_start() {
@@ -313,6 +316,14 @@ function esc_url($url) {
   }
 
   function sendTransaction($receivingUsername, $amount, $reason, $account, $mysqli){
+    // Doing this allows us to automatically role back if an error happens
+    $mysqli->autocommit(FALSE);
+
+      if($amount < 0){
+          // Make sure that amount sent is not negative
+          return 2;
+      }
+
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
       return 5;
@@ -342,8 +353,9 @@ function esc_url($url) {
     if ($stmt->num_rows == 1) {
 
       // Query that the  "$receivingUsername" exists in the database and Has an Account to send the money too
-      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE username = ? and (mainAcc IS NOT NULL or mainAcc != -1)");
-      $stmt->bind_param('s', $receivingUsername);
+      // Also Making sure that they arn't trying to send money to them self (Wouldn't be a problem, But they should be able too)
+      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE username = ? and uid != ? and (mainAcc IS NOT NULL or mainAcc != -1)");
+      $stmt->bind_param('si', $receivingUsername,$user_id);
       $stmt->execute();    // Execute the prepared query.
       $stmt->store_result();
 
@@ -389,6 +401,55 @@ function esc_url($url) {
       return 2;
     }
 
+  }
+  function getMainAccount($mysqli){
+      $user_id = $_SESSION['user_id'];
+      if($user_id == null)
+          return false;
+
+      $stmt = $mysqli->prepare("SELECT mainAcc FROM Users WHERE uid = ?");
+      $stmt->bind_param('i', $user_id);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+
+      // get variables from result.
+      $stmt->bind_result($receiving_Account);
+      $stmt->fetch();
+
+      // if the "$receivingUsername" exists and has an account in the database then:
+      if ($stmt->num_rows == 1) {
+          return $receiving_Account;
+      }
+      return -1;
+  }
+
+  function getAccountBalance($aid, $mysqli){
+      $stmt = $mysqli->prepare("SELECT balance FROM Account WHERE aid = ?");
+      $stmt->bind_param('i', $aid);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+      $stmt->bind_result($balance);
+      $stmt->fetch();
+
+      // if the sending user has enough balance then:
+      if ($stmt->num_rows == 1) {
+          return floatval($balance);
+      }
+      return 0;
+  }
+  function getAccountBalanceofUser($username, $mysqli){
+      $stmt = $mysqli->prepare("SELECT balance FROM Account as a,Users as u WHERE a.aid = u.mainAcc and username = ?");
+      $stmt->bind_param('s', $username);
+      $stmt->execute();    // Execute the prepared query.
+      $stmt->store_result();
+      $stmt->bind_result($balance);
+      $stmt->fetch();
+
+      // if the sending user has enough balance then:
+      if ($stmt->num_rows == 1) {
+          return floatval($balance);
+      }
+      return 0;
   }
 
   function addAccount($title, $financialinstitution,$type,$balance, $mysqli){
@@ -448,6 +509,7 @@ function esc_url($url) {
     }
     return false;
   }
+
   function deleteAccount($aid, $mysqli){
     $user_id = $_SESSION['user_id'];
     if($user_id == null)
@@ -486,7 +548,7 @@ function esc_url($url) {
               $stmt->fetch();
 
               if ($stmt->num_rows == 0) {
-                $aid = -1;
+                $aid = null;
               }
               $update_sql = "UPDATE Users SET mainAcc = ? WHERE uid = ?";
               $stmt = $mysqli->prepare($update_sql);

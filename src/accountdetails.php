@@ -89,9 +89,9 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
                 $stmt->fetch();
                 if ($stmt->num_rows == 1) {
                   if($totalDeposits != null)
-                    echo "<p class=\"account-summary\">Total Recieved: \$$totalDeposits</p>";
+                    echo "<p class=\"account-summary\">Total Received: \$$totalDeposits</p>";
                   else
-                    echo "<p class=\"account-summary\">Total Recieved: \$0.00</p>";
+                    echo "<p class=\"account-summary\">Total Received: \$0.00</p>";
                 }
                 $stmt->close();
               }
@@ -106,9 +106,9 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
                   if ($stmt->num_rows == 1) {
                     if($totalSpent != null){
                       $totalSpent = abs($totalSpent);
-                      echo "<p class=\"account-summary\">Total Spend: \$$totalSpent</p>";
+                      echo "<p class=\"account-summary\">Total Spent: \$$totalSpent</p>";
                     }else
-                      echo "<p class=\"account-summary\">Total Spend: \$0.00</p>";
+                      echo "<p class=\"account-summary\">Total Spent: \$0.00</p>";
                   }
                   $stmt->close();
                 }
@@ -120,7 +120,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
         </div>
         </a>
         <div class="backlight">
-          <h2 class="centered">Delete a Statment</h2>
+          <h2 class="centered">Delete a Statement</h2>
           <?php
           $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
           $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
@@ -219,7 +219,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
               if($amount > 0){
                 $type = "Deposit";
               }else{
-                $type = "Withdrawl";
+                $type = "Withdrawal";
               }
 
               $amount = abs($amount);

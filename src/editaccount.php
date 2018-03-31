@@ -123,7 +123,7 @@ if(!userHasAccount($user_id, $aid, $mysqli)){
             <option value="RRSP Account">RRSP Account</option>
 				</select>
 				<label>Balance:</label>
-				 <input type="number" name="balance" min="0.01" step="0.01" max="999999999.99" placeholder="0.00" value="<?php echo $balance; ?>">
+				 <input type="number" name="balance" min="0.00" step="0.01" max="999999999.99" placeholder="0.00" value="<?php echo $balance; ?>">
 				<button type="submit" value="Submit" id="update-submit">Edit Account</button>
 			</fieldset>
 		</form>
