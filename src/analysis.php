@@ -92,6 +92,101 @@ $user_id = $_SESSION['user_id'];
     $novExpenses = getMonthlyExpenses($mysqli, $mainAccount, 11);
     $decExpenses = getMonthlyExpenses($mysqli, $mainAccount, 12);
     
+    $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $arrData is the associative array that is initialized to store the chart attributes
+
+            $arrData = array(
+              "chart" => array(
+                  "caption"=> "Account Transactions - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actualData is the array that is initialized to store the data
+            $actualData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $desc = $row['desc'];
+              $amount = abs($amount);
+              $actualData += [$desc => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $arrData['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actualData as $key => $value) {
+          array_push($arrData['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonEncodedData = json_encode($arrData);
+
+        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $dataArr is the associative array that is initialized to store the chart attributes
+
+            $dataArr = array(
+              "chart" => array(
+                  "caption"=> "Money Transfers - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actData is the array that is initialized to store the data
+            $actData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $reason = $row['reason'];
+              $actData += [$reason => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $dataArr['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actData as $key => $value) {
+          array_push($dataArr['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonData = json_encode($dataArr);
+
     $columnChart = new FusionCharts("Column2D", "incomeChart" , "49.8%", 400, "chart-1", "json",
     '{
         "chart": {
@@ -152,38 +247,20 @@ $user_id = $_SESSION['user_id'];
                 ]
             }');
 
-            $pieChart = new FusionCharts("Pie2D", "thirdChart", "49.8%", 400, "chart-3", "json",
-        '{
-            "chart": {
-                "caption": "Transactions - Amount per Category",
-                "bgColor": "#555555",
-                "borderColor": "#666666",
-                "borderThickness": "4",
-                "borderAlpha": "80",
-                "baseFontSize": "12",
-                "xAxisName": "Month",
-                "yAxisName": "Revenues",
-                "numberPrefix": "$",
-                "theme": "zune"
-            },
-            "data": [
-                    {"label": "Bills", "value": "420"},
-                    {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "220"},
-                    {"label": "Work/Education", "value": "1550"},
-                    {"label": "Insurance", "value": "910"},
-                    {"label": "Other", "value": "510"}
-                ]
-            }');
+         $pieChart = new FusionCharts("Pie2D", "thirdChart", "49.8%", 400, "chart-3", "json", $jsonEncodedData);
+         $pieChart2 = new FusionCharts("Pie2D", "fourthChart", "49.8%", 400, "chart-4", "json", $jsonData);
+
 
       $columnChart->render();
       $columnChart2->render();
       $pieChart->render();
+      $pieChart2->render();
     ?>
     <!-- containers for inserting charts -->
     <div id="chart-1"></div>
     <div id="chart-2"></div>
     <div id="chart-3"></div>
+    <div id="chart-4"></div>
     </section>
   <div class="clear"></div>
   </main>

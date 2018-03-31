@@ -1,27 +1,6 @@
 /* GLOBAL */
 body{padding:0; margin:0; background-color:#d9d9cd; color:#40483d; font:12px Tahoma, sans-serif;}
-@media (min-width: 576px) {
-#chart-2{
-  display:inline;
-}
-#chart-1{
-  display:inline;
-}
-#chart-3{
-  display:inline;
-}
-}
-@media (max-width: 576px) {
-  #chart-2{
-    width: 100%;
-  }
-  #chart-1{
-    width: 100%;
-  }
-  #chart-3{
-    width: 100%;
-  }
-  }
+
 .clear {clear: both; margin: 0; height:0}
 
 h1{font-size:18px; color:#646b61; padding:0.5em; font-weight: bold;}
@@ -502,3 +481,33 @@ ul.transactions, .transactions li, .transactions p{
   background: linear-gradient(bottom, #B57006, #e18b07);
   color:#FFF;
 }
+
+/*CHARTS*/
+@media (min-width: 576px) {
+    #chart-2{
+      display:inline;
+    }
+    #chart-1{
+      display:inline;
+    }
+    #chart-3{
+      display:inline;
+    }
+    #chart-4{
+      display:inline;
+    }
+    }
+  @media (max-width: 576px) {
+    #chart-2{
+      width: 100%;
+    }
+    #chart-1{
+      width: 100%;
+    }
+    #chart-3{
+      width: 100%;
+    }
+    #chart-4{
+      width: 100%;
+    }
+    }
