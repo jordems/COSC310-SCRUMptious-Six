@@ -117,7 +117,21 @@ $user_id = $_SESSION['user_id'];
     </section>
     <section id="rightColumn" class="centered">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
+      <?php
+          $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE uid = ?");
+          $stmt->bind_param('i', $user_id);
+          $stmt->execute();    // Execute the prepared query.
+          $stmt->store_result();
+
+          $stmt->fetch();
+
+          $hasAccount = false;
+          if ($stmt->num_rows == 1) {
+            $hasAccount = true;
+          }
+          ?>
       <h2>Send Money:</h2>
+      <?php if($hasAccount){ ?>
       <form action="includes/process_transaction.php" method="post" id="send-form">
           <?php
           $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
@@ -135,7 +149,7 @@ $user_id = $_SESSION['user_id'];
           <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%" required>
           <label class="input-title">Amount:</label>
           <span class="fas fa-dollar-sign imgsized"></span>
-          <input type="number" name="amount" min="0.01" step="0.01" max="100000000000000.00" placeholder="0.00" id="send-amount" style="width:70%" required>
+          <input type="number" name="amount" min="0.01" step="0.01" max="999999999.99" placeholder="0.00" id="send-amount" style="width:70%" required>
           <label class="input-title">Reason:</label>
           <span class="fas fa-angle-right imgsized"></span>
           <input list="reason" name="reason" style="width:70%" required>
@@ -183,6 +197,60 @@ $user_id = $_SESSION['user_id'];
           </select>
           <input type="submit" value="Submit" id="send-submit">
       </form>
+    <?php }else{ ?>
+      <form action="includes/process_transaction.php" method="post" id="send-form-disabled">
+          <?php
+          $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+          $success = filter_input(INPUT_GET, 'success', $filter = FILTER_SANITIZE_STRING);
+
+          if (!empty($error)) {
+              echo '<p class="error-msg">'.$error.'</p>';
+          }
+          if (!empty($success)) {
+              echo '<p class="success-msg">Transaction Successful!</p>';
+          }
+          ?>
+          <label class="input-title">Send to:</label>
+          <span class="fas fa-user user"></span>
+          <input type="text" name="receivingUsername" placeholder="Username"id="send-user" style="width:70%" disabled>
+          <label class="input-title">Amount:</label>
+          <span class="fas fa-dollar-sign imgsized"></span>
+          <input type="number" name="amount" min="0.01" step="0.01" max="999999999.99" placeholder="0.00" id="send-amount" style="width:70%" disabled>
+          <label class="input-title">Reason:</label>
+          <span class="fas fa-angle-right imgsized"></span>
+          <input list="reason" name="reason" style="width:70%" disabled>
+          <label class="input-title">Withdrawing Account:</label>
+          <select id="reason" disabled>
+            <?php
+            $query = "SELECT DISTINCT reason FROM Transaction WHERE !(reason = 'Bills' or reason = 'Goods/Entertainment' or reason = 'Gift') and (fromid = ? or toid = ?) ORDER BY datetime";
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('ii', $user_id, $user_id);
+                $stmt->execute();    // Execute the prepared query.
+
+                $result = $stmt->get_result();
+                // get variables from result.
+
+                while($row = $result->fetch_assoc())
+                {
+                  echo "<option value=\"".$row['reason']."\">";
+                }
+                $result -> free();
+                $stmt->close();
+              }
+            ?>
+            <option value="Bills">
+            <option value="Goods/Entertainment">
+            <option value="Gift">
+          </datalist>
+          <label class="input-title">Withdrawing Account:</label>
+          <select name="account" id="acc" disabled>
+            <option disabled>No Existing Account</option>
+          </select>
+          <input type="submit" value="Submit" id="send-submit" disabled>
+
+      </form>
+      <h3 class="centered"><a href="addaccount.php" id="new-account-button2">Create an Account</a></h3>
+      <?php } ?>
     </section>
     <section id="center">
         <h2>Recent Account Transactions</h2>
