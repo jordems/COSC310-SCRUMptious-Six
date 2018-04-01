@@ -11,7 +11,7 @@ $user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <head lang = "en">
-	<title>SF - Accounts</title>
+	<title>SF - Calendar</title>
 	<link href="css/reset.css" rel="stylesheet" type="text/css" />
 	<link href="css/styles.css" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
