@@ -1,4 +1,8 @@
 <?php
+/* Test Cases Created by: Jordan Emslie
+ * 
+ */
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
 
@@ -7,8 +11,6 @@ require_once __DIR__.'/testFunctions.php';
 
 class accountTest extends TestCase{
     
-    
-    
     private $mysqli = NULL;
     
     protected function setUp()
@@ -16,6 +18,7 @@ class accountTest extends TestCase{
         $this->mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
         $_SESSION['user_id'] = 42; // Id of a test User in the database
     }
+    
     // Test to confirm that the Database is working correctly
     public function testDBConnection(){
         $mysqli = $this->mysqli;
@@ -34,6 +37,7 @@ class accountTest extends TestCase{
         }
     }
     
+    // Test to confirm that the add Account Functionallity is Working Properly
     public function testAddAccount(){
         $mysqli = $this->mysqli;
         $user_id = $_SESSION['user_id'];
@@ -64,17 +68,19 @@ class accountTest extends TestCase{
                 $stmt->close();
                 $this->assertEquals($expected,$actual);
             }else{
+                // Nothing was returned from the query, meaning that the addaccount function was not successful
                 $stmt->close();
                 echo "\n-----testAddAccount FAILED-----";
                 $this->assertTrue(false);
             }
         }else{
-        
+            // Request to the addAccount function failed
             echo "\n-----testAddAccount FAILED-----";
             $this->assertTrue(false);
         }
     }
     
+    // Test to confirm that the edit account functionality is working properly
     public function testEditAccount(){
         $mysqli = $this->mysqli;
         $user_id = $_SESSION['user_id'];
@@ -108,6 +114,7 @@ class accountTest extends TestCase{
                 $stmt->close();
                 $this->assertEquals($expected,$actual);
             }else{
+                // Nothing was returned from the database, meaning that the edi
                 echo "\n\tActual: ($actualTitle, $actualFinancialinstitution, $actualType, $actualBalance)";
                 $stmt->close();
                 echo "\n-----testEditAccount FAILED-----";
@@ -119,6 +126,8 @@ class accountTest extends TestCase{
             $this->assertTrue(false);
         }
     }
+    
+    // Test to confirm that the delete account functionality is working properly
     public function testDeleteAccount(){
         $mysqli = $this->mysqli;
         
@@ -144,12 +153,14 @@ class accountTest extends TestCase{
                 $stmt->close();
                 $this->assertTrue(true);
             }else{
+                // Something was returned from the database, meaning that the account wasen't deleted
                 $stmt->close();
                 echo "\n\tActual: ".$stmt->num_rows." rows returned";
                 echo "\n-----testDeleteAccount FAILED-----";
                 $this->assertTrue(false);
             }
         }else{
+            // Function request failed, therefore account wasen't deleted
             echo "\n-----testDeleteAccount FAILED-----";
             $this->assertTrue(false);
         }
