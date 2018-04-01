@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 <!DOCTYPE html>
 <html>
 <head>
-<title>SCRUMptious</title>
+<title>SF - Transactions</title>
 <meta charset="utf-8">
 
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
@@ -28,6 +28,7 @@ $user_id = $_SESSION['user_id'];
    <a href="overview.php"><img src="img/sf_logo.png" alt="Logo" id="logo" /></a>
    <div class="dropdown">
      <!-- Add php to pull user's name and add it here -->
+
 		<button class="dropbtn"><?php echo $_SESSION['username'];?></button>
 		<div class="dropdown-content">
 			<p><a href="profile.php">Account</a></p>
@@ -118,7 +119,7 @@ $user_id = $_SESSION['user_id'];
     <section id="rightColumn" class="centered">
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <?php
-          $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE uid = ?");
+          $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE uid = ? LIMIT 1");
           $stmt->bind_param('i', $user_id);
           $stmt->execute();    // Execute the prepared query.
           $stmt->store_result();
@@ -306,9 +307,11 @@ $user_id = $_SESSION['user_id'];
     </section>
   <div class="clear"></div>
   </main>
+  <!--
   <footer>
     <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
     <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
   </footer>
+-->
 </body>
 </html>
