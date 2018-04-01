@@ -9,6 +9,9 @@
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
 <link href="css/slider.css" rel="stylesheet" type="text/css" media="screen">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+      window.jQuery || document.write('<script src=\"../js/jquery-3.1.1.min.js\"><\/script>');
+</script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script type="text/javascript" src="js/slider.js"></script>
 <script type="text/javascript">

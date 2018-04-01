@@ -19,6 +19,9 @@ $user_id = $_SESSION['user_id'];
 	<link rel="stylesheet" href="css/calendar.css">
 	<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+      window.jQuery || document.write('<script src=\"../js/jquery-3.1.1.min.js\"><\/script>');
+    </script>
 	<title>
 	</title>
 </head>
