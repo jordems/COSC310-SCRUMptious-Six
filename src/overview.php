@@ -18,7 +18,6 @@ $user_id = $_SESSION['user_id'];
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
-<script src="js/chartload.js"></script>
 <script src="js/fusioncharts.js"></script>
 <script src="js/fusioncharts.charts.js"></script>
 </head>

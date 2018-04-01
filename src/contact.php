@@ -8,7 +8,7 @@ sec_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-<title>About Us | Scrumptious Finance</title>
+<title>Contact Us | Scrumptious Finance</title>
 <meta charset="utf-8">
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
@@ -71,13 +71,41 @@ sec_session_start();
         </ul>
     </section>
     <section id="center-noleft" class="backlight">
-      <h2>About Us</h2>
-        <p class="largerfont">The Scrumptious Finance website was designed to allow users to view all of their monthly bank statements in one place, as well as to transfer money between accounts and easily analyze their financial information. Our website is meant to be a hub for you to view all of your different financial accounts, whether it be your day to day chequing account or your long term investment accounts, in order to make managing your financial life easier.</p>
-        <p class="largerfont">It is our goal to make it easier for people to view all of their finances without having to go to multiple different bank websites. We'd like Scrumptious Finance to provide a central location for you to manage your finances.</p>
+      <h2>Contact Us</h2>
+      <?php
+              $error = filter_input(INPUT_GET, 'error', $filter = FILTER_SANITIZE_STRING);
+              $message = filter_input(INPUT_GET, 'message', $filter = FILTER_SANITIZE_STRING);
+
+              if (!empty($error)) {
+                  echo '<h2 class=\"error-msg\" style="text-align:center;color:red">'.$error.'</h2>';
+              }
+              if(!empty($message)){
+                  echo '<h2 class=\"success-msg\" style="text-align:center;color:#3ACC27">'.$message.'</h2>';
+              }
+              ?>
+      <form action="includes/send_mail.php" method="post" class="contactform">
+			<ul>
+				<li>
+					<label for="name">Name</label>
+					<input type="text" name="name" maxlength="30"/>
+				</li>
+				<li>
+					<label for="email">Email</label>
+					<input type="email" name="email" maxlength="30"/>
+				</li>
+				<li>
+					<label for="message">Message</label>
+					<textarea name="message" maxlength="1000"></textarea> 
+				</li>
+				<li class="button send">
+                <input type="submit" name="submit" value="Send Message" class="savebtn"/>
+				</li>
+			</ul>
+	 </form>	
       </section>
   <div class="clear"></div>
   </main>
-  <footer class="absolute">
+  <footer>
     <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
     <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>

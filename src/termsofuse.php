@@ -1,8 +1,7 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include_once 'includes/getMonthlyData.php';
-include_once 'includes/fusioncharts.php';
+
 sec_session_start();
 
 ?>
@@ -14,9 +13,7 @@ sec_session_start();
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
-<script src="js/chartload.js"></script>
-<script src="js/fusioncharts.js"></script>
-<script src="js/fusioncharts.charts.js"></script>
+
 </head>
 <body>
 <header>
