@@ -17,6 +17,9 @@ if (login_check($mysqli) == true) {
   <link rel="stylesheet" href="css/login.css">
   <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+      window.jQuery || document.write('<script src=\"../js/jquery-3.1.1.min.js\"><\/script>');
+  </script>
   <script type="text/javaScript" src="js/sha512.js"></script>
   <script type="text/javaScript" src="js/forms.js"></script>
 

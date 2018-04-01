@@ -1,7 +1,8 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include 'includes/fusioncharts.php';
+include_once 'includes/getMonthlyData.php';
+include_once 'includes/fusioncharts.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
     // If not Logged in then send to login page
@@ -65,48 +66,103 @@ $user_id = $_SESSION['user_id'];
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
-          <li><a href="#">False alarm, everything is going to be okay.</a></li>
-          <li><a href="#">The stock market has crashed, the end of the world is near.</a></li>
-          <li><a href="#">A new bank has opened in your area.</a></li>
-          <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
+          <li><a href="https://www.forbes.com/sites/lizfrazierpeck/2018/03/31/what-is-a-financial-plan-and-why-every-adult-needs-one/#38e9ac0558be">What Is A Financial Plan, And Why Every Adult Needs One</a></li>
+          <li><a href="https://www.theglobeandmail.com/report-on-business/rob-commentary/canada-us-must-prepare-for-the-next-economic-or-financial-crisis/article38283300/">Canada, U.S. must prepare for the next economic or financial crisis</a></li>
+          <li><a href="http://business.financialpost.com/pmn/business-pmn/british-columbias-economy-is-forecast-to-remain-strong-through-2020">British Columbia's economy is forecast to remain strong through 2020</a></li>
+          <li><a href="https://www.forbes.com/sites/bobcarlson/2018/03/29/10-ways-to-simplify-your-financial-life/#4cafb132fef2">10 Ways To Simplify Your Financial Life</a></li>
         </ul>
     </section>
     <section id="center" class="backlight">
       <h2>Overview</h2>
         <?php
         // Pull user statement data from database, convert to JSON, add to data section of charts
-        $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json",
-        '{
-            "chart": {
-                "caption": "Transactions - Amount per Category",
-                "bgColor": "#555555",
-                "borderColor": "#666666",
-                "borderThickness": "4",
-                "borderAlpha": "80",
-                "baseFontSize": "12",
-                "xAxisName": "Month",
-                "yAxisName": "Revenues",
-                "numberPrefix": "$",
-                "theme": "zune"
-            },
-            "data": [
-                    {"label": "Bills", "value": "420"},
-                    {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "220"},
-                    {"label": "Work/Education", "value": "1550"},
-                    {"label": "Insurance", "value": "910"},
-                    {"label": "Other", "value": "510"}
-                ]
-            }');
+        $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
+        if ($stmt = $mysqli->prepare($query)) {
+          $stmt->bind_param('i', $user_id);
+          $stmt->execute();    // Execute the prepared query.
+          $stmt->bind_result($mainAccount);
+          $stmt->fetch();
+          $stmt->close();
+        }
 
-            $pieChart->render();
+        $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $arrData is the associative array that is initialized to store the chart attributes
+
+            $arrData = array(
+              "chart" => array(
+                  "caption"=> "All Transactions - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actualData is the array that is initialized to store the data
+            $actualData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $desc = $row['desc'];
+              $amount = abs($amount);
+              $actualData += [$desc => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $reason = $row['reason'];
+              $actualData += [$reason => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        
+        $arrData['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actualData as $key => $value) {
+          array_push($arrData['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonEncodedData = json_encode($arrData);
+
+        
+        $pieChart = new FusionCharts("Pie2D", "transactionsChart", "100%", 400, "overview-chart-1", "json", $jsonEncodedData);
+
+        $pieChart->render();
+
         ?>
-        <div id="chart-1"></div>
-    </section>
+        <!-- containers for inserting charts -->
+        <div id="overview-chart-1"></div>
+        
+      </section>
   <div class="clear"></div>
   </main>
   <footer>
-    <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
+    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
     <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>
 </body>
