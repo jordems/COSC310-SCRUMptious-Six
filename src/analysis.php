@@ -1,13 +1,18 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include 'includes/fusioncharts.php';
+include_once 'includes/getMonthlyData.php';
+include_once 'includes/fusioncharts.php';
+
 sec_session_start();
+
 if (login_check($mysqli) == false) {
   // If not logged in then send to login page
   header('Location:login.php');
 }
+
 $user_id = $_SESSION['user_id'];
+
 ?>
   <!DOCTYPE html>
   <html>
@@ -48,21 +53,141 @@ $user_id = $_SESSION['user_id'];
      </div>
   </header>
   <main>
-    <section id="rightColumn" class="backlight">
-      <!-- The latest finacial news and events from the world or user's particular area shown here -->
-      <h2>News and Events</h2>
-        <ul>
-          <li><a href="#">False alarm, everything is going to be okay.</a></li>
-          <li><a href="#">The stock market has crashed, the end of the world is near.</a></li>
-          <li><a href="#">A new bank has opened in your area.</a></li>
-          <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
-        </ul>
-    </section>
-    <section id="center-noleft" class="backlight">
+    <section class="backlight">
     <h1>Financial Analysis</h1>
     <?php
+    $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
+    if ($stmt = $mysqli->prepare($query)) {
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->bind_result($mainAccount);
+        $stmt->fetch();
+        $stmt->close();
+    }
+    
     // Pull user statement data from database, convert to JSON, add to data section of charts
-    $columnChart = new FusionCharts("Column2D", "firstChart" , "100%", 400, "chart-1", "json",
+    $janIncome = getMonthlyIncome($mysqli, $mainAccount, 1);
+    $febIncome = getMonthlyIncome($mysqli, $mainAccount, 2);
+    $marIncome = getMonthlyIncome($mysqli, $mainAccount, 3);
+    $aprilIncome = getMonthlyIncome($mysqli, $mainAccount, 4);
+    $mayIncome = getMonthlyIncome($mysqli, $mainAccount, 5);
+    $juneIncome = getMonthlyIncome($mysqli, $mainAccount, 6);
+    $julyIncome = getMonthlyIncome($mysqli, $mainAccount, 7);
+    $augIncome = getMonthlyIncome($mysqli, $mainAccount, 8);
+    $sepIncome = getMonthlyIncome($mysqli, $mainAccount, 9);
+    $octIncome = getMonthlyIncome($mysqli, $mainAccount, 10);
+    $novIncome = getMonthlyIncome($mysqli, $mainAccount, 11);
+    $decIncome = getMonthlyIncome($mysqli, $mainAccount, 12);
+
+    $janExpenses = getMonthlyExpenses($mysqli, $mainAccount, 1);
+    $febExpenses = getMonthlyExpenses($mysqli, $mainAccount, 2);
+    $marExpenses = getMonthlyExpenses($mysqli, $mainAccount, 3);
+    $aprilExpenses = getMonthlyExpenses($mysqli, $mainAccount, 4);
+    $mayExpenses = getMonthlyExpenses($mysqli, $mainAccount, 5);
+    $juneExpenses = getMonthlyExpenses($mysqli, $mainAccount, 6);
+    $julyExpenses = getMonthlyExpenses($mysqli, $mainAccount, 7);
+    $augExpenses = getMonthlyExpenses($mysqli, $mainAccount, 8);
+    $sepExpenses = getMonthlyExpenses($mysqli, $mainAccount, 9);
+    $octExpenses = getMonthlyExpenses($mysqli, $mainAccount, 10);
+    $novExpenses = getMonthlyExpenses($mysqli, $mainAccount, 11);
+    $decExpenses = getMonthlyExpenses($mysqli, $mainAccount, 12);
+    
+    $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('i', $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $arrData is the associative array that is initialized to store the chart attributes
+
+            $arrData = array(
+              "chart" => array(
+                  "caption"=> "Account Transactions - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actualData is the array that is initialized to store the data
+            $actualData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $desc = $row['desc'];
+              $amount = abs($amount);
+              $actualData += [$desc => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $arrData['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actualData as $key => $value) {
+          array_push($arrData['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonEncodedData = json_encode($arrData);
+
+        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+            
+            // $dataArr is the associative array that is initialized to store the chart attributes
+
+            $dataArr = array(
+              "chart" => array(
+                  "caption"=> "Money Transfers - Amount per Category",
+                  "bgColor"=> "#555555",
+                  "borderColor"=> "#666666",
+                  "borderThickness"=> "4",
+                  "borderAlpha"=> "80",
+                  "baseFontSize"=> "12",
+                  "numberPrefix"=> "$",
+                  "theme"=> "zune"
+              )
+            );
+
+            // $actData is the array that is initialized to store the data
+            $actData = array();
+            // get data from result
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $reason = $row['reason'];
+              $actData += [$reason => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        $dataArr['data'] = array();
+        
+        // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+        foreach ($actData as $key => $value) {
+          array_push($dataArr['data'],
+              array(
+                  'label' => $key,
+                  'value' => $value
+              )
+          );
+        }
+        // Encodes the data into JSON format for use in the chart
+        $jsonData = json_encode($dataArr);
+
+    $columnChart = new FusionCharts("Column2D", "incomeChart" , "49.8%", 400, "chart-1", "json",
     '{
         "chart": {
             "caption": "Monthly Income for Last Year",
@@ -77,22 +202,22 @@ $user_id = $_SESSION['user_id'];
             "theme": "zune"
         },
         "data": [
-                {"label": "Jan", "value": "4200"},
-                {"label": "Feb", "value": "8100"},
-                {"label": "Mar", "value": "7200"},
-                {"label": "Apr", "value": "5500"},
-                {"label": "May", "value": "9100"},
-                {"label": "Jun", "value": "5100"},
-                {"label": "Jul", "value": "6800"},
-                {"label": "Aug", "value": "6200"},
-                {"label": "Sep", "value": "6100"},
-                {"label": "Oct", "value": "4900"},
-                {"label": "Nov", "value": "9000"},
-                {"label": "Dec", "value": "7300"}
+                {"label": "Jan", "value": "'.$janIncome.'"},
+                {"label": "Feb", "value": "'.$febIncome.'"},
+                {"label": "Mar", "value": "'.$marIncome.'"},
+                {"label": "Apr", "value": "'.$aprilIncome.'"},
+                {"label": "May", "value": "'.$mayIncome.'"},
+                {"label": "Jun", "value": "'.$juneIncome.'"},
+                {"label": "Jul", "value": "'.$julyIncome.'"},
+                {"label": "Aug", "value": "'.$augIncome.'"},
+                {"label": "Sep", "value": "'.$sepIncome.'"},
+                {"label": "Oct", "value": "'.$octIncome.'"},
+                {"label": "Nov", "value": "'.$novIncome.'"},
+                {"label": "Dec", "value": "'.$decIncome.'"}
             ]
         }');
 
-        $columnChart2 = new FusionCharts("Column2D", "secondChart", "100%", 400, "chart-2", "json",
+        $columnChart2 = new FusionCharts("Column2D", "expensesChart", "49.8%", 400, "chart-2", "json",
         '{
             "chart": {
                 "caption": "Monthly Expenses for Last Year",
@@ -107,59 +232,41 @@ $user_id = $_SESSION['user_id'];
                 "theme": "zune"
             },
             "data": [
-                    {"label": "Jan", "value": "920"},
-                    {"label": "Feb", "value": "230"},
-                    {"label": "Mar", "value": "520"},
-                    {"label": "Apr", "value": "550"},
-                    {"label": "May", "value": "410"},
-                    {"label": "Jun", "value": "110"},
-                    {"label": "Jul", "value": "680"},
-                    {"label": "Aug", "value": "820"},
-                    {"label": "Sep", "value": "310"},
-                    {"label": "Oct", "value": "490"},
-                    {"label": "Nov", "value": "200"},
-                    {"label": "Dec", "value": "730"}
+                    {"label": "Jan", "value": "'.$janExpenses.'"},
+                    {"label": "Feb", "value": "'.$febExpenses.'"},
+                    {"label": "Mar", "value": "'.$marExpenses.'"},
+                    {"label": "Apr", "value": "'.$aprilExpenses.'"},
+                    {"label": "May", "value": "'.$mayExpenses.'"},
+                    {"label": "Jun", "value": "'.$juneExpenses.'"},
+                    {"label": "Jul", "value": "'.$julyExpenses.'"},
+                    {"label": "Aug", "value": "'.$augExpenses.'"},
+                    {"label": "Sep", "value": "'.$sepExpenses.'"},
+                    {"label": "Oct", "value": "'.$octExpenses.'"},
+                    {"label": "Nov", "value": "'.$novExpenses.'"},
+                    {"label": "Dec", "value": "'.$decExpenses.'"}
                 ]
             }');
 
-            $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-3", "json",
-        '{
-            "chart": {
-                "caption": "Transactions - Amount per Category",
-                "bgColor": "#555555",
-                "borderColor": "#666666",
-                "borderThickness": "4",
-                "borderAlpha": "80",
-                "baseFontSize": "12",
-                "xAxisName": "Month",
-                "yAxisName": "Revenues",
-                "numberPrefix": "$",
-                "theme": "zune"
-            },
-            "data": [
-                    {"label": "Bills", "value": "420"},
-                    {"label": "Entertainment", "value": "810"},
-                    {"label": "Food", "value": "220"},
-                    {"label": "Work/Education", "value": "1550"},
-                    {"label": "Insurance", "value": "910"},
-                    {"label": "Other", "value": "510"}
-                ]
-            }');
+         $pieChart = new FusionCharts("Pie2D", "transactionsChart", "49.8%", 400, "chart-3", "json", $jsonEncodedData);
+         $pieChart2 = new FusionCharts("Pie2D", "transfersChart", "49.8%", 400, "chart-4", "json", $jsonData);
+
 
       $columnChart->render();
       $columnChart2->render();
       $pieChart->render();
+      $pieChart2->render();
     ?>
     <!-- containers for inserting charts -->
     <div id="chart-1"></div>
     <div id="chart-2"></div>
     <div id="chart-3"></div>
+    <div id="chart-4"></div>
     </section>
   <div class="clear"></div>
   </main>
   <footer>
-    <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
-    <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
+    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>
 </body>
 </html>

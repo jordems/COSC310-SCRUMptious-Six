@@ -19,6 +19,9 @@ $user_id = $_SESSION['user_id'];
 	<link rel="stylesheet" href="css/calendar.css">
 	<link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+      window.jQuery || document.write('<script src=\"../js/jquery-3.1.1.min.js\"><\/script>');
+    </script>
 	<title>
 	</title>
 </head>
@@ -122,9 +125,9 @@ $user_id = $_SESSION['user_id'];
 		<script type="text/javascript" src="js/calendar.js"></script>
 	</main>
 	<footer class="absolute">
-		<p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
-		<p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
-	</footer>
+    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
+  </footer>
 </body>
 
 </html>

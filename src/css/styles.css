@@ -8,7 +8,7 @@ h2{font-size:16px; color:#646b61; padding:0.5em; font-weight: bold;}
 h2 a{font-size:16px; color:#646b61; padding:0.5em; padding-left:0; font-weight: bold;}
 h3{font-size:14px; color:rgba(0,0,0,.8); padding:0.3em; padding-left: .5em;}
 p{color:#40483d; padding:0.5em; font:12px}
-p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
+p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline; cursor: pointer; padding-right: 2em;}
 p a:hover{ color:#40483d; text-decoration:none;}
 ul {margin-left: 0.5em;}
 ul li{font:12px; color:#40483d; padding:0.5em; list-style-type: none;}
@@ -38,6 +38,26 @@ em{font-style: italic; color: #40483d}
 }
 .Withdrawal{
   background-color: rgba(255,0,0,.1);
+}
+
+.largerfont{
+  font-size: 16px;
+}
+
+.list li{
+  font-size: 14px;
+}
+
+.list li a{
+  font-size: 14px;
+  color: #40483d;
+  text-decoration: underline;
+}
+
+.link{
+  font-size:16px;
+  padding:0;
+  margin:0;
 }
 
 /* HEADER */
@@ -462,6 +482,17 @@ ul.transactions, .transactions li, .transactions p{
   width: 98%;
 }
 
+.contactform input[type=text], input[type=email]{
+  width: 50%;
+  padding: 0.5em;
+}
+
+.contactform textarea{
+  width: 51%;
+  height: 10em;
+  resize: none;
+}
+
 .savebtn{
   font-size: 16px;
   color: #555555;
@@ -481,3 +512,33 @@ ul.transactions, .transactions li, .transactions p{
   background: linear-gradient(bottom, #B57006, #e18b07);
   color:#FFF;
 }
+
+/*CHARTS*/
+@media (min-width: 576px) {
+    #chart-2{
+      display:inline;
+    }
+    #chart-1{
+      display:inline;
+    }
+    #chart-3{
+      display:inline;
+    }
+    #chart-4{
+      display:inline;
+    }
+    }
+  @media (max-width: 576px) {
+    #chart-2{
+      width: 100%;
+    }
+    #chart-1{
+      width: 100%;
+    }
+    #chart-3{
+      width: 100%;
+    }
+    #chart-4{
+      width: 100%;
+    }
+    }
