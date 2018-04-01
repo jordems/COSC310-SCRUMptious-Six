@@ -64,10 +64,10 @@ sec_session_start();
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
-          <li><a href="#">False alarm, everything is going to be okay.</a></li>
-          <li><a href="#">The stock market has crashed, the end of the world is near.</a></li>
-          <li><a href="#">A new bank has opened in your area.</a></li>
-          <li><a href="#">Disney buys 21st Century Fox for $52.4 billion.</a></li>
+          <li><a href="https://www.forbes.com/sites/lizfrazierpeck/2018/03/31/what-is-a-financial-plan-and-why-every-adult-needs-one/#38e9ac0558be">What Is A Financial Plan, And Why Every Adult Needs One</a></li>
+          <li><a href="https://www.theglobeandmail.com/report-on-business/rob-commentary/canada-us-must-prepare-for-the-next-economic-or-financial-crisis/article38283300/">Canada, U.S. must prepare for the next economic or financial crisis</a></li>
+          <li><a href="http://business.financialpost.com/pmn/business-pmn/british-columbias-economy-is-forecast-to-remain-strong-through-2020">British Columbia's economy is forecast to remain strong through 2020</a></li>
+          <li><a href="https://www.forbes.com/sites/bobcarlson/2018/03/29/10-ways-to-simplify-your-financial-life/#4cafb132fef2">10 Ways To Simplify Your Financial Life</a></li>
         </ul>
     </section>
     <section id="center-noleft" class="backlight">

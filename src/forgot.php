@@ -56,7 +56,7 @@ if (login_check($mysqli) == true) {
                 </div>
                 <div id="forgot-anchors">
                   <p><a href="login.php" class="text">Login Page</a></p>
-                  <p><a href="#" class="text">Contact Us</a></p>
+                  <p><a href="contact.php" class="text">Contact Us</a></p>
                 </div>
 
 
