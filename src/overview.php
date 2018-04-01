@@ -1,7 +1,8 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include 'includes/fusioncharts.php';
+include_once 'includes/getMonthlyData.php';
+include_once 'includes/fusioncharts.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
     // If not Logged in then send to login page
@@ -17,6 +18,7 @@ $user_id = $_SESSION['user_id'];
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/sf_icon.ico" />
+<script src="js/chartload.js"></script>
 <script src="js/fusioncharts.js"></script>
 <script src="js/fusioncharts.charts.js"></script>
 </head>
@@ -95,7 +97,7 @@ $user_id = $_SESSION['user_id'];
 
             $arrData = array(
               "chart" => array(
-                  "caption"=> "Transactions - Amount per Category",
+                  "caption"=> "All Transactions - Amount per Category",
                   "bgColor"=> "#555555",
                   "borderColor"=> "#666666",
                   "borderThickness"=> "4",
@@ -118,6 +120,22 @@ $user_id = $_SESSION['user_id'];
             $result -> free();
             $stmt->close();
         }
+        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->execute();    // Execute the prepared query.
+
+            $result = $stmt->get_result();
+
+            while($row = $result->fetch_assoc()){
+              $amount = $row['amount'];
+              $reason = $row['reason'];
+              $actualData += [$reason => $amount];
+            }
+            $result -> free();
+            $stmt->close();
+        }
+        
         $arrData['data'] = array();
         
         // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
@@ -132,13 +150,16 @@ $user_id = $_SESSION['user_id'];
         // Encodes the data into JSON format for use in the chart
         $jsonEncodedData = json_encode($arrData);
 
-       // echo $jsonEncodedData;
-        $pieChart = new FusionCharts("Pie2D", "thirdChart", "100%", 400, "chart-1", "json", $jsonEncodedData);
+        
+        $pieChart = new FusionCharts("Pie2D", "transactionsChart", "100%", 400, "overview-chart-1", "json", $jsonEncodedData);
 
-            $pieChart->render();
+        $pieChart->render();
+
         ?>
-        <div id="chart-1"></div>
-    </section>
+        <!-- containers for inserting charts -->
+        <div id="overview-chart-1"></div>
+        
+      </section>
   <div class="clear"></div>
   </main>
   <footer>

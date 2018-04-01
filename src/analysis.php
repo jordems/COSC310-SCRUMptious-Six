@@ -53,7 +53,7 @@ $user_id = $_SESSION['user_id'];
      </div>
   </header>
   <main>
-    <section id="leftHalf" class="backlight">
+    <section class="backlight">
     <h1>Financial Analysis</h1>
     <?php
     $query = "SELECT mainAcc FROM Users WHERE uid = ? LIMIT 1";
@@ -247,8 +247,8 @@ $user_id = $_SESSION['user_id'];
                 ]
             }');
 
-         $pieChart = new FusionCharts("Pie2D", "thirdChart", "49.8%", 400, "chart-3", "json", $jsonEncodedData);
-         $pieChart2 = new FusionCharts("Pie2D", "fourthChart", "49.8%", 400, "chart-4", "json", $jsonData);
+         $pieChart = new FusionCharts("Pie2D", "transactionsChart", "49.8%", 400, "chart-3", "json", $jsonEncodedData);
+         $pieChart2 = new FusionCharts("Pie2D", "transfersChart", "49.8%", 400, "chart-4", "json", $jsonData);
 
 
       $columnChart->render();

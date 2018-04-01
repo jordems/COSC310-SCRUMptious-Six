@@ -8,7 +8,7 @@ h2{font-size:16px; color:#646b61; padding:0.5em; font-weight: bold;}
 h2 a{font-size:16px; color:#646b61; padding:0.5em; padding-left:0; font-weight: bold;}
 h3{font-size:14px; color:rgba(0,0,0,.8); padding:0.3em; padding-left: .5em;}
 p{color:#40483d; padding:0.5em; font:12px}
-p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline;}
+p a{font:12px Tahoma, sans-serif; color:#40483d; text-decoration:underline; cursor: pointer; padding-right: 2em;}
 p a:hover{ color:#40483d; text-decoration:none;}
 ul {margin-left: 0.5em;}
 ul li{font:12px; color:#40483d; padding:0.5em; list-style-type: none;}
@@ -38,6 +38,10 @@ em{font-style: italic; color: #40483d}
 }
 .Withdrawal{
   background-color: rgba(255,0,0,.1);
+}
+
+.largerfont{
+  font-size: 16px;
 }
 
 /* HEADER */
