@@ -67,17 +67,10 @@ $user_id = $_SESSION['user_id'];
       <!-- The latest finacial news and events from the world or user's particular area shown here -->
       <h2>News and Events</h2>
         <ul>
-          <div id="body">
-	<p><span class="headline">Feb 11, 2018</span></p>
-         <p>The value of your Bitcoin investment increased 5%.</p>
-        <p><span class="headline">Jan 21, 2018</span> </p>
-        <p>You deposited $300.00 in your savings account.</p>
-        <p><span class="headline">Jan 1, 2018</span></p>
-         <p>You recieved $1020.00 from John.</p>
-        <p><span class="headline">Dec 29, 2017</span> </p>
-        <p>Your account with Scrumptious Finance was created!</p>
-            <!-- <div id="feedControl">Loading...</div> -->
-          </div>
+          <li><a href="https://www.forbes.com/sites/lizfrazierpeck/2018/03/31/what-is-a-financial-plan-and-why-every-adult-needs-one/#38e9ac0558be">What Is A Financial Plan, And Why Every Adult Needs One</a></li>
+          <li><a href="https://www.theglobeandmail.com/report-on-business/rob-commentary/canada-us-must-prepare-for-the-next-economic-or-financial-crisis/article38283300/">Canada, U.S. must prepare for the next economic or financial crisis</a></li>
+          <li><a href="http://business.financialpost.com/pmn/business-pmn/british-columbias-economy-is-forecast-to-remain-strong-through-2020">British Columbia's economy is forecast to remain strong through 2020</a></li>
+          <li><a href="https://www.forbes.com/sites/bobcarlson/2018/03/29/10-ways-to-simplify-your-financial-life/#4cafb132fef2">10 Ways To Simplify Your Financial Life</a></li>
         </ul>
     </section>
     <section id="center" class="backlight">
@@ -142,8 +135,8 @@ $user_id = $_SESSION['user_id'];
   <div class="clear"></div>
   </main>
   <footer>
-    <p><a href="#">ABOUT US</a> | <a href="#">CONTACT US</a> | <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF USE</a> | <a href="#">SUPPORT</a></p>
-    <p>&copy; Copyright 2018 Scrumpptious Finance. All rights reserved.</p>
+    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
+    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>
 </body>
 </html>
