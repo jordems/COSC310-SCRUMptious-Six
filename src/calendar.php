@@ -82,7 +82,6 @@ $user_id = $_SESSION['user_id'];
 			<h2>Positive sign(+) is income, negative(-) is outcome</h2>
 			<form id ="addEvent" action="" name="myform" method="POST" onsubmit="post()" >
 				<select name="outcome" id="transactionAccountSelection" required>
-					<option></option>
 					<option value="Food & Drinks">Food & Drinks</option>
 					<option value="Housing">Housing</option>
 					<option value="Vehicle">Vehicle</option>
@@ -107,7 +106,7 @@ $user_id = $_SESSION['user_id'];
                 while($row = $result->fetch_assoc())
                 {
                   echo "<option value=\"".$row['aid']."\">".$row['title']." | \$".$row['balance']."</option>";
-				   $GLOBALS['aid']=$row['aid'];
+				   				$GLOBALS['aid']=$row['aid'];
                 }
                 $result -> free();
                 $stmt->close();
@@ -168,10 +167,10 @@ $user_id = $_SESSION['user_id'];
 		</script>
 		<script type="text/javascript" src="js/calendar2.js?randomNo=Math.random()"></script>
 	</main>
-	<footer>
-    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
+	<footer class="absolute">
+		<p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
     <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
-  </footer>
+	</footer>
 </body>
 
 </html>

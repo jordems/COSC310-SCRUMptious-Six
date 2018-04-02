@@ -6,7 +6,7 @@ var date_tran ='';
 var firstDate = 0;
 var LastDate = 0;
 
-//alert(<?php echo $_SESSION['id']; ?>);	
+//alert(<?php echo $_SESSION['id']; ?>);
 //alert(<?php echo $_SESSION['id']; ?>);
 
 //alert(sessionexternal);
@@ -28,11 +28,11 @@ function Init_Info_Form(Year, Month) {
   str += "<input class='button' type='button' value='Next Year' Onclick='Nex_Year(" + Year + "," + Month + ")'></input>";
   var objDom1 = document.getElementById('aa');
   objDom1.innerHTML = str;
-  
+
 	yearShow = Year;
 	monthoShow = Month+1;
 }
- 
+
 
 function getWeekName() {
   var WeekName = new Array("Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat");
@@ -51,7 +51,7 @@ function Init_Week_Form(WeekName) {
   }
   strhtml += ("</tr>");										//</tr>
   strhtml += "</table>";
- 
+
   var objDom1 = document.getElementById('bb');
   objDom1.innerHTML = strhtml;
 }
@@ -75,11 +75,11 @@ function getNowCalendarPar() {
   var Las = new Date(Year, Month + 1, 0)
   LasDay = Las.getDate();
   Init_Calendar_Form(Year, Month, FirDay, LasDay);
-  
+
 }
 
 function Init_Calendar_Form(Year, Month, FirDay, LasDay) {
-	
+
   Init_Info_Form(Year, Month);
   var str = '';
   var Cal = 0;
@@ -112,7 +112,7 @@ function Init_Calendar_Form(Year, Month, FirDay, LasDay) {
 
 
 function Nex_Month(Year, Month) {
-  
+
   if (Month == 11) {
     Year++;
     Month = 0;
@@ -178,7 +178,7 @@ window.onload = function showText1() {
   var nulldate = document.getElementsByClassName('NullDay');
 	console.log("NullDay");
 	console.log(nulldate);
-	
+
   // table rows
   for (var i = 0; i < table.rows.length; i++) {
     // row cells
@@ -187,41 +187,41 @@ window.onload = function showText1() {
 		  if(!this.innerHTML == ''){
 		  //console.log("This is this.innerHTML");
 		  //console.log(this.innerHTML);
-		  
+
         rIndex = this.parentElement.rowIndex;
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
-		
-        
+
+
         //oDiv.innerHTML = '<h2>Hello--------------: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: datetrack:  '+ datetrack + this.innerHTML + '<p/>';
 			//oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " ,<?php echo $greting ?> : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
-		
+
 		//alert(user_id);
-		
+
 		//datetrack = yearShow+'-'+(monthoShow<10?'0')+monthoShow+'-'+(this.innerHTML<10?'0')+this.innerHTML;
 		datetrack = dateFormat(yearShow,monthoShow,this.innerHTML);
-		
+
 		oDiv.innerHTML = '<button onclick=openModal() type ="button" >add event</button><p> Date: '+ datetrack + ' </p>';
 		//console.log("year : " + yearShow + " , month : " + monthoShow);
 		date_tran = datetrack;
-		
+
 		//Ajax
 		event.preventDefault();
-			
+
 		showReport(user_id,datetrack,oDiv);
-		
-		
-		
+
+
+
 		};
 	  };
 			/*
 			table.rows[i].cells[j].onclick = function () {
-				
+
 					openModal();
-				
+
 			};
 			*/
-	  
+
 
     }
   }
@@ -246,40 +246,40 @@ function showText() {
 		  if(!this.innerHTML == ''){
 		  //console.log("This is this.innerHTML");
 		  //console.log(this.innerHTML);
-		  
+
         rIndex = this.parentElement.rowIndex;
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
-		
-        
+
+
         //oDiv.innerHTML = '<h2>Hello--------------: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: datetrack:  '+ datetrack + this.innerHTML + '<p/>';
 			//oDiv.innerHTML = '<h2>Hello: ' + "Row : " + rIndex + " ,<?php echo $greting ?> : " + cIndex + '<p>balance is: ' + this.innerHTML + '<p/>';
-		
+
 		//alert(user_id);
-		
+
 		datetrack = dateFormat(yearShow,monthoShow,this.innerHTML);
 		oDiv.innerHTML = '<button onclick=openModal() type ="button" >add event</button><p> Date: '+ datetrack + ' </p>';
 		//console.log("year : " + yearShow + " , month : " + monthoShow);
-		
+
 		date_tran=datetrack;
-		
+
 		//Ajax
 		event.preventDefault();
 						//alert("The form was submitted");
-						
+
 			showReport(user_id,datetrack,oDiv);
-		
-		
-		
-		
+
+
+
+
 		};
 	  };
-		
+
 		/*
 			table.rows[i].cells[j].onclick = function () {
-				
+
 					openModal();
-				
+
 			};
 			*/
 
@@ -309,11 +309,11 @@ window.addEventListener("click",outsiteClick);
 // pop up
 function openModal(){
 	modal.style.display = "block";
-	
+
 	//alert(date_tran);
 	document.getElementById("input_date").value = date_tran;
-	
-	
+
+
 }
 
 // close
@@ -340,7 +340,7 @@ $('select[name=outcome]').change(function() {
             .attr('value', newValue)
             .insertBefore($('option[value=]', this));
         $(this).val(newValue);
-		
+
     }
 });
 
@@ -350,21 +350,21 @@ $('select[name=outcome]').change(function() {
 	//var text_addEvent =	document.getElementById("text_addEvent");
 
 			function myfunciton(){
-		
+
 				alert("test myfunction");
 			}
 
 		function post() {
 			//alert("post called");
-					event.preventDefault();						
+					event.preventDefault();
 						var tranSelection = document.getElementById("transactionAccountSelection").value;
 						var tranInput = document.getElementById("tranInput").value;
 						var statementName = document.getElementById("statementName").value;
 						var input_date = document.getElementById("input_date").value;
 						var oDiv = document.getElementById('text');
-						
-						if(tranSelection&&tranInput){	
-								//alert("post called");						
+
+						if(tranSelection&&tranInput){
+								//alert("post called");
 								//alert(tranSelection);
 								//alert(tranInput);
 								//alert(aid);
@@ -373,7 +373,7 @@ $('select[name=outcome]').change(function() {
 							({
 								type: 'post',
 								url: 'addevent.php',
-								data: 
+								data:
 							{
 								tranSelection:tranSelection,
 								user_id:user_id,
@@ -381,34 +381,37 @@ $('select[name=outcome]').change(function() {
 								datetrack:input_date ,
 								aid:aid,
 								statementName:statementName
-								
-	     
+
+
 							},
-								success: function (response) 
-							{																
-								console.log("test hi");
+								success: function (response)
+							{
+								console.log(response);
 								//alert(response);
 								if(response =="add data successfully"){
-									
+
 									closeModal();
 									oDiv.innerHTML= '';
 									oDiv.innerHTML='<button onclick=openModal() type ="button" >add event</button><p> Date: '+ input_date + ' </p>';
-									showReport(input_date,user_id);									
+									showReport(input_date,user_id);
 									document.getElementById("addEvent").reset();
 									resetForm();
-									
-								}																
-								//alert(response);								
-								//document.getElementById("text_addEvent").innerHTML = response; 
-							}
+
+								}
+								//alert(response);
+								//document.getElementById("text_addEvent").innerHTML = response;
+							},
+              error: function (response){
+                console.log(response);
+              }
 							});
 							//xhr.abort();
 						}
-					
+
 				}
 
-				
-				
+
+
 		function dateFormat(year,month,day){
 			this.year = year;
 			this.month = month;
@@ -416,7 +419,7 @@ $('select[name=outcome]').change(function() {
 			if(month < 10){
 				month = '0'+month;
 			}
-			
+
 			if(day < 10){
 				day = '0'+day;
 			}
@@ -427,32 +430,32 @@ $('select[name=outcome]').change(function() {
 function showReport(){
 	var oDiv = document.getElementById('text');
 		//alert("showReport is called");
-			var test =1;	
-			
-			if(test ==1){				
+			var test =1;
+
+			if(test ==1){
 				$.ajax
 			({
 				type: 'post',
 				url: 'showdailyreport.php',
-			data: 
+			data:
 			{
 					user_id:user_id,
 					datetrack:datetrack
-					
-	     
+
+
 			},
-				success: function (response) 
+				success: function (response)
 			{
-				
+
 				console.log("hi");
-				oDiv.innerHTML= oDiv.innerHTML +response;				      
-  
+				oDiv.innerHTML= oDiv.innerHTML +response;
+
 			}
 			});
-				
+
 			}
-	
-	
+
+
 }
 
 
@@ -467,33 +470,31 @@ function monthlyReport(){
 	oDiv.innerHTML= '';
 	oDiv.innerHTML='<h2>Monthly Report</h2><p></p><button onclick=openModal() type ="button" >add event</button';
 
-		
-			var test =1;	
-			
-			if(test ==1){				
+
+			var test =1;
+
+			if(test ==1){
 				$.ajax
 			({
 				type: 'post',
 				url: 'showMonthlyreport.php',
-			data: 
+			data:
 			{
 					user_id:user_id,
 					firstDate:firstDate,
 					LastDate:LastDate
-					
-	     
+
+
 			},
-				success: function (response) 
+				success: function (response)
 			{
-				
+
 				console.log("hi");
-				oDiv.innerHTML= oDiv.innerHTML +response;				      
-  
+				oDiv.innerHTML= oDiv.innerHTML +response;
+
 			}
 			});
-				
+
 			}
-	
+
 }
-
-

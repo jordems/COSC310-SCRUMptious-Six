@@ -19,7 +19,7 @@
 	padding-left: 20px;
 	width="80px";
 }
-div#text {   
+div#text {
     width: 500px;
     height: 320px;
     overflow: scroll;
@@ -38,8 +38,8 @@ div#text {
 	{
 			$user_id= $_POST['user_id'];
 			$datetrack=$_POST['datetrack'];
-			
-			$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = '$user_id' and date= '$datetrack'";
+
+			$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = '$user_id' and date= '$datetrack' ORDER BY date ASC";
 			//$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = 10 and date= '2018-03-03'";
 			$searchByDate=mysqli_query($mysqli,$sql_searchByDate);
 		if($searchByDate){
@@ -47,18 +47,18 @@ div#text {
 		}else{
 			echo"searchByDate query problem";
 		}
-		
+
 		//echo "<p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>";
 		echo "<table class =\"report\" >
-		
+
 			<tr>
 			<th>username&nbsp;</th>
 			<th>date&nbsp;</th>
 			<th>amount&nbsp;</th>
-			<th>desc&nbsp;</th>		
-			<th>statementName&nbsp;</th>				
+			<th>desc&nbsp;</th>
+			<th>statementName&nbsp;</th>
 			</tr>";
-			
+
 
 		if($searchByDate=mysqli_query($mysqli,$sql_searchByDate))
 		{
@@ -69,26 +69,26 @@ div#text {
 			$amount=$row['amount'];
 			$desc=$row['desc'];
 			$statementName=$row['statementName'];
-	 
+
   ?>
-		
+
 		<tr>
 		<td><?php echo $name; ?></td>
 		<td><?php echo $date; ?></td>
 		<td><?php echo $amount; ?></td>
 		<td><?php echo $desc; ?></td>
-		<td><?php echo $statementName; ?></td>		
-		</tr>	
-		
-		
-		
+		<td><?php echo $statementName; ?></td>
+		</tr>
+
+
+
 	<?php
 			}echo "</table>";}else{
 			echo "<p>NO record</p>";
 		}
 	?>
   <?php
-  
+
 exit;
 	}
 
