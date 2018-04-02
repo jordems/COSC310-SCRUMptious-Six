@@ -1,4 +1,9 @@
 <?php
+    /*
+    This code takes in the uploaded bank statement and parses, sanitizes, and validates the
+    data before storing it in the database for future use
+    */
+
 include_once 'db_connect.php';
 include_once 'functions.php';
 

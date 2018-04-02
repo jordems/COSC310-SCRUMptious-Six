@@ -1,5 +1,8 @@
 <?php
-
+    /*
+    These functions are used to split the data from the past year into months to be displayed
+    in the total monthly income and total monthy expenses graphs
+    */
 
 function getMonthlyIncome($mysqli, $aid, $month){
     // Get the total income over all accounts for a user in the last year
