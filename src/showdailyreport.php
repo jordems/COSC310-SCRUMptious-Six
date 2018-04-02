@@ -20,7 +20,7 @@
 	width="80px";
 }
 div#text {   
-    width: 450px;
+    width: 500px;
     height: 320px;
     overflow: scroll;
 }

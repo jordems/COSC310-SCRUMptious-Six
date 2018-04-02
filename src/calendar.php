@@ -5,9 +5,15 @@ include 'includes/fusioncharts.php';
 sec_session_start();
 if (login_check($mysqli) == false) {
     // If not Logged in then send to login page
-    header('Location:login.php');
+    //header('Location:login.php');
 }
+
+$_SESSION['user_id'] = 10;		//delete this one
 $user_id = $_SESSION['user_id'];
+$_SESSION['username'] = "Hi";	//delete this one
+
+//$_SESSION['id'] = 12;  //delete
+$_SESSION['id'] = 12;  	//delete
 ?>
 <!DOCTYPE html>
 <head lang = "en">

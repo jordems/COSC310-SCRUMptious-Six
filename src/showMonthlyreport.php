@@ -22,7 +22,7 @@
 }
 
 div#text {   
-    width: 480px;
+    width: 500px;
     height: 320px;
     overflow: scroll;
 }
