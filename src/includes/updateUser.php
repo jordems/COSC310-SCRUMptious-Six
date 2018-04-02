@@ -1,4 +1,9 @@
 <?php
+
+    /*
+    This code updates the user's information in the database when they change it on their profile page 
+    */
+
 include_once 'db_connect.php';
 include_once 'psl-config.php';
 include_once 'functions.php';
