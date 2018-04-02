@@ -204,7 +204,7 @@ function showText() {
         cIndex = this.cellIndex + 1;
         console.log("Row : " + rIndex + " , Cell : " + cIndex);
 		
-		 var dateshow = yearShow+monthoShow+rIndex+cIndex;
+		 var dateshow = yearShow+'-'+monthoShow+'-'+rIndex+'-'+cIndex;
         oDiv.innerHTML = '<h2>Hello---------: ' + "Row : " + rIndex + " , Cell : " + cIndex + '<p>balance is: dateshow:  '+ dateshow + this.innerHTML + '<p/>';
 		
 		
@@ -212,7 +212,7 @@ function showText() {
 		
 		
 		event.preventDefault();
-						alert("The form was submitted");
+						//alert("The form was submitted");
 						var comment = document.getElementById("comment").value;
 			if(comment){
 				alert("this is comment");

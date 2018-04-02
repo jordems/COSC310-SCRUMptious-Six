@@ -1,0 +1,9 @@
+11:04 PM 2018-03-31select Users.username,AccountTransaction.* from AccountTransaction,Users where date= '2017-01-04';
+select AccountTransaction.* from AccountTransaction where date= '2017-01-04';
+
+select Users.username,AccountTransaction.* from AccountTransaction  where AccountTransaction.uID= User.uID and date= '2017-01-04'
+
+select Users.username,AccountTransaction.* from AccountTransaction, Users  where AccountTransaction.uID= Users.uID and date= '2017-01-04'
+
+?randomNo=Math.random()
+SELECT * FROM `accounttransaction` WHERE `date` = '2018-04-07'

@@ -4,23 +4,25 @@
 <style>
 .report {
     border-collapse: collapse;
-	padding-left: 20px;
+	padding-left: 30px;
+	width="100%";
 }
 
 .report td  {
     border: 1px solid black;
 	color: black;
-	padding-left: 20px;
+	padding-left: 30px;
 	width="80px";
 }
 .report th {
     border: 1px solid black;
 	color: black;
-	padding-left: 20px;
+	padding-left: 30px;
 	width="80px";
 }
+
 div#text {   
-    width: 450px;
+    width: 480px;
     height: 320px;
     overflow: scroll;
 }
@@ -33,13 +35,15 @@ div#text {
 	include_once 'includes/functions.php';
 	include 'includes/fusioncharts.php';
 
-
-	if(isset($_POST['user_id']) && isset($_POST['datetrack']))
+	
+	if(isset($_POST['user_id']))
 	{
+		
 			$user_id= $_POST['user_id'];
-			$datetrack=$_POST['datetrack'];
+			$firstDate=$_POST['firstDate'];
+			$LastDate=$_POST['LastDate'];
 			
-			$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = '$user_id' and date= '$datetrack'";
+			$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = '$user_id' and '$firstDate' <=`date` and `date` < '$LastDate'";
 			//$sql_searchByDate = "select Users.username,AccountTransaction.* from AccountTransaction, Users where AccountTransaction.uID= Users.uID and AccountTransaction.uID = 10 and date= '2018-03-03'";
 			$searchByDate=mysqli_query($mysqli,$sql_searchByDate);
 		if($searchByDate){
