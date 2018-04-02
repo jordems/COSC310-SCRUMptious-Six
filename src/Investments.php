@@ -53,14 +53,12 @@ $user_id = $_SESSION['user_id'];
 
         <h2>Latest Updates</h2>
         <!-- Going to need Javascript/PHP/Database to have this work in real time with real content  -->
-        <p><span class="headline">Feb 11, 2018</span></p>
-         <p>The value of your Bitcoin investment increased 5%.</p>
-        <p><span class="headline">Jan 21, 2018</span> </p>
-        <p>You deposited $300.00 in your savings account.</p>
-        <p><span class="headline">Jan 1, 2018</span></p>
-         <p>You recieved $1020.00 from John.</p>
-        <p><span class="headline">Dec 29, 2017</span> </p>
-        <p>Your account with Scrumptious Finance was created!</p>
+        <!-- start sw-rss-feed code -->
+        <script src="js/Rss_script.js" type="text/javascript">  </script>
+        <script type="text/javascript" src="//feed.surfing-waves.com/js/rss-feed.js"></script>
+        <!-- The link below is Reference to where the code for this RSS feed was obtained -->
+        <div style="text-align:right; width:230px;">powered by <a href="http://www.surfing-waves.com" rel="noopener" target="_blank" style="color:#ccc;font-size:10px">Surfing Waves</a></div>
+        <!-- end sw-rss-feed code -->
 
     </section>
     <section id="rightColumn" class="backlight">
