@@ -1,4 +1,7 @@
 <?php
+/* Document is called when the user requests to complete a personal transfer between accounts
+* -Sanitizes the data then calls the core function
+*/
 include_once 'db_connect.php';
 include_once 'functions.php';
 

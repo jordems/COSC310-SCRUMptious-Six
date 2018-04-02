@@ -1,6 +1,6 @@
 <?php
 /* Test Cases Created by: Jordan Emslie
- * 
+ * Testing the Account Management Functions
  */
 
 use PHPUnit\Framework\TestCase;
@@ -10,33 +10,33 @@ require_once __DIR__.'/../src/includes/functions.php';
 require_once __DIR__.'/testFunctions.php';
 
 class accountTest extends TestCase{
-    
+
     private $mysqli = NULL;
-    
+
     protected function setUp()
     {
         $this->mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
         $_SESSION['user_id'] = 42; // Id of a test User in the database
     }
-    
+
     // Test to confirm that the Database is working correctly
     public function testDBConnection(){
         $mysqli = $this->mysqli;
-        
+
         /* check connection, if no errors continue */
         if (!$mysqli->connect_errno) {
-            
+
             /* check if server is alive, if server is alive then continue */
             if ($mysqli->ping())
                 $this->assertTrue(true);
                 else
                     $this->assertTrue(true);
-                    
+
         }else{
             $this->assertTrue(true);
         }
     }
-    
+
     // Test to confirm that the add Account Functionallity is Working Properly
     public function testAddAccount(){
         $mysqli = $this->mysqli;
@@ -58,7 +58,7 @@ class accountTest extends TestCase{
             $stmt->store_result();
             $stmt->bind_result($actualTitle, $actualFinancialinstitution, $actualType, $actualBalance);
             $stmt->fetch();
-            
+
             if ($stmt->num_rows == 1) {
                 echo "\n\tExpected: ($title, $financialinstitution,$type,$balance)";
                 echo "\n\tActual: ($actualTitle, $actualFinancialinstitution, $actualType, $actualBalance)";
@@ -79,7 +79,7 @@ class accountTest extends TestCase{
             $this->assertTrue(false);
         }
     }
-    
+
     // Test to confirm that the edit account functionality is working properly
     public function testEditAccount(){
         $mysqli = $this->mysqli;
@@ -95,7 +95,7 @@ class accountTest extends TestCase{
         echo "\n\tUsing data editAccount($title, $financialinstitution,$type,$balance) in format addAccount(title, financialinstitution,type,balance)";
         echo "\n\tExpecting the Account to change all of its old values to these new values";
         $isSuccessful = editAccount($title, $financialinstitution,$type,$balance,$aid, $mysqli);
-        
+
         if($isSuccessful){
             echo "\n\teditAccount Request Successful";
             echo "\n\n\t-----Checking Database to Confirm editAccount worked Properly-----";
@@ -121,22 +121,22 @@ class accountTest extends TestCase{
                 $this->assertTrue(false);
             }
         }else{
-            
+
             echo "\n-----testEditAccount FAILED-----";
             $this->assertTrue(false);
         }
     }
-    
+
     // Test to confirm that the delete account functionality is working properly
     public function testDeleteAccount(){
         $mysqli = $this->mysqli;
-        
+
         $aid = getMainAccount($mysqli); // Returns Account created in AddAccount test
         echo "\n\n-----testDeleteAccount-----";
         echo "\n\tUsing function deleteAccount($aid) in format addAccount(accountID)";
         echo "\n\tExpecting the Account to nolonger exist";
         $isSuccessful = deleteAccount($aid, $mysqli);
-        
+
         if($isSuccessful){
             echo "\n\tdeleteAccount Request Successful";
             echo "\n\n\t-----Checking Database to Confirm deleteAccount worked Properly-----";
@@ -165,10 +165,10 @@ class accountTest extends TestCase{
             $this->assertTrue(false);
         }
     }
-    
+
     protected function tearDown(){
         $this->mysqli->close();
     }
-    
+
 }
 ?>

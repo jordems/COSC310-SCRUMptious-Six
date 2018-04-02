@@ -1,4 +1,7 @@
 <?php
+/* Document is called when the server requests to update a password
+* -Sanitizes the data then calls the core function
+*/
 include_once 'db_connect.php';
 include_once 'functions.php';
 

@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the password recovery page
+* - Displays the inputs for the verify_code Form: verify_code.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

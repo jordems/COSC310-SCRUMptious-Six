@@ -1,4 +1,9 @@
 <?php
+/* Document is called when the user requests to delete an Account
+* -Sanitizes the data then calls the core function
+** NOTE: THIS FUNCTION IS CURRENTLY DISABLED. MORE INFO IN 'USE-CASE ACCOUNT MANAGEMENT DOCUMENT' SECTION 6.1**
+*/
+
 include_once 'db_connect.php';
 include_once 'functions.php';
 

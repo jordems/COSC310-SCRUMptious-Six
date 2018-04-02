@@ -70,7 +70,7 @@ if(isset($_POST['Account'])){
                     }
                     $statementName = filter_input(INPUT_POST, 'statement', FILTER_SANITIZE_STRING);
                     $tid = hash("sha256", $user_id.$date.$amount.$desc.$aid.$seed); // Create a primary key for the upload
-                
+
                     // Insert data into AccountTransaction table
                     if($insert_stmt = $mysqli->prepare("INSERT INTO AccountTransaction (tid, uid, aid, `date`, statementName, amount, `desc`) VALUES (?,?,?,?,?,?,?)")){
 
@@ -86,7 +86,7 @@ if(isset($_POST['Account'])){
                     // inc the row
                     $row++;
                 }
-               
+
                 header('Location:../addCSV.php?message=Upload Successful!');
             }
         }else{

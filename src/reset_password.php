@@ -1,4 +1,8 @@
 <?php
+/* Document is displayed when the client is on the reset password page
+* (Only can get here if they inputed the correct code on the verifycode page)
+* - Displays the inputs for to change the password: update_password.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

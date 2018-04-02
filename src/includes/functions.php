@@ -1,6 +1,10 @@
 <?php
 /*
  * PHP Functions Document Created By: Jordan Emslie
+ * This Document is for handling the core of the functions.
+ * It is only called after data has already been sanitized.
+ * Functions include: Secure Session, Login, CheckLogin, Forget Password functions,
+*  Transactions, Personal Transfers, and Account Management Functions.
 */
 include_once 'psl-config.php';
 

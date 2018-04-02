@@ -3,7 +3,6 @@
     This code takes the input from the contact us page form and emails it to the
     scrumptiousfinance email address
     */
-
 include_once 'db_connect.php';
 include_once 'functions.php';
 

@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the edit user page
+* - Displays the inputs for the user then sends the data to process_editaccount.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
