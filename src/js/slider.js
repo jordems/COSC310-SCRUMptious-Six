@@ -1,3 +1,7 @@
+    /*
+    This code uses jQuery to create the banner slider that is seen on the overview page
+    */
+
 (function($){  
 
     $.fn.slider = function(vars) {       

@@ -1,4 +1,10 @@
 <?php
+    //Thanks to fushioncharts.com for the tutorial
+
+    /*
+    This code creates the functions that are used along with the fusioncharts JS libraries 
+    to create and render the graphs used for analysis
+    */
 
     class FusionCharts {
         
