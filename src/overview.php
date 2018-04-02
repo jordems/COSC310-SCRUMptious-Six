@@ -91,7 +91,7 @@ $user_id = $_SESSION['user_id'];
             $stmt->execute();    // Execute the prepared query.
 
             $result = $stmt->get_result();
-            
+
             // $arrData is the associative array that is initialized to store the chart attributes
 
             $arrData = array(
@@ -134,9 +134,9 @@ $user_id = $_SESSION['user_id'];
             $result -> free();
             $stmt->close();
         }
-        
+
         $arrData['data'] = array();
-        
+
         // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
         foreach ($actualData as $key => $value) {
           array_push($arrData['data'],
@@ -149,7 +149,7 @@ $user_id = $_SESSION['user_id'];
         // Encodes the data into JSON format for use in the chart
         $jsonEncodedData = json_encode($arrData);
 
-        
+
         $pieChart = new FusionCharts("Pie2D", "transactionsChart", "100%", 400, "overview-chart-1", "json", $jsonEncodedData);
 
         $pieChart->render();
@@ -157,11 +157,11 @@ $user_id = $_SESSION['user_id'];
         ?>
         <!-- containers for inserting charts -->
         <div id="overview-chart-1"></div>
-        
+
       </section>
   <div class="clear"></div>
   </main>
-  <footer>
+  <footer class="absolute">
     <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
     <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
   </footer>
