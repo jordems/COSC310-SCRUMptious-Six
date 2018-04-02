@@ -1,4 +1,7 @@
 <?php
+/* Document is called when the user forgets their password and requests to reset it
+* -Sanitizes the data then calls the core function
+*/
 include_once 'db_connect.php';
 include_once 'functions.php';
 

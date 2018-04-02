@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the register page
+* - Displays the inputs for the register Form: register.inc.php
+*/
 include_once 'includes/register.inc.php';
 include_once 'includes/functions.php';
 ?>

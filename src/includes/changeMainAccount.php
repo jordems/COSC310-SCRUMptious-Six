@@ -1,4 +1,6 @@
 <?php
+/* This document is requested when the user wants to change their Main Account*/
+
 include_once 'db_connect.php';
 include_once 'functions.php';
 

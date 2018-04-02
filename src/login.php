@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the login page
+* - Displays the inputs for the process_login Form: process_login.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 sec_session_start();

@@ -1,6 +1,6 @@
 <?php
 /* Test Cases Created by: Jordan Emslie
- *
+ * Testing the Transactions functionality
  */
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;

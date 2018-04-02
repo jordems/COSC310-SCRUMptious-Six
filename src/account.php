@@ -1,4 +1,8 @@
 <?php
+/* Document is displayed when the client is on the accounts page
+* - Displays the inputs for the Change Main Account Form: changeMainAccount.php
+* - Displays the inputs for Transfer personal Funds: process_personaltransfer.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

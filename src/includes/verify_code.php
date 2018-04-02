@@ -1,4 +1,6 @@
 <?php
+/* Page is for the recieved code from the user's email for reseting their password
+*/
 include_once 'db_connect.php';
 include_once 'functions.php';
 

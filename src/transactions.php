@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the Transaction page
+* - Displays the inputs for to send transactions: process_transaction.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

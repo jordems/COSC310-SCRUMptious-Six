@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the add account page
+* - Displays the inputs for the process_addaccount Form: process_addaccount.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

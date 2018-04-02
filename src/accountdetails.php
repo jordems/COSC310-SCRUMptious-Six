@@ -1,4 +1,8 @@
 <?php
+/* Document is displayed when the client is on the individual account page
+* - Displays the inputs for the Delepte Statement Form: removeStatement.php
+* - Can redirect to the Edit Account page: editaccount.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

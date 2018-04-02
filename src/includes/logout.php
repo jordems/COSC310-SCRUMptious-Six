@@ -1,4 +1,6 @@
 <?php
+/* This document is to deal with logging the user out of an account.*/
+
 include_once 'functions.php';
 sec_session_start();
 

@@ -1,4 +1,7 @@
 <?php
+/* Document is displayed when the client is on the forgot
+* - Displays the inputs for the process_forgot Form: process_forgot.php
+*/
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

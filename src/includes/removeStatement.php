@@ -1,4 +1,8 @@
 <?php
+/* Document is called when the user requests to delete a statement off an account
+* -Sanitizes the data then completes the functionallity
+*/
+
 include_once 'db_connect.php';
 include_once 'psl-config.php';
 include_once 'functions.php';

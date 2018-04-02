@@ -1,4 +1,7 @@
 <?php
+/* Document is called when the user requests to regester an account
+* -Sanitizes the data performs the regester account functionallity
+*/
 include_once 'db_connect.php';
 include_once 'psl-config.php';
 

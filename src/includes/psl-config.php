@@ -1,11 +1,11 @@
 <?php
-/**
- * These are the database login details
- */
-define("HOST", "localhost");     // The host you want to connect to.
-define("USER", "JamesAtWood");    // The database username.
-define("PASSWORD", "Tester");    // The database password.
-define("DATABASE", "Scrumptious");    // The database name.
+/* Document contains the login details to the database
+* Stored on a hidden location on the server
+*/
+define("HOST", "localhost");     // Connection via localhost
+define("USER", "JamesAtWood");    // The database's username.
+define("PASSWORD", "Tester");    // The database's password.
+define("DATABASE", "Scrumptious");    // The database's name.
 
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "user");
