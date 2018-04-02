@@ -513,7 +513,7 @@ ul.transactions, .transactions li, .transactions p{
   color:#FFF;
 }
 
-/*CHARTS*/
+/*RESPONSIVE CHARTS*/
 @media (min-width: 576px) {
     #chart-2{
       display:inline;
