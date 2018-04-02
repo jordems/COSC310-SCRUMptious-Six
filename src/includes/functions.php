@@ -329,14 +329,12 @@ function esc_url($url) {
       return 5;
 
     // Make sure that the account belongs to logged in User
-    // Query that the sending user has enough money and their account is not frozen
     $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and uid = ?");
     $stmt->bind_param('ii', $account, $user_id);
     $stmt->execute();    // Execute the prepared query.
     $stmt->store_result();
     $stmt->fetch();
 
-    // if the sending user has enough balance then:
     if ($stmt->num_rows != 1) {
       return 5;
     }
@@ -402,6 +400,80 @@ function esc_url($url) {
     }
 
   }
+
+  function personalTransfer($amount, $toAid ,$fromAid, $mysqli){
+    // Doing this allows us to automatically role back if an error happens
+    $mysqli->autocommit(FALSE);
+
+      if($amount < 0){
+          // Make sure that amount sent is not negative
+          return 2;
+      }
+
+    $user_id = $_SESSION['user_id'];
+    if($user_id == null)
+      return 5;
+
+    if($toAid == $fromAid){
+      return 3; // can't send money to the account sending money
+    }
+
+    // Make sure that the account belongs to logged in User
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and uid = ?");
+    $stmt->bind_param('ii', $toAid, $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+    $stmt->fetch();
+    if ($stmt->num_rows != 1) {
+      return 5;
+    }
+
+    // Make sure that the account belongs to logged in User
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and uid = ?");
+    $stmt->bind_param('ii', $fromAid, $user_id);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+    $stmt->fetch();
+    if ($stmt->num_rows != 1) {
+      return 5;
+    }
+
+    // Query that the sending account has enough money
+    $stmt = $mysqli->prepare("SELECT aid FROM Account WHERE aid = ? and balance >= ?");
+    $stmt->bind_param('id', $fromAid, $amount);
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    $stmt->fetch();
+
+    // if the sending user has enough balance then:
+    if ($stmt->num_rows == 1) {
+
+        // Remove the balance from the sender first
+        $update_stmt = $mysqli->prepare("UPDATE Account SET balance = balance - ? WHERE aid = ?");
+        $update_stmt->bind_param('di', $amount, $fromAid);
+
+        if(!$update_stmt->execute()){
+          // Problem has Occured removing the balance from sender
+          return 1;
+        }
+
+        // Update the balance of the receiever
+        $update_stmt = $mysqli->prepare("UPDATE Account SET balance = balance + ? WHERE aid = ?");
+        $update_stmt->bind_param('di', $amount, $toAid);
+
+        if(!$update_stmt->execute()){
+          // Error Occured
+          return 1;
+        }
+        // If the code get's to this point, then the transfer is successful, so commit data and return success
+        $mysqli->commit();
+        return 0;
+    }else{
+      return 2;
+    }
+  }
+
   function getMainAccount($mysqli){
       $user_id = $_SESSION['user_id'];
       if($user_id == null)

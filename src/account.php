@@ -158,6 +158,68 @@ $user_id = $_SESSION['user_id'];
 
           </form>
         </div>
+        <div class="backlight">
+          <h2 class="centered" style="margin-bottom:0;">Transfer Funds Between Accounts</h2>
+          <?php
+          $error = filter_input(INPUT_GET, 'transfererror', $filter = FILTER_SANITIZE_STRING);
+          $success = filter_input(INPUT_GET, 'transfersuccess', $filter = FILTER_SANITIZE_STRING);
+
+          if (!empty($error)) {
+              echo '<p class="error-msg">'.$error.'</p>';
+          }
+          if (!empty($success)) {
+              echo '<p class="success-msg">Funds Transfered!</p>';
+          }
+          ?>
+          <form method="POST" action="includes/process_personaltransfer.php" class="centered">
+            <label class="input-title">Withdrawing from:</label>
+            <select name="fromaccount" id="acc" style="width:100%" required>
+              <?php
+              $query = "SELECT aid, title, balance FROM Account WHERE uid = ?;";
+              if ($stmt = $mysqli->prepare($query)) {
+                  $stmt->bind_param('i', $user_id);
+                  $stmt->execute();    // Execute the prepared query.
+
+                  $result = $stmt->get_result();
+                  // get variables from result.
+
+                  while($row = $result->fetch_assoc())
+                  {
+                    echo "<option value=\"".$row['aid']."\" selected>".$row['title']." | \$".$row['balance']."</option>";
+                  }
+                  $result -> free();
+                  $stmt->close();
+                }
+                ?>
+              </select>
+              <label class="input-title">Depositing to:</label>
+              <select name="toaccount" id="acc" style="width:100%" required>
+                <?php
+              $query = "SELECT aid, title, balance FROM Account WHERE uid = ?;";
+              if ($stmt = $mysqli->prepare($query)) {
+                  $stmt->bind_param('i', $user_id);
+                  $stmt->execute();    // Execute the prepared query.
+
+                  $result = $stmt->get_result();
+                  // get variables from result.
+
+                  while($row = $result->fetch_assoc())
+                  {
+                    echo "<option value=\"".$row['aid']."\">".$row['title']." | \$".$row['balance']."</option>";
+                  }
+                  $result -> free();
+                  $stmt->close();
+                }
+              ?>
+            </select>
+            <label class="input-title">Amount:</label>
+            <span>$</span>
+            <input type="number" name="amount" min="0.01" step="0.01" max="999999999.99" placeholder="0.00" id="send-amount" style="width:70%">
+            <input type="submit" value="Transfer" id="send-submit">
+
+          </form>
+        </div>
+
       <?php } ?>
       </section>
 

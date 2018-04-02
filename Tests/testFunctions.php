@@ -29,7 +29,7 @@ function removeTransactions($aid,$mysqli){
 }
 
 
-function resetAccountTest($mysqli){
+function resetUserTest($mysqli){
     return true;
 }
 

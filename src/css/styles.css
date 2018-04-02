@@ -99,12 +99,14 @@ main{padding:1px; }
     margin-left:1em;
     margin-bottom: 5em;
     margin-top: 0.5em;
+    height: auto;
 }
 
 #center-noright{
     margin-left:26em;
     margin-right:20em;
     margin-bottom: 10em;
+    height: auto;
 }
 #center-nocolumns{
   width: 100%;
