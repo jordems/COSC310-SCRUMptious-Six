@@ -64,7 +64,7 @@ $user_id = $_SESSION['user_id'];
         $stmt->fetch();
         $stmt->close();
     }
-    
+
     // Pull user statement data from database, convert to JSON, add to data section of charts
     $janIncome = getMonthlyIncome($mysqli, $mainAccount, 1);
     $febIncome = getMonthlyIncome($mysqli, $mainAccount, 2);
@@ -91,19 +91,19 @@ $user_id = $_SESSION['user_id'];
     $octExpenses = getMonthlyExpenses($mysqli, $mainAccount, 10);
     $novExpenses = getMonthlyExpenses($mysqli, $mainAccount, 11);
     $decExpenses = getMonthlyExpenses($mysqli, $mainAccount, 12);
-    
+
     $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
         if ($stmt = $mysqli->prepare($query)) {
             $stmt->bind_param('i', $mainAccount);
             $stmt->execute();    // Execute the prepared query.
 
             $result = $stmt->get_result();
-            
+
             // $arrData is the associative array that is initialized to store the chart attributes
 
             $arrData = array(
               "chart" => array(
-                  "caption"=> "Account Transactions - Amount per Category",
+                  "caption"=> "Account Transactions - Amount per Category (Main Account)",
                   "bgColor"=> "#555555",
                   "borderColor"=> "#666666",
                   "borderThickness"=> "4",
@@ -127,7 +127,7 @@ $user_id = $_SESSION['user_id'];
             $stmt->close();
         }
         $arrData['data'] = array();
-        
+
         // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
         foreach ($actualData as $key => $value) {
           array_push($arrData['data'],
@@ -140,18 +140,18 @@ $user_id = $_SESSION['user_id'];
         // Encodes the data into JSON format for use in the chart
         $jsonEncodedData = json_encode($arrData);
 
-        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        $query = "SELECT DISTINCT amount, reason FROM Transaction WHERE toid IN (SELECT aid FROM Account WHERE uid = ?) OR fromid IN (SELECT aid FROM Account WHERE uid = ?)";
         if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->bind_param('ii', $user_id, $user_id);
             $stmt->execute();    // Execute the prepared query.
 
             $result = $stmt->get_result();
-            
+
             // $dataArr is the associative array that is initialized to store the chart attributes
 
             $dataArr = array(
               "chart" => array(
-                  "caption"=> "Money Transfers - Amount per Category",
+                  "caption"=> "Money Transfers - Amount per Category (All Accounts)",
                   "bgColor"=> "#555555",
                   "borderColor"=> "#666666",
                   "borderThickness"=> "4",
@@ -174,7 +174,7 @@ $user_id = $_SESSION['user_id'];
             $stmt->close();
         }
         $dataArr['data'] = array();
-        
+
         // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
         foreach ($actData as $key => $value) {
           array_push($dataArr['data'],
@@ -190,7 +190,7 @@ $user_id = $_SESSION['user_id'];
     $columnChart = new FusionCharts("Column2D", "incomeChart" , "49.8%", 400, "chart-1", "json",
     '{
         "chart": {
-            "caption": "Monthly Income for Last Year",
+            "caption": "Monthly Income for Last Year (Main Account)",
             "bgColor": "#555555",
             "borderColor": "#666666",
             "borderThickness": "4",
@@ -220,7 +220,7 @@ $user_id = $_SESSION['user_id'];
         $columnChart2 = new FusionCharts("Column2D", "expensesChart", "49.8%", 400, "chart-2", "json",
         '{
             "chart": {
-                "caption": "Monthly Expenses for Last Year",
+                "caption": "Monthly Expenses for Last Year (Main Account)",
                 "bgColor": "#555555",
                 "borderColor": "#666666",
                 "borderThickness": "4",
