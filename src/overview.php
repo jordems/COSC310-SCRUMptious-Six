@@ -85,9 +85,9 @@ $user_id = $_SESSION['user_id'];
           $stmt->close();
         }
 
-        $query = "SELECT amount, `desc` FROM AccountTransaction WHERE aid = ?";
+        $query = "SELECT DISTINCT amount, `desc` FROM AccountTransaction WHERE aid IN (SELECT aid FROM Account WHERE uid = ?)";
         if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param('i', $mainAccount);
+            $stmt->bind_param('i', $user_id);
             $stmt->execute();    // Execute the prepared query.
 
             $result = $stmt->get_result();
@@ -119,9 +119,9 @@ $user_id = $_SESSION['user_id'];
             $result -> free();
             $stmt->close();
         }
-        $query = "SELECT amount, reason FROM Transaction WHERE toid = ? OR fromid = ?";
+        $query = "SELECT DISTINCT amount, reason FROM Transaction WHERE toid IN (SELECT aid FROM Account WHERE uid = ?) OR fromid IN (SELECT aid FROM Account WHERE uid = ?)";
         if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param('ii', $mainAccount, $mainAccount);
+            $stmt->bind_param('ii', $user_id, $user_id);
             $stmt->execute();    // Execute the prepared query.
 
             $result = $stmt->get_result();
