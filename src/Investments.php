@@ -48,7 +48,7 @@ $user_id = $_SESSION['user_id'];
    </div>
 </header>
   <main>
-    <section id="leftColumn" class="backlight">
+    <section id="leftColumn" class="backlight centered">
       <!-- The latest updates associated with the particular user's account shown here -->
 
         <h2>Latest Updates</h2>
@@ -57,7 +57,7 @@ $user_id = $_SESSION['user_id'];
         <script src="js/Rss_script.js" type="text/javascript">  </script>
         <script type="text/javascript" src="//feed.surfing-waves.com/js/rss-feed.js"></script>
         <!-- The link below is Reference to where the code for this RSS feed was obtained -->
-        <div style="text-align:right; width:230px;">powered by <a href="http://www.surfing-waves.com" rel="noopener" target="_blank" style="color:#ccc;font-size:10px">Surfing Waves</a></div>
+        <div style="text-align:right; width:230px;">powered by <a href="http://www.surfing-waves.com" rel="noopener" target="_blank" style="color:#000;font-size:10px">Surfing Waves</a></div>
         <!-- end sw-rss-feed code -->
 
     </section>
