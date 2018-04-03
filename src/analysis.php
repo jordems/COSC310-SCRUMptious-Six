@@ -264,9 +264,5 @@ $user_id = $_SESSION['user_id'];
     </section>
   <div class="clear"></div>
   </main>
-  <footer>
-    <p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
-    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
-  </footer>
 </body>
 </html>
