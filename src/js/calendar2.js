@@ -23,9 +23,9 @@ function Init_Info_Form(Year, Month) {
   var str = '';
   str += "<input class='button' type='button' value='last year' Onclick='Las_Year(" + Year + "," + Month + ")'></input>";
   str += "<input class='button' type='button' value='last month' Onclick='Las_Month(" + Year + "," + Month + ")'></input>";
-  str += "　<big>" + " Year: " + Year + " Month: " + (Month + 1) + "</big>　";
-  str += "<input class='button' type='button' value='Next Month' Onclick='Nex_Month(" + Year + "," + Month + ")'></input>";
-  str += "<input class='button' type='button' value='Next Year' Onclick='Nex_Year(" + Year + "," + Month + ")'></input>";
+  str += "　<p class='center'>" + " Year: " + Year + " Month: " + (Month + 1) + "</p>　";
+  str += "<input class='button right' type='button' value='Next Month' Onclick='Nex_Month(" + Year + "," + Month + ")'></input>";
+  str += "<input class='button right' type='button' value='Next Year' Onclick='Nex_Year(" + Year + "," + Month + ")'></input>";
   var objDom1 = document.getElementById('aa');
   objDom1.innerHTML = str;
 

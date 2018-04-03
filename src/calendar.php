@@ -82,7 +82,7 @@ $user_id = $_SESSION['user_id'];
 			<h2>Positive sign(+) is income, negative(-) is outcome</h2>
 			<form id ="addEvent" action="" name="myform" method="POST" onsubmit="post()" >
 				<select name="outcome" id="transactionAccountSelection" required>
-					<option value="Food & Drinks">Food & Drinks</option>
+					<option value="Food &amp; Drinks">Food &amp; Drinks</option>
 					<option value="Housing">Housing</option>
 					<option value="Vehicle">Vehicle</option>
 					<option value="Entertainment">Entertainment</option>
@@ -167,10 +167,7 @@ $user_id = $_SESSION['user_id'];
 		</script>
 		<script type="text/javascript" src="js/calendar2.js?randomNo=Math.random()"></script>
 	</main>
-	<footer class="absolute">
-		<p><a href="about.php">ABOUT US</a> | <a href="contact.php">CONTACT US</a> | <a href="privacypolicy.php">PRIVACY POLICY</a> | <a href="termsofuse.php">TERMS OF USE</a></p>
-    <p>&copy; Copyright 2018 Scrumptious Finance. All rights reserved.</p>
-	</footer>
+	
 </body>
 
 </html>
