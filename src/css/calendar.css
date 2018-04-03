@@ -1,10 +1,10 @@
-		.Day{width:60px; background-color:#FFFAF0; color:#e18b07a1; font-size:24px; impact; height:60;}
-	.NullDay{width:60px; background-color:#F0FFFF; color:#e18b07ed; font-size:24px; impact; height:60;}
-	.Week{width:60px; background-color:	#E18B07; color:#221501; font-size:24px; impact; height:60;}
-	.active { border: 1px solid #424242; background: #fff; color: #e84a7e; }
-	.active h2 { }
+		.Day{width:60px; background-color:#FFFAF0; color:#e18b07a1; font-size:24px; height:60; padding:1em;}
+	.NullDay{width:60px; background-color:#F0FFFF; color:#e18b07ed; font-size:24px; height:60; padding:1em;}
+	.Week{width:60px; background-color:	#E18B07; color:#221501; font-size:24px; height:60; padding:1em;}
+	.active { border: 1px solid #424242; background: #fff; color: #e84a7e;}
+	
 	.active p { font-weight: bold; }
-	#text { float:left; width: 400px; padding: 10px 10px 10px; border: 1px solid #fff; padding-top: 10px; background: #f1f1f1; color: #555; margin:20px; }
+	#text { float:right;  padding: 2em; border: 1px solid #fff; padding-top: 10px; background: #f1f1f1; color: #555; margin:20px; }
 	#text h2 {font-size: 14px; margin-bottom: 10px; }
 	#text p { font-size: 12px; line-height: 18px; }
 	#LeftSide{float:left;}
@@ -12,10 +12,18 @@
 
 .button{
 	background-color: #D1AC87;
-	padding: 0.1em 0.25em;
+	padding: 1em ;
 	color: 	#cc1f46;
 	border: 0;
-	weight:
+}
+
+.right{
+	float:right;
+}
+
+.center{
+	margin-left: 10.5em;
+	display: inline;
 }
 
 .button:hover{

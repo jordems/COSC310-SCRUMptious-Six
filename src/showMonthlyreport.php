@@ -53,7 +53,7 @@ div#text {
 		}
 
 		//echo "<p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>";
-		echo "<table class =\"report\" >
+		echo "<table id =\"account-table\" >
 
 			<tr>
 			<th>username&nbsp;</th>
@@ -79,7 +79,7 @@ div#text {
 		<tr>
 		<td><?php echo $name; ?></td>
 		<td><?php echo $date; ?></td>
-		<td><?php echo $amount; ?></td>
+		<td><?php echo "$&nbsp;".$amount; ?></td>
 		<td><?php echo $desc; ?></td>
 		<td><?php echo $statementName; ?></td>
 		</tr>
