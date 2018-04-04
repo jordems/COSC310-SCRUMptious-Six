@@ -1,4 +1,4 @@
-# A Mobile Personal Financial Platform. Youry Khmelevsky (ykhmelevsky@okanagan.bc.ca) is the local contact
+# A Mobile Personal Financial Platform. 
 Background: Absolute majority of adult population are involved in money interaction. They earn, spend, borrow, lend, take credits, use electronic card etc. To be financially successful an adult should have any simple system of financial records. There are numerous software pieces to manage personal finances. The market is fragmented and there is no clear leader. On-line services also exist but none of them is well known.
 
 Idea: to create a simple, user-friendly, secure, free service for managing personal finances
@@ -11,7 +11,7 @@ Social responsibility: system can be used to help young people familiarize thems
 
 Technical requirements: compatibility with the widely recognized and spread platform (Java) and port for automatic SMS processing
 
-##The SW platform should have the following additional modules:
+## The SW platform should have the following additional modules:
 
 - Ability to input information via text messaging or via web interface
 - possibility to assign names (codes) to expenses and revenues
